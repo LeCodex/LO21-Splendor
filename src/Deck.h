@@ -6,6 +6,11 @@ namespace Splendor {
 	{
 	private:
 		const BaseCard** cards;
+		int nb;
+		int nbMax;
+
+		Deck();
+		~Deck();
 
 		Deck(const Deck&) = delete;
 		Deck& operator=(const Deck&) = delete;
@@ -18,15 +23,7 @@ namespace Splendor {
 		};
 		static Handler handler;
 
-		Deck(int n) : nb(0), nbMax(n), cards(new const BaseCard*[n]) {}
-
-	protected:
-		int nb;
-		int nbMax;
-
-		Deck();
-		~Deck();
-	
+		Deck(int n) : nb(0), nbMax(n), cards(new const BaseCard*[n]) {}	
 	public:
 		static Deck& instance();
 		void deleteInstance();
@@ -35,19 +32,19 @@ namespace Splendor {
 		const BaseCard** getAllCards() const { return cards; }
 		const BaseCard& getCard(size_t i) const { return *cards[i]; }
 
-		class Iterator {
+		class const_iterator {
 		private:
-			const BaseCard** current;
-			Iterator(const BaseCard** start) : current(start) {};
-			friend class Deck;
+			const BaseCard** current = nullptr;
+			const_iterator(const BaseCard** c) : current(c) {};
 
+			friend class Deck;
 		public:
 			const BaseCard& operator*() { return **current; }
-			Iterator operator++() { return ++current; }
-			bool operator!=(Iterator& it) { return current != it.current; }
+			const_iterator operator++() { current++; return *this; }
+			bool operator!=(const_iterator& it) { return current != it.current; }
 		};
-		Iterator begin() const { return Iterator(cards); }
-		Iterator end() const { return Iterator(cards + nb); }
+		const_iterator begin() const { return const_iterator(cards); }
+		const_iterator end() const { return const_iterator(cards + nb); }
 	};
 }
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "splendor.h";
+#include "splendor.h"
 
 namespace Splendor {
 	class BaseCard

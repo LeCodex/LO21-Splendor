@@ -18,6 +18,8 @@ namespace Splendor {
 
 		DrawPile(DrawPile&) = delete;
 		DrawPile& operator=(DrawPile&) = delete;
+
+		~DrawPile() { delete[] cards; }
 	};
 }
 

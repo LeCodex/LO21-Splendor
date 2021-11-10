@@ -15,4 +15,3 @@ namespace Splendor {
 		int getLevel() const { return level; }
 	};
 }
-
