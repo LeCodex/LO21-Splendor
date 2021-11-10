@@ -22,10 +22,8 @@ namespace Splendor {
 			~Handler() { delete instance; }
 		};
 		static Handler handler;
-
-		Deck(int n) : nb(0), nbMax(n), cards(new const BaseCard*[n]) {}	
 	public:
-		static Deck& instance();
+		static Deck& getInstance();
 		void deleteInstance();
 
 		int getNbCards() const { return nb; }

@@ -1,4 +1,4 @@
-#include "src/splendor.h";
+#include "src/splendor.h"
 
 using namespace Splendor;
 

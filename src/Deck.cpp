@@ -1,6 +1,10 @@
-#include "deck.h";
+#include "deck.h"
 
-Splendor::Deck& Splendor::Deck::instance() {
+Splendor::Deck::Deck() : nb(0), nbMax(10) {
+    cards = new const BaseCard*[nbMax];
+}
+
+Splendor::Deck& Splendor::Deck::getInstance() {
     if (handler.instance == nullptr) handler.instance = new Deck;
     return *handler.instance;
 }

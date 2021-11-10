@@ -1,5 +1,5 @@
 #pragma once
-#include "basecard.h";
+#include "basecard.h"
 
 namespace Splendor {
 	class ResourceCard : public BaseCard

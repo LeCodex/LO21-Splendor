@@ -5,7 +5,7 @@ Splendor::DrawPile::DrawPile() : nb(0), cards(new const BaseCard*[10]) {}
 
 const Splendor::BaseCard& Splendor::DrawPile::draw()
 {
-	if (empty()) return;
+	if (empty()) throw "Trying to draw from an empty draw pile";
 
 	int index = rand() % nb;
 	const BaseCard* card = cards[index];
