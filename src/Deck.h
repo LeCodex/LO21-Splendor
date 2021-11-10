@@ -1,20 +1,16 @@
 #pragma once
-#include "card.h"
+#include "basecard.h"
 
 namespace Splendor {
 	class Deck
 	{
 	private:
-		const Card** cards;
-		int nb;
-		int nbMax;
-
-		Deck();
-		~Deck();
+		BaseCard** cards;
 
 		Deck(const Deck&) = delete;
 		Deck& operator=(const Deck&) = delete;
 
+		// Singleton handler
 		struct Handler {
 			Deck* instance;
 			Handler() : instance(nullptr) {}
@@ -22,16 +18,36 @@ namespace Splendor {
 		};
 		static Handler handler;
 
-		Deck(int n) : nb(0), nbMax(n), cards(new Card*[n]) {}
+		Deck(int n) : nb(0), nbMax(n), cards(new BaseCard*[n]) {}
+
+	protected:
+		int nb;
+		int nbMax;
+
+		Deck();
+		~Deck();
+	
 	public:
 		static Deck& instance();
 		void deleteInstance();
 
-		int getNbCards() { return nb; }
-		const Card** getAllCards() { return cards; }
-		const Card& getCard(size_t i) { return *cards[i]; }
+		int getNbCards() const { return nb; }
+		BaseCard** getAllCards() const { return cards; }
+		BaseCard& getCard(size_t i) const { return *cards[i]; }
 
-		// Add iterator
+		class Iterator {
+		private:
+			BaseCard** current;
+			Iterator(BaseCard** start) : current(start) {};
+			friend class Deck;
+
+		public:
+			BaseCard& operator*() { return **current; }
+			Iterator operator++() { return ++current; }
+			bool operator!=(Iterator& it) { return current != it.current; }
+		};
+		Iterator begin() { return Iterator(cards); }
+		Iterator end() { return Iterator(cards + nb); }
 	};
 }
 

@@ -1,4 +1,4 @@
-#include "Deck.h";
+#include "deck.h";
 
 Splendor::Deck& Splendor::Deck::instance() {
     if (handler.instance == nullptr) handler.instance = new Deck;

@@ -1,4 +1,5 @@
 #include "src/splendor.h";
+
 using namespace Splendor;
 
 int main() {
