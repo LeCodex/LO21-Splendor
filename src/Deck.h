@@ -39,7 +39,7 @@ namespace Splendor {
 		public:
 			const BaseCard& operator*() { return **current; }
 			const_iterator operator++() { current++; return *this; }
-			bool operator!=(const_iterator& it) { return current != it.current; }
+			bool operator!=(const const_iterator& it) { return current != it.current; }
 		};
 		const_iterator begin() const { return const_iterator(cards); }
 		const_iterator end() const { return const_iterator(cards + nb); }

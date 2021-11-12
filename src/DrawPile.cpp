@@ -1,7 +1,13 @@
 #include "drawpile.h"
 #include <random>
 
-Splendor::DrawPile::DrawPile() : nb(0), cards(new const BaseCard*[10]) {}
+Splendor::DrawPile::DrawPile() : nb(0), nbMax(10), cards(new const BaseCard*[10]) {}
+
+const Splendor::BaseCard& Splendor::DrawPile::getCard(size_t index) {
+	if (index > nb) throw "Trying to access a card outside a DrawPile's range";
+
+	return **(cards + index);
+}
 
 const Splendor::BaseCard& Splendor::DrawPile::draw()
 {
