@@ -1,0 +1,155 @@
+@startuml
+class Player{
+-nb_points int
+-name string
+-int tokens[6]{ 0, 0, 0, 0, 0, 0 }
+-const BaseCard** cards 
+}
+
+class Bank {
+-int tokens[6]
++bool empty(Token t) const 
++int amount(Token t) const 
++int take(Token t, int amount)
++int put(Token t, int amount)
+}
+
+class BaseCard{
+-int cost[5]
+-int prestige
+-void setCost(int newCost[])
++BaseCard(int c[], int p)
++const int* getFullCost()
++int getCost(Token t) const 
++int getPrestige() const 
+}
+
+class ResourceCard{
+-TypeToken resource
+-int level
+-hidden bool
+-reserved bool
++ResourceCard(int c[], int p, Token r, int l)
++Token getResource() const 
++int getLevel() const
+}
+
+class NobleCard{
++NobleCard(int c[], int p)
+}
+
+class Tour{
+}
+
+class Action{}
+
+class Take_2_identical_Token{
+-TypeToken color 
++BankUpdate()
++PlayerUpdateToken()
+}
+
+class ReservCard{
+-const BaseCard card
++UpdateBaseCard()
+}
+
+class BuyCard{
+-const BaseCard card
++BankUpdate()
++PlayerUpdateToken()
++PlayerUpdateCard()
++BoardUpdateCard()
+}
+
+class DrawPile{
+-const BaseCard** cards
+-size_t nb
+-nbMax
++explicit DrawPile()
++size_t getCardAmount() const
++bool empty() const 
++const BaseCard& draw()
++void addCard(const BaseCard& card)
++DrawPile(DrawPile&)
++DrawPile& operator=(DrawPile&)
++~DrawPile() 
+}
+
+class Board{
+-const BaseCard** cards 
+-size_t nb
+-size_t nb_max
+-const BaseCard* getBaseCard(size_t i) const
++Board()
++Board(const Board& plateau)
++void operator=(const Board& plateau1)
++size_t getNb() const 
++size_t getNbMax() const 
++void addCard(const BaseCard& carte)
++void removeCard(const BaseCard& carte)
++class const_iterator 
+}
+
+class Take_3_diff_Token{
+-TypeToken coulor1
+-TypeToken coulor2
+-TypeToken coulor3 
++BankUpdate()
++PlayerUpdateToken()
+}
+
+class Deck{
+-const Player* players;
+-const BaseCard** cards;
+-int nb;
+-nbMax;
+-const DrawPile DrawPile1;
+-const DrawPile DrawPile2;
+-const DrawPile DrawPile3;
+-Deck();
+-~Deck();
+-Deck(const Deck&)
+-Deck& operator=(const Deck&) 
+-struct Handler 
+-static Handler handler
++static Deck& getInstance()
++void deleteInstance()
++int getNbCards() const
++const BaseCard** getAllCards() const
++const BaseCard& getCard(size_t i) const 
++class const_iterator 
+}
+
+Action "1" - "1" Player : Realise <
+(Action, Player) . Tour
+Controller "1" -- "1" Deck : Control >
+Player "2..4"-* Deck
+Deck *---"1" Board
+Deck *-"1" Rules
+Board *--"*" BaseCard
+Deck *--"3" DrawPile
+DrawPile.. DrawPile_lv1  : instance 
+DrawPile.. DrawPile_lv2 : instance 
+DrawPile .. DrawPile_lv3 : instance 
+DrawPile o-- BaseCard
+Bank "1"--* Board
+BaseCard <|-- NobleCard
+BaseCard <|-- ResourceCard
+Human --|> Player
+IA --|> Player
+Action <|-- Take_3_diff_Token
+Action <|-- Take_2_identical_Token
+Action <|-- BuyCard
+Action <|-- ReservCard
+
+Player o--"*"BaseCard
+
+
+
+note right of Bank #aqua: Begining : \n-if 2 players:5 gold, 4 of the others \n-if 3 players:5 of each \n-if 4 players:5 gold, 7 of the others
+note bottom of DrawPile_lv3 #aqua: Begining :20 cards
+note bottom of DrawPile_lv2 #aqua: Begining:30 cards
+note bottom of DrawPile_lv1 #aqua: Begining:40 cards
+note bottom of NobleCard #aqua: Begining:nb of players+1 cards
+@enduml
