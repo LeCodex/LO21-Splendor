@@ -1,9 +1,14 @@
 @startuml
-class Player{
+abstract Player{
 -nb_points int
 -name string
--Bank banque;
--const BaseCard** cards[3]; 
+-Bank banque
+-const RessourceCard** cards[3]
+-const NobleCard** nobles
++play()
++pay()
++addNoble()
++checkBonuses()
 }
 
 enum Token{
@@ -18,7 +23,7 @@ class Bank {
 +int put(Token t, int amount)
 }
 
-class BaseCard{
+abstract BaseCard{
 -int cost[5]
 -void setCost(int newCost[])
 +BaseCard(int c[], int p)
@@ -43,9 +48,15 @@ class NobleCard{
 }
 
 class Tour{
+-int active_player
+-Action** listActions
++void beginTour()
++Action* getAction(const int i)
++void endTour()
 }
 
-class Action{}
+abstract Action{
+}
 
 class Take_2_identical_Token{
 -Token color 
@@ -77,26 +88,36 @@ class Take_3_diff_Token{
 class DrawPile{
 -size_t nb
 -size_t nbMax
--const BaseCard* cards[nbMax];
+-const BaseCard* cards[nbMax]
++BaseCard* pick()
 }
 
 class Board{
--const BaseCard* cards[3][5];
--const Bank bank;
--const DrawPile drawpiles[3];
+-const BaseCard* cards[3][5]
+-const Bank bank
+-const DrawPile drawpiles[3]
++pick()
++refile()
 }
 
 class Deck{
--const BaseCard** cards;
--size_t nb;
--size_t nbMax;
+-const BaseCard** cards
+-size_t nb
+-size_t nbMax
 }
 
 class Controller{
--Deck deck;
--Board board;
--size_t nb_players;
--Player players[nb_players];
+-Deck deck
+-Board board
+-size_t nb_players
+-Player players[nb_players]
++start()
++end()
+}
+
+class Rules{
+-int [nomRegle]
++winCondition()
 }
 
 Action "1" - "1" Player : Realise <
