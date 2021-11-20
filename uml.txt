@@ -2,8 +2,12 @@
 class Player{
 -nb_points int
 -name string
--int tokens[6]{ 0, 0, 0, 0, 0, 0 }
--const BaseCard** cards 
+-Bank banque;
+-const BaseCard** cards[3]; 
+}
+
+enum Token{
+BLEU,ROUGE,VERT,BLANC,NOIR,JAUNE;
 }
 
 class Bank {
@@ -16,16 +20,14 @@ class Bank {
 
 class BaseCard{
 -int cost[5]
--int prestige
 -void setCost(int newCost[])
 +BaseCard(int c[], int p)
 +const int* getFullCost()
 +int getCost(Token t) const 
-+int getPrestige() const 
 }
 
 class ResourceCard{
--TypeToken resource
+-Token resource
 -int level
 -hidden bool
 -reserved bool
@@ -35,7 +37,9 @@ class ResourceCard{
 }
 
 class NobleCard{
+-int prestige
 +NobleCard(int c[], int p)
++int getPrestige() const 
 }
 
 class Tour{
@@ -44,7 +48,7 @@ class Tour{
 class Action{}
 
 class Take_2_identical_Token{
--TypeToken color 
+-Token color 
 +BankUpdate()
 +PlayerUpdateToken()
 }
@@ -62,78 +66,56 @@ class BuyCard{
 +BoardUpdateCard()
 }
 
-class DrawPile{
--const BaseCard** cards
--size_t nb
--nbMax
-+explicit DrawPile()
-+size_t getCardAmount() const
-+bool empty() const 
-+const BaseCard& draw()
-+void addCard(const BaseCard& card)
-+DrawPile(DrawPile&)
-+DrawPile& operator=(DrawPile&)
-+~DrawPile() 
-}
-
-class Board{
--const BaseCard** cards 
--size_t nb
--size_t nb_max
--const BaseCard* getBaseCard(size_t i) const
-+Board()
-+Board(const Board& plateau)
-+void operator=(const Board& plateau1)
-+size_t getNb() const 
-+size_t getNbMax() const 
-+void addCard(const BaseCard& carte)
-+void removeCard(const BaseCard& carte)
-+class const_iterator 
-}
-
 class Take_3_diff_Token{
--TypeToken coulor1
--TypeToken coulor2
--TypeToken coulor3 
+-Token color1
+-Token color2
+-Token color3 
 +BankUpdate()
 +PlayerUpdateToken()
 }
 
+class DrawPile{
+-size_t nb
+-size_t nbMax
+-const BaseCard* cards[nbMax];
+}
+
+class Board{
+-const BaseCard* cards[3][5];
+-const Bank bank;
+-const DrawPile drawpiles[3];
+}
+
 class Deck{
--const Player* players;
 -const BaseCard** cards;
--int nb;
--nbMax;
--const DrawPile DrawPile1;
--const DrawPile DrawPile2;
--const DrawPile DrawPile3;
--Deck();
--~Deck();
--Deck(const Deck&)
--Deck& operator=(const Deck&) 
--struct Handler 
--static Handler handler
-+static Deck& getInstance()
-+void deleteInstance()
-+int getNbCards() const
-+const BaseCard** getAllCards() const
-+const BaseCard& getCard(size_t i) const 
-+class const_iterator 
+-size_t nb;
+-size_t nbMax;
+}
+
+class Controller{
+-Deck deck;
+-Board board;
+-size_t nb_players;
+-Player players[nb_players];
 }
 
 Action "1" - "1" Player : Realise <
 (Action, Player) . Tour
-Controller "1" -- "1" Deck : Control >
-Player "2..4"-* Deck
-Deck *---"1" Board
-Deck *-"1" Rules
-Board *--"*" BaseCard
-Deck *--"3" DrawPile
+Controller *-- "1" Deck : Control >
+Player "2..4"-* Controller
+Controller *---"1" Board
+Action *-"1" Rules
+Board o--"*" BaseCard
 DrawPile.. DrawPile_lv1  : instance 
 DrawPile.. DrawPile_lv2 : instance 
 DrawPile .. DrawPile_lv3 : instance 
 DrawPile o-- BaseCard
-Bank "1"--* Board
+Board *-- DrawPile
+BaseCard --* Deck
+Bank "1"--o Board
+Bank "1"--o Player
+Token o-- Bank
+Token o-- Action
 BaseCard <|-- NobleCard
 BaseCard <|-- ResourceCard
 Human --|> Player
