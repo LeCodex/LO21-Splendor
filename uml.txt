@@ -17,8 +17,8 @@ BLEU,ROUGE,VERT,BLANC,NOIR,JAUNE;
 
 class Bank {
 -int tokens[6]
-+bool empty(Token t) const 
-+int amount(Token t) const 
++bool empty(Token t) const
++int amount(Token t) const
 +int take(Token t, int amount)
 +int put(Token t, int amount)
 }
@@ -28,7 +28,7 @@ abstract BaseCard{
 -void setCost(int newCost[])
 +BaseCard(int c[], int p)
 +const int* getFullCost()
-+int getCost(Token t) const 
++int getCost(Token t) const
 }
 
 class ResourceCard{
@@ -37,14 +37,14 @@ class ResourceCard{
 -hidden bool
 -reserved bool
 +ResourceCard(int c[], int p, Token r, int l)
-+Token getResource() const 
++Token getResource() const
 +int getLevel() const
 }
 
 class NobleCard{
 -int prestige
 +NobleCard(int c[], int p)
-+int getPrestige() const 
++int getPrestige() const
 }
 
 class Tour{
@@ -59,7 +59,7 @@ abstract Action{
 }
 
 class Take_2_identical_Token{
--Token color 
+-Token color
 +BankUpdate()
 +PlayerUpdateToken()
 }
@@ -80,7 +80,7 @@ class BuyCard{
 class Take_3_diff_Token{
 -Token color1
 -Token color2
--Token color3 
+-Token color3
 +BankUpdate()
 +PlayerUpdateToken()
 }
@@ -121,38 +121,36 @@ class Rules{
 }
 
 Action "1" - "1" Player : Realise <
-(Action, Player) . Tour
-Controller *-- "1" Deck : Control >
-Player "2..4"-* Controller
+(Action, Player).Tour
+Controller *-- "1" Deck
+Player "2..4"  -*  Controller
 Controller *---"1" Board
-Action *-"1" Rules
+Rules "1"-* Action
 Board o--"*" BaseCard
-DrawPile.. DrawPile_lv1  : instance 
-DrawPile.. DrawPile_lv2 : instance 
-DrawPile .. DrawPile_lv3 : instance 
+DrawPile.. DrawPile_lv1  : instance
+DrawPile.. DrawPile_lv2 : instance
+DrawPile .. DrawPile_lv3 : instance
 DrawPile o-- BaseCard
 Board *-- DrawPile
-BaseCard --* Deck
+BaseCard -* Deck
 Bank "1"--o Board
-Bank "1"--o Player
-Token o-- Bank
-Token o-- Action
+Player o--"1" Bank
+Token -o Bank
 BaseCard <|-- NobleCard
 BaseCard <|-- ResourceCard
 Human --|> Player
 IA --|> Player
-Action <|-- Take_3_diff_Token
-Action <|-- Take_2_identical_Token
-Action <|-- BuyCard
-Action <|-- ReservCard
+Take_3_diff_Token --|> Action
+Take_2_identical_Token --|> Action
+BuyCard--|> Action
+ReservCard--|> Action
 
 Player o--"*"BaseCard
 
 
 
-note right of Bank #aqua: Begining : \n-if 2 players:5 gold, 4 of the others \n-if 3 players:5 of each \n-if 4 players:5 gold, 7 of the others
+note left of Board #aqua: Begining Token : \n-if 2 players:5 gold, 4 of the others \n-if 3 players:5 of each \n-if 4 players:5 gold, 7 of the others \nBegining NobleCard : \n nb of players+1 cards
 note bottom of DrawPile_lv3 #aqua: Begining :20 cards
 note bottom of DrawPile_lv2 #aqua: Begining:30 cards
 note bottom of DrawPile_lv1 #aqua: Begining:40 cards
-note bottom of NobleCard #aqua: Begining:nb of players+1 cards
 @enduml
