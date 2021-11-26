@@ -1,22 +1,24 @@
 @startuml
 abstract Player{
--nb_points int
 -name string
 -Bank banque
 -const RessourceCard** cards[3]
 -const NobleCard** nobles
-+play()
-+pay()
-+addNoble()
-+checkBonuses()
++Action play(vector<Action> actions)
++Bank getBank()
++string getName()
++ResourceCard getResourceCard(int i)
++int* getBonuses()
++int getPoint()
 }
 
 enum Token{
-BLEU,ROUGE,VERT,BLANC,NOIR,JAUNE;
+BLUE,RED,GREEN,WHITE,BLACK,GOLD;
 }
 
 class Bank {
 -int tokens[6]
++Bank()
 +bool empty(Token t) const
 +int amount(Token t) const
 +int take(Token t, int amount)
@@ -25,37 +27,29 @@ class Bank {
 
 abstract BaseCard{
 -int cost[5]
+-int prestige
 -void setCost(int newCost[])
 +BaseCard(int c[], int p)
 +const int* getFullCost()
 +int getCost(Token t) const
++int getPrestige()
 }
 
 class ResourceCard{
 -Token resource
 -int level
--hidden bool
--reserved bool
 +ResourceCard(int c[], int p, Token r, int l)
 +Token getResource() const
 +int getLevel() const
 }
 
 class NobleCard{
--int prestige
 +NobleCard(int c[], int p)
-+int getPrestige() const
-}
-
-class Tour{
--int active_player
--Action** listActions
-+void beginTour()
-+Action* getAction(const int i)
-+void endTour()
 }
 
 abstract Action{
++bool condition()
++void executer()
 }
 
 class Take_2_identical_Token{
@@ -89,28 +83,39 @@ class DrawPile{
 -size_t nb
 -size_t nbMax
 -const BaseCard* cards[nbMax]
-+BaseCard* pick()
++BaseCard* draw()
++void addCard(BaseCard &c)
++void addCard(BaseCard **c, size_t nb)
++DrawPile(size_t nb, size_t nbMax)
 }
 
 class Board{
--const BaseCard* cards[3][5]
--const Bank bank
--const DrawPile drawpiles[3]
-+pick()
-+refile()
+-ResourceCard* cards[3][4]
+-Bank bank
+-DrawPile drawpiles[3]
+-NobleCard **nobles
++Board(ResourceCard** r[3], NobleCard** n)
++ResourceCard& takeCenterCard(int i, int j)
++Bank& getBank()
++ResourceCard& takeDrawCard(int i)
++NobleCard** getNobles()
 }
 
-class Deck{
--const BaseCard** cards
+class Deck <class T>{
+-const T** cards
 -size_t nb
 -size_t nbMax
++Deck(string data)
++const T** getCards()
 }
 
-class Controller{
--Deck deck
+class Game{
+SINGLETON
+-vector<Deck*> decks
 -Board board
 -size_t nb_players
--Player players[nb_players]
+-Player** players
+-Game(int nb_players)
 +start()
 +end()
 }
@@ -120,12 +125,11 @@ class Rules{
 +winCondition()
 }
 
-Action "1" - "1" Player : Realise <
-(Action, Player).Tour
-Controller *-- "1" Deck
-Player "2..4"  -*  Controller
-Controller *---"1" Board
-Rules "1"-* Action
+Game *-"1..*" Action
+Game *-- "1" Deck
+Player "2..4"  -*  Game
+Game *---"1" Board
+Rules "1..*"-* Game
 Board o--"*" BaseCard
 DrawPile.. DrawPile_lv1  : instance
 DrawPile.. DrawPile_lv2 : instance
