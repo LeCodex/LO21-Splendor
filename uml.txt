@@ -4,6 +4,8 @@ abstract Player{
 -Bank banque
 -const RessourceCard** cards[3]
 -const NobleCard** nobles
+-const BaseCard ReservedCards[3]
++int TotalToken()
 +Action play(vector<Action> actions)
 +Bank getBank()
 +string getName()
@@ -48,35 +50,58 @@ class NobleCard{
 }
 
 abstract Action{
-+bool condition()
-+void executer()
++virtual bool condition(Board& b,Player& p) const
++virtual void executer(Board& b,Player& p)
 }
 
 class Take_2_identical_Token{
 -Token color
-+BankUpdate()
-+PlayerUpdateToken()
+-void BankUpdate(Board& b) const
+-void PlayerTokenUpdate(Player& p) const
++Take_2_identical_Token(Token c )
++bool condition(Board& b,Player& p) const
++void executer(Board& b,Player& p)
 }
 
 class ReservCard{
 -const BaseCard card
-+UpdateBaseCard()
+-void BaseCardUpdate(Board& b) const
++ReservCard(const BaseCard c )
++bool condition(Board& b,Player& p) const
++void executer(Board& b,Player& p)
 }
 
 class BuyCard{
 -const BaseCard card
-+BankUpdate()
-+PlayerUpdateToken()
-+PlayerUpdateCard()
-+BoardUpdateCard()
+-void BankUpdate(Board& b) const
+-void PlayerTokenUpdate(Player& p) const
+-void PlayerVictoryPointsUpdate(Player& p) const
++BuyCard(const BaseCard c)
++bool condition(Board& b,Player& p)
++void executer(Board& b,Player& p)
+}
+
+class BuyCardReserved{
+-void PlayerCardReservedUpdate(Player& p) const
+-void PlayerCardUpdate(Player& p) const
++BuyCardReserved(const BaseCard c)
+}
+
+class BuyCardBoard{
+-void PlayerCardUpdate(Player& p) const
+-void BoardCardUpdate(Board& b) const
++BuyCardBoard(const BaseCard c)
 }
 
 class Take_3_diff_Token{
 -Token color1
 -Token color2
 -Token color3
-+BankUpdate()
-+PlayerUpdateToken()
+-void PlayerTokenUpdate(Player& p) const
+-void BankUpdate(Board& b) const
++Take_3_diff_Token(Token c1, Token c2, Token c3 )
++bool condition(Board& b,Player& p) const
++void executer(Board& b,Player& p)
 }
 
 class DrawPile{
@@ -139,7 +164,7 @@ Board *-- DrawPile
 BaseCard -* Deck
 Bank "1"--o Board
 Player o--"1" Bank
-Token -o Bank
+Token --o Bank
 BaseCard <|-- NobleCard
 BaseCard <|-- ResourceCard
 Human --|> Player
@@ -148,6 +173,9 @@ Take_3_diff_Token --|> Action
 Take_2_identical_Token --|> Action
 BuyCard--|> Action
 ReservCard--|> Action
+
+BuyCardReserved--|> BuyCard
+BuyCardBoard--|>BuyCard
 
 Player o--"*"BaseCard
 
