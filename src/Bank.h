@@ -12,6 +12,7 @@ namespace Splendor {
 
 		bool empty(Token t) const { return tokens[t] == 0; }
 		int amount(Token t) const { return tokens[t]; }
+		const int* getAll() const { return tokens; }
 		int take(Token t, int amount);
 		int put(Token t, int amount);
 	};

@@ -12,7 +12,5 @@ namespace Splendor {
 		Gold
 	};
 
-	class SplendorException : public std::exception {
-
-	};
+	class SplendorException : public std::exception {};
 }
