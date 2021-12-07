@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="projetLO21"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="projetLO21">
+				<Option output="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/projetLO21" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 projetLO21"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="projetLO21/fast">
+				<Option output="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/projetLO21" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 projetLO21/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/Bank.cpp">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/Bank.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/BaseCard.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/Board.cpp">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/Board.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/BuyCard.cpp">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/BuyCard.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/NobleCard.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/Player.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/ReservCard.cpp">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/ReservCard.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/ResourceCard.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/Take_2_identical_Token.cpp">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/Take_2_identical_Token.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/Take_3_diff_Token.cpp">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/Take_3_diff_Token.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/action.cpp">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/action.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/main.cpp">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/splendor.h">
+			<Option target="projetLO21"/>
+		</Unit>
+		<Unit filename="/Users/cleabordeau/Documents/utc_GI2/LO21/projet/projetLO21/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
