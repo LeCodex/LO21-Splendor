@@ -5,25 +5,54 @@
 #include <vector>
 #include "board.h"
 #include "player.h"
+#include "deck.h"
 #include <iostream>
-
-typedef void (*func_ptr_t)(); // a function pointer
 
 class Game
 {
 private:
-    std::vector<int> decks;
-    Board *board;
+    std::vector<Deck> decks;
+    Board board;
     size_t nb_players;
     Player **players;
-    // List of round steps
-    func_ptr_t *steps;
-    size_t nb_steps;
+    Game(size_t n);
 
 public:
-    Game(size_t n);
-    void start();
-    void end();
+    ~Game();
+
+    // Deletion of the assign and copy constructor
+    Game(Game &) = delete;
+    Game &operator=(const Game &) = delete;
+
+    // Singleton getter
+    static Game *getInstance(size_t n);
+
+    // Setters
+    void addPlayer(std::string, int);
+
+    // Getters
+    Board &getBoard() { return board; }
+    Player &getPlayer(int i)
+    {
+        if (i >= nb_players)
+            throw "Index out of bound";
+        return *players[i];
+    }
+    Deck &getDeck(int i)
+    {
+        if (i >= decks.size())
+            throw "Index out of bound";
+        return decks[i];
+    }
+
+    // Inner classes
+    class Handler
+    {
+    private:
+        Game *instance;
+
+    public:
+    };
 };
 
 #endif

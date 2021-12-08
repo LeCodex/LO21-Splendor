@@ -1,45 +1,34 @@
 #include "game.h"
-
-void round_init()
-{
-    std::cout << "round_init()\n";
-}
-
-void player_phase()
-{
-    std::cout << "player_phase()\n";
-}
-
-void round_end()
-{
-    std::cout << "round_end()\n";
-}
-
 // Base constructor
 Game::Game(size_t n) : nb_players(n), players(new Player *[n])
 {
-    nb_steps = 3;
-    steps = new func_ptr_t[nb_steps];
-    steps[0] = round_init;
-    steps[1] = player_phase;
-    steps[2] = round_end;
     // Base initalisation
+
+    // Board is auto generated
+
+    // Players must be initiated with the addPlayer method
+
+    // Deck must be generated manually
+
+    // Noble deck generation :
+    // TODO
+
+    // Ressource deck generation :
     // TODO
 }
 
-// Start method
-void Game::start()
+Game::~Game()
 {
-    // Launch of round
-    for (size_t i = 0; i < nb_steps; i++)
-    {
-        steps[i]();
-    }
-    end();
+    // Deleting the players
+    for (size_t i = 0; i < nb_players; i++)
+        delete players[i];
+    delete[] players;
 }
 
-// End method
-void Game::end()
+void Game::addPlayer(std::string name, int index)
 {
-    // Do whatever we want
+    if (players[index] != NULL)
+        throw "Joueur déjà créé";
+    // wait for Player class to be created
+    // players[index] = new Player(name);
 }
