@@ -1,10 +1,10 @@
 #include "game.h"
 
 // Instantiation of the handler
-Game::Handler Game::handler;
+Splendor::Game::Handler Splendor::Game::handler;
 
 // Base constructor
-Game::Game(size_t n) : nb_players(n), players(new Player *[n])
+Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
 {
     // Base initalisation
 
@@ -21,7 +21,7 @@ Game::Game(size_t n) : nb_players(n), players(new Player *[n])
     // TODO
 }
 
-Game::~Game()
+Splendor::Game::~Game()
 {
     // Deleting the players
     for (size_t i = 0; i < nb_players; i++)
@@ -29,7 +29,7 @@ Game::~Game()
     delete[] players;
 }
 
-void Game::addPlayer(std::string name, int index)
+void Splendor::Game::addPlayer(std::string name, int index)
 {
     if (players[index] != NULL)
         throw "Joueur déjà créé";

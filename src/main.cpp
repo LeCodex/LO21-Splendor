@@ -1,5 +1,7 @@
 #include "game.h"
 
+using namespace Splendor;
+
 int main()
 {
     Game &g = Game::getInstance(3);

@@ -1,34 +1,41 @@
-#include "drawpile.h"
+#include "DrawPile.h"
 #include <random>
 
-Splendor::DrawPile::DrawPile() : nb(0), nbMax(10), cards(new const BaseCard*[10]) {}
+Splendor::DrawPile::DrawPile() : nb(0), nbMax(10), cards(new const BaseCard *[10]) {}
 
-const Splendor::BaseCard& Splendor::DrawPile::getCard(size_t index) {
-	if (index > nb) throw "Trying to access a card outside a DrawPile's range";
+const Splendor::BaseCard &Splendor::DrawPile::getCard(size_t index)
+{
+	if (index > nb)
+		throw "Trying to access a card outside a DrawPile's range";
 
 	return **(cards + index);
 }
 
-const Splendor::BaseCard& Splendor::DrawPile::draw()
+const Splendor::BaseCard &Splendor::DrawPile::draw()
 {
-	if (empty()) throw "Trying to draw from an empty draw pile";
+	if (empty())
+		throw "Trying to draw from an empty draw pile";
 
 	int index = rand() % nb;
-	const BaseCard* card = cards[index];
+	const BaseCard *card = cards[index];
 
-	for (size_t i = index + 1; i < nb; i++) {
-		cards[i-1] = cards[i];
+	for (size_t i = index + 1; i < nb; i++)
+	{
+		cards[i - 1] = cards[i];
 	}
 	nb--;
 
 	return *card;
 }
 
-void Splendor::DrawPile::addCard(const BaseCard& card) {
-	if (nb == nbMax) {
-		const BaseCard** tab = new const BaseCard*[nb + 20];
+void Splendor::DrawPile::addCard(const BaseCard &card)
+{
+	if (nb == nbMax)
+	{
+		const BaseCard **tab = new const BaseCard *[nb + 20];
 
-		for (size_t i = 0; i < nb; i++) {
+		for (size_t i = 0; i < nb; i++)
+		{
 			tab[i] = cards[i];
 		}
 

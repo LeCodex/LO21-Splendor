@@ -1,1 +1,1 @@
-#include "noblecard.h"
+#include "NobleCard.h"

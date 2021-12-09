@@ -1,8 +1,59 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-class Board
-{
-};
+#include "ResourceCard.h"
+#include "BaseCard.h"
+#include "NobleCard.h"
+#include "DrawPile.h"
+#include "Bank.h"
+#include <stdlib.h>
+#include <vector>
 
+using namespace std;
+namespace Splendor
+{
+    class Board
+    {
+    private:
+        ResourceCard *cards[3][4];
+        Bank bank;
+        DrawPile drawpiles[3];
+        vector<NobleCard *> nobles;
+
+    public:
+        Board() {}
+
+        // Replinishers
+        void fillDrawPile(size_t i, const BaseCard &c);
+        void fillNobles(const NobleCard &c);
+
+        // Update functions
+        void replenishCenterCards();
+
+        // Takers
+        ResourceCard &takeCenterCard(size_t i, size_t j);
+        // Surcharge pour la vue
+        ResourceCard &takeCenterCard(const ResourceCard &c);
+        ResourceCard &takeDrawCard(size_t i);
+        NobleCard &takeNobleCard(size_t i);
+        // Surcharge pour la vue
+        NobleCard &takeNobleCard(const NobleCard &c);
+
+        // Getters
+        ResourceCard &getCard(size_t i, size_t j)
+        {
+            if (i > 3 || j > 4)
+                throw "Index out of bound\n";
+            return *cards[i][j];
+        }
+        Bank &getBank() { return bank; }
+        DrawPile &getDrawPile(size_t i)
+        {
+            if (i > 3)
+                throw "Index out of bound\n";
+            return drawpiles[i];
+        }
+        vector<NobleCard *> getNobles() { return nobles; }
+    };
+}
 #endif

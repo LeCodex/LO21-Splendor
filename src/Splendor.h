@@ -2,8 +2,10 @@
 #include <iostream>
 #include <exception>
 
-namespace Splendor {
-	enum Token {
+namespace Splendor
+{
+	enum Token
+	{
 		Red,
 		Blue,
 		Green,
@@ -12,5 +14,7 @@ namespace Splendor {
 		Gold
 	};
 
-	class SplendorException : public std::exception {};
+	class SplendorException : public std::exception
+	{
+	};
 }
