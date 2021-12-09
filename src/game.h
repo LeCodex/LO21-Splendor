@@ -17,7 +17,6 @@ private:
     size_t nb_players;
     Player **players;
 
-public:
     // Inner classes
     struct Handler
     {
@@ -28,6 +27,7 @@ public:
 
     static Handler handler;
 
+public:
     Game(size_t n);
 
     ~Game();
@@ -48,6 +48,7 @@ public:
     static void deleteInstance()
     {
         delete handler.instance;
+        handler.instance = nullptr;
     }
 
     // Setters
