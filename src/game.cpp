@@ -1,4 +1,8 @@
 #include "game.h"
+
+// Instantiation of the handler
+Game::Handler Game::handler;
+
 // Base constructor
 Game::Game(size_t n) : nb_players(n), players(new Player *[n])
 {
@@ -30,5 +34,6 @@ void Game::addPlayer(std::string name, int index)
     if (players[index] != NULL)
         throw "Joueur déjà créé";
     // wait for Player class to be created
+    std::cout << "Player \"" << name << "\" has been added to [" << index << "]\n";
     // players[index] = new Player(name);
 }

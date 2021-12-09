@@ -10,22 +10,45 @@
 
 class Game
 {
+
 private:
     std::vector<Deck> decks;
     Board board;
     size_t nb_players;
     Player **players;
-    Game(size_t n);
 
 public:
+    // Inner classes
+    struct Handler
+    {
+        Game *instance;
+        Handler() : instance(nullptr) {}
+        ~Handler() { delete instance; }
+    };
+
+    static Handler handler;
+
+    Game(size_t n);
+
     ~Game();
 
     // Deletion of the assign and copy constructor
-    Game(Game &) = delete;
+    Game(const Game &) = delete;
     Game &operator=(const Game &) = delete;
 
     // Singleton getter
-    static Game *getInstance(size_t n);
+    static Game &getInstance(size_t n)
+    {
+        if (handler.instance == nullptr)
+            handler.instance = new Game(n);
+        return *handler.instance;
+    }
+
+    // Singleton deleter
+    static void deleteInstance()
+    {
+        delete handler.instance;
+    }
 
     // Setters
     void addPlayer(std::string, int);
@@ -44,15 +67,6 @@ public:
             throw "Index out of bound";
         return decks[i];
     }
-
-    // Inner classes
-    class Handler
-    {
-    private:
-        Game *instance;
-
-    public:
-    };
 };
 
 #endif

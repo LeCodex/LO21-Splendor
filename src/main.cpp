@@ -2,7 +2,7 @@
 
 int main()
 {
-    Game g(3);
-    g.start();
+    Game &g = Game::getInstance(3);
+    g.addPlayer("joueur#0", 0);
     return 0;
 }
