@@ -50,8 +50,8 @@ class NobleCard{
 }
 
 abstract Action{
-+virtual bool condition(Board& b,Player& p) const
-+virtual void executer(Board& b,Player& p)
++virtual bool condition(Board& b,Player& p) const = 0
++virtual void executer(Board& b,Player& p)= 0
 }
 
 class Take_2_identical_Token{
@@ -60,38 +60,39 @@ class Take_2_identical_Token{
 -void PlayerTokenUpdate(Player& p) const
 +Take_2_identical_Token(Token c )
 +bool condition(Board& b,Player& p) const
-+void executer(Board& b,Player& p)
++void executer(Board& b,Player& p) final
 }
 
 class ReservCard{
 -const BaseCard card
--void BaseCardUpdate(Board& b) const
+-void BoardUpdate(Board& b) const
+-void PlayerTokenUpdate(Player& p) const
+-void PlayerCardUpdate(Player& p) const
 +ReservCard(const BaseCard c )
 +bool condition(Board& b,Player& p) const
-+void executer(Board& b,Player& p)
++void executer(Board& b,Player& p) final
 }
 
 class BuyCard{
--const BaseCard card
--void BankUpdate(Board& b) const
--void PlayerTokenUpdate(Player& p) const
--void PlayerVictoryPointsUpdate(Player& p) const
-+BuyCard(const BaseCard c)
-+bool condition(Board& b,Player& p)
-+void executer(Board& b,Player& p)
+#const BaseCard card
+#void BankUpdate(Board& b) const
+#void PlayerTokenUpdate(Player& p) const
+#void PlayerCardUpdate(Player& p) const
++explicit BuyCard(const BaseCard c)
++bool condition(Board& b,Player& p) const final
++virtual void executer(Board& b,Player& p) const = 0
 }
 
-class BuyCardReserved{
--void PlayerCardReservedUpdate(Player& p) const
--void PlayerCardUpdate(Player& p) const
-+BuyCardReserved(const BaseCard c)
+class BuyReservedCard{
+-void ReservedCardUpdate(Player& p) const
++void executer(Board& b,Player& p) const final
 }
 
-class BuyCardBoard{
--void PlayerCardUpdate(Player& p) const
+class BuyBoardCard{
 -void BoardCardUpdate(Board& b) const
-+BuyCardBoard(const BaseCard c)
++void executer(Board& b,Player& p) const final
 }
+
 
 class Take_3_diff_Token{
 -Token color1
@@ -101,7 +102,7 @@ class Take_3_diff_Token{
 -void BankUpdate(Board& b) const
 +Take_3_diff_Token(Token c1, Token c2, Token c3 )
 +bool condition(Board& b,Player& p) const
-+void executer(Board& b,Player& p)
++void executer(Board& b,Player& p) final
 }
 
 class DrawPile{
@@ -126,13 +127,6 @@ class Board{
 +NobleCard** getNobles()
 }
 
-class Deck <class T>{
--const T** cards
--size_t nb
--size_t nbMax
-+Deck(string data)
-+const T** getCards()
-}
 
 class Game{
 SINGLETON
@@ -145,44 +139,47 @@ SINGLETON
 +end()
 }
 
+class Deck <class T>{
+-const T** cards
+-size_t nb
+-size_t nbMax
++Deck(string data)
++const T** getCards()
+}
+
 class Rules{
 -int [nomRegle]
 +winCondition()
 }
 
 Game *-"1..*" Action
-Game *-- "1" Deck
+Game *---- "1" Deck
 Player "2..4"  -*  Game
 Game *---"1" Board
 Rules "1..*"-* Game
-Board o--"*" BaseCard
-DrawPile.. DrawPile_lv1  : instance
-DrawPile.. DrawPile_lv2 : instance
-DrawPile .. DrawPile_lv3 : instance
+Board o-"*" BaseCard
+DrawPile_lv1.. DrawPile  : instance
+DrawPile_lv2.. DrawPile : instance
+DrawPile_lv3 .. DrawPile : instance
 DrawPile o-- BaseCard
-Board *-- DrawPile
+Board *--- DrawPile
 BaseCard -* Deck
-Bank "1"--o Board
+Bank "1"-o Board
 Player o--"1" Bank
-Token --o Bank
+Token -o Bank
 BaseCard <|-- NobleCard
 BaseCard <|-- ResourceCard
 Human --|> Player
 IA --|> Player
-Take_3_diff_Token --|> Action
+Action <|- Take_3_diff_Token
 Take_2_identical_Token --|> Action
 BuyCard--|> Action
 ReservCard--|> Action
 
-BuyCardReserved--|> BuyCard
-BuyCardBoard--|>BuyCard
+BuyReservedCard --|> BuyCard
+BuyBoardCard--|> BuyCard
+
 
 Player o--"*"BaseCard
 
-
-
-note left of Board #aqua: Begining Token : \n-if 2 players:5 gold, 4 of the others \n-if 3 players:5 of each \n-if 4 players:5 gold, 7 of the others \nBegining NobleCard : \n nb of players+1 cards
-note bottom of DrawPile_lv3 #aqua: Begining :20 cards
-note bottom of DrawPile_lv2 #aqua: Begining:30 cards
-note bottom of DrawPile_lv1 #aqua: Begining:40 cards
 @enduml
