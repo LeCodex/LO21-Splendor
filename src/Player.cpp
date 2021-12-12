@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "ResourceCard.h"
-
+#include <vector>
 using namespace Splendor;
 
 //getPoint calcule le nombre de points d'un joueur en additionnant les prestiges des cartes ressources
@@ -28,7 +28,7 @@ int *Player::getBonuses() {
 void Player::putReservedCard(const ResourceCard &card){
     for (size_t i=0; i<3; i++) {
         if (ReservedCards[i] != nullptr) {
-            ReservedCards[i] = card;
+            ReservedCards[i] = &card;
             return;
         }
     }
@@ -40,15 +40,15 @@ const ResourceCard& Player::takeReservedCard(size_t i){
     }
 const ResourceCard& Player::takeReservedCard(const ResourceCard& card) {
     for (size_t i = 0; i < 3; i++) {
-        if (card==ReservedCards[i]) {ReservedCards[i]=nullptr; return card;}
+        if (&card==ReservedCards[i]) {ReservedCards[i]=nullptr; return card;}
     }
 }
 
 void Player::putResourceCard(const ResourceCard& card){
     int niveau = card.getLevel();
-    ressource[i].pushback(card);
+    ressource[niveau].std::pushback(card);
 }
 
 void Player::putNobleCard(const NobleCard& card){
-    noble.pushback(card);
+    nobles.std::pushback(card);
 }
