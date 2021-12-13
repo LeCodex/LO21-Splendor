@@ -3,17 +3,19 @@
 
 #include <QWidget>
 #include <QLayout>
-#include "splendor.h"
+#include "controller.h"
 #include "vueboard.h"
+#include "vueplayer.h"
 
 class VueGame : public QWidget
 {
     Q_OBJECT
 private:
     Splendor::Controller controller;
-    VueBoard* board;
     QHBoxLayout* playersLayout;
     QVBoxLayout* globalLayout;
+    VueBoard* board;
+    std::vector<VuePlayer*> vuePlayers;
 public:
     explicit VueGame(QWidget* parent = nullptr);
     virtual ~VueGame() {}

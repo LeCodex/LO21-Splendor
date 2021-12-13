@@ -2,7 +2,14 @@
 #define SPLENDOR_H
 
 namespace Splendor {
-    enum Token {};
+    enum Token {
+        Red,
+        Blue,
+        Green,
+        White,
+        Black,
+        Gold
+    };
     class BaseCard {};
     class NobleCard : public BaseCard {};
     class ResourceCard : public BaseCard {};
@@ -14,8 +21,6 @@ namespace Splendor {
     class Player {};
 
     class Game {};
-
-    class Controller {};
 }
 
 #endif // SPLENDOR_H
