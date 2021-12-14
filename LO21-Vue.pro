@@ -1,23 +1,23 @@
 QT += widgets
 
 SOURCES += \
-    controller.cpp \
     main.cpp \
-    vueboard.cpp \
-    vuecard.cpp \
-    vuegame.cpp \
-    vuenoblecard.cpp \
-    vueplayer.cpp \
-    vueresourcecard.cpp \
-    vuetoken.cpp
+    vue/controller.cpp \
+    vue/vueboard.cpp \
+    vue/vuecard.cpp \
+    vue/vuegame.cpp \
+    vue/vuenoblecard.cpp \
+    vue/vueplayer.cpp \
+    vue/vueresourcecard.cpp \
+    vue/vuetoken.cpp \
 
 HEADERS += \
-    controller.h \
-    splendor.h \
-    vueboard.h \
-    vuecard.h \
-    vuegame.h \
-    vuenoblecard.h \
-    vueplayer.h \
-    vueresourcecard.h \
-    vuetoken.h
+    vue/controller.h \
+    vue/splendor.h \
+    vue/vueboard.h \
+    vue/vuecard.h \
+    vue/vuegame.h \
+    vue/vuenoblecard.h \
+    vue/vueplayer.h \
+    vue/vueresourcecard.h \
+    vue/vuetoken.h \
