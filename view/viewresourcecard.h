@@ -1,14 +1,14 @@
 #ifndef VUERESOURCECARD_H
 #define VUERESOURCECARD_H
 
-#include "vuecard.h"
+#include "viewcard.h"
 
-class VueResourceCard : public VueCard
+class ViewResourceCard : public ViewCard
 {
 private:
     QImage tokenIcon;
 public:
-    VueResourceCard(const Splendor::ResourceCard& card, QWidget* parent);
+    ViewResourceCard(const Splendor::ResourceCard& card, QWidget* parent);
 };
 
 #endif // VUERESOURCECARD_H

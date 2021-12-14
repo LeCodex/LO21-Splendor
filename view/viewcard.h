@@ -4,9 +4,9 @@
 #include <QPushButton>
 #include <QLCDNumber>
 #include "splendor.h"
-#include "vueclickable.h"
+#include "viewclickable.h"
 
-class VueCard : public VueClickable
+class ViewCard : public ViewClickable
 {
     Q_OBJECT
 protected:
@@ -17,13 +17,13 @@ protected:
     QImage back;
     QLCDNumber prestigeNumber;
 public:
-    explicit VueCard(const Splendor::BaseCard* c, QWidget* parent = nullptr);
+    explicit ViewCard(const Splendor::BaseCard* c, QWidget* parent = nullptr);
     const Splendor::BaseCard& getCard() const { return *card; }
     void setHidden(bool h) { hidden = h; }
     bool getHidden() const { return hidden; }
 
 signals:
-    void cardClicked(VueCard*);
+    void cardClicked(ViewCard*);
 public slots:
 private slots:
     void clickedEvent() { emit cardClicked(this); }

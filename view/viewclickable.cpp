@@ -1,6 +1,6 @@
-#include "vueclickable.h"
+#include "viewclickable.h"
 
-VueClickable::VueClickable(QWidget* parent): QPushButton(parent)
+ViewClickable::ViewClickable(QWidget* parent): QPushButton(parent)
 {
     connect(this, SIGNAL(clicked()), this, SLOT(clickedEvent()));
 }

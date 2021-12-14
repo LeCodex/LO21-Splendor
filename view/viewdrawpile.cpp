@@ -1,6 +1,6 @@
-#include "vuedrawpile.h"
+#include "viewdrawpile.h"
 
-VueDrawPile::VueDrawPile(QWidget* parent): VueClickable(parent)
+ViewDrawPile::ViewDrawPile(QWidget* parent): ViewClickable(parent)
 {
 
 }
