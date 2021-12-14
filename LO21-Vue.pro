@@ -5,6 +5,8 @@ SOURCES += \
     vue/controller.cpp \
     vue/vueboard.cpp \
     vue/vuecard.cpp \
+    vue/vueclickable.cpp \
+    vue/vuedrawpile.cpp \
     vue/vuegame.cpp \
     vue/vuenoblecard.cpp \
     vue/vueplayer.cpp \
@@ -16,6 +18,8 @@ HEADERS += \
     vue/splendor.h \
     vue/vueboard.h \
     vue/vuecard.h \
+    vue/vueclickable.h \
+    vue/vuedrawpile.h \
     vue/vuegame.h \
     vue/vuenoblecard.h \
     vue/vueplayer.h \

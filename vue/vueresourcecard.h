@@ -5,6 +5,8 @@
 
 class VueResourceCard : public VueCard
 {
+private:
+    QImage tokenIcon;
 public:
     VueResourceCard(const Splendor::ResourceCard& card, QWidget* parent);
 };
