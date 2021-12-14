@@ -3,18 +3,18 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include "vueclickable.h"
+#include "viewclickable.h"
 
-class VueDrawPile : public VueClickable
+class ViewDrawPile : public ViewClickable
 {
     Q_OBJECT
 private:
     QImage back;
 public:
-    VueDrawPile(QWidget* parent);
+    ViewDrawPile(QWidget* parent);
 
 signals:
-    void drawPileClicked(VueDrawPile*);
+    void drawPileClicked(ViewDrawPile*);
 public slots:
 private slots:
     void clickedEvent() { emit drawPileClicked(this); }

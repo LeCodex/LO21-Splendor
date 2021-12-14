@@ -1,28 +1,28 @@
-#ifndef VUETOKEN_H
-#define VUETOKEN_H
+#ifndef VIEWTOKEN_H
+#define VIEWTOKEN_H
 
 #include <QPushButton>
 #include <QWidget>
 #include "splendor.h"
 
-class VueToken : public QPushButton
+class ViewToken : public QPushButton
 {
     Q_OBJECT
 private:
     Splendor::Token token;
     int amount = 0;
 public:
-    VueToken(Splendor::Token t, QWidget* parent);
+    ViewToken(Splendor::Token t, QWidget* parent);
     void setAmount(int a) { amount = a; }
     int getAmount() const { return amount; }
     void setToken(Splendor::Token t) { token = t; }
     Splendor::Token getToken() const { return token; }
 
 signals:
-    void tokenClicked(VueToken*);
+    void tokenClicked(ViewToken*);
 public slots:
 private slots:
     void clickedEvent() { emit tokenClicked(this); }
 };
 
-#endif // VUETOKEN_H
+#endif // VIEWTOKEN_H
