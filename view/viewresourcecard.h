@@ -8,7 +8,7 @@ class ViewResourceCard : public ViewCard
 private:
     QImage tokenIcon;
 public:
-    ViewResourceCard(const Splendor::ResourceCard& card, QWidget* parent);
+    ViewResourceCard(const Splendor::ResourceCard& card, QWidget* parent = nullptr);
 };
 
 #endif // VUERESOURCECARD_H

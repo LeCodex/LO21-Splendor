@@ -11,14 +11,14 @@ class ViewGame : public QWidget
 {
     Q_OBJECT
 private:
-    Splendor::Controller controller;
+    Splendor::Controller* controller; // Might not be necessary if the Controller is a Singleton
     QHBoxLayout* playersLayout;
     QVBoxLayout* globalLayout;
     ViewBoard* board;
     std::vector<ViewPlayer*> viewPlayers;
 public:
+    // Might make it into a Singleton too
     explicit ViewGame(QWidget* parent = nullptr);
-    virtual ~ViewGame() {}
 };
 
 #endif // VIEWGAME_H

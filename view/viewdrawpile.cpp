@@ -1,6 +1,6 @@
 #include "viewdrawpile.h"
 
-ViewDrawPile::ViewDrawPile(QWidget* parent): ViewClickable(parent)
+ViewDrawPile::ViewDrawPile(Splendor::DrawPile& d, QWidget* parent): ViewClickable(parent), drawPile(&d)
 {
 
 }

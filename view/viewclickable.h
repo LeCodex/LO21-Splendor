@@ -8,7 +8,8 @@ class ViewClickable : public QPushButton
 {
     Q_OBJECT
 public:
-    ViewClickable(QWidget* parent);
+    ViewClickable(QWidget* parent = nullptr);
+    virtual ~ViewClickable() {}
 
 private slots:
     virtual void clickedEvent() = 0;

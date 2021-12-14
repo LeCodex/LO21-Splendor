@@ -6,7 +6,7 @@
 class ViewNobleCard : public ViewCard
 {
 public:
-    ViewNobleCard(const Splendor::NobleCard& card, QWidget* parent);
+    ViewNobleCard(const Splendor::NobleCard& card, QWidget* parent = nullptr);
 };
 
 #endif // VIEWNOBLECARD_H

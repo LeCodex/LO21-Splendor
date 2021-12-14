@@ -17,8 +17,10 @@ private:
     std::vector<ViewResourceCard*> viewResourceCards;
     std::vector<ViewNobleCard*> viewNobleCards;
     ViewToken* viewTokens[6]; // The bank
+
+    Splendor::Board* board;
 public:
-    explicit ViewBoard(QWidget *parent = nullptr);
+    explicit ViewBoard(Splendor::Board& b, QWidget *parent = nullptr);
 
 signals:
 
