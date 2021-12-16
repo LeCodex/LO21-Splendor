@@ -1,6 +1,8 @@
 #ifndef SPLENDOR_H
 #define SPLENDOR_H
 
+#include <iostream>
+
 namespace Splendor {
     enum Token {
         Red,
@@ -20,7 +22,13 @@ namespace Splendor {
 
     class Player {};
 
-    class Game {};
+    class Game {
+    private:
+        size_t nb;
+    public:
+        Game(size_t n): nb(n) {}
+        size_t getNbPlayers() const { return nb; }
+    };
 }
 
 #endif // SPLENDOR_H

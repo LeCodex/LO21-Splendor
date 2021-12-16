@@ -11,9 +11,6 @@ class ViewCard : public ViewClickable
 protected:
     const Splendor::BaseCard* card = nullptr;
 
-    QImage background;
-    QImage back;
-    QLCDNumber prestigeNumber;
 public:
     explicit ViewCard(const Splendor::BaseCard* c, QWidget* parent = nullptr);
     const Splendor::BaseCard& getCard() const { return *card; }

@@ -27,7 +27,6 @@ public:
     std::vector<ViewNobleCard*> getNobles() const { return viewNobleCards; }
 
 signals:
-
 };
 
 #endif // VUEPLAYER_H

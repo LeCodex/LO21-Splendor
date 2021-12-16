@@ -2,6 +2,7 @@
 #define VIEWTOKEN_H
 
 #include <QWidget>
+#include <QLCDNumber>
 #include "splendor.h"
 #include "viewclickable.h"
 
@@ -11,11 +12,15 @@ class ViewToken : public ViewClickable
 private:
     Splendor::Token token;
     int amount = 0;
+    QLCDNumber* number;
+
+    void updateIcon();
+    void updateAmount();
 public:
     ViewToken(Splendor::Token t, QWidget* parent = nullptr);
-    void setAmount(int a) { amount = a; }
+    void setAmount(int a) { amount = a; updateAmount(); }
     int getAmount() const { return amount; }
-    void setToken(Splendor::Token t) { token = t; }
+    void setToken(Splendor::Token t) { token = t; updateIcon(); }
     Splendor::Token getToken() const { return token; }
 
 signals:

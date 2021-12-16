@@ -25,3 +25,6 @@ HEADERS += \
     view/viewplayer.h \
     view/viewresourcecard.h \
     view/viewtoken.h \
+
+RESOURCES += \
+    icons.qrc
