@@ -21,5 +21,11 @@ namespace Splendor
 		const int *getFullCost() const { return cost; }
 		int getCost(Token t) const { return cost[t]; }
 		int getPrestige() const { return prestige; }
+
+		virtual void print(std::ostream &f = std::cout) const
+		{
+			f << "Cost : [" << cost[0] << ", " << cost[1] << ", " << cost[2] << ", " << cost[3] << ", " << cost[4] << "]\n";
+			f << "Prestige : " << prestige << "\n";
+		}
 	};
 }

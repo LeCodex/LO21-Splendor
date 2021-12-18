@@ -5,7 +5,7 @@
 #include <vector>
 #include "board.h"
 #include "player.h"
-#include "deck.h"
+#include "Deck.h"
 #include <iostream>
 
 namespace Splendor
@@ -14,7 +14,8 @@ namespace Splendor
     {
 
     private:
-        std::vector<Deck> decks;
+        Deck<NobleCard> nobles;
+        Deck<ResourceCard> resources;
         Board board;
         size_t nb_players;
         Player **players;
@@ -64,11 +65,14 @@ namespace Splendor
                 throw "Index out of bound";
             return *players[i];
         }
-        Deck &getDeck(int i)
+        Deck<ResourceCard> &getResourceDeck()
         {
-            if (i >= decks.size())
-                throw "Index out of bound";
-            return decks[i];
+            return resources;
+        }
+
+        Deck<NobleCard> &getNobleDeck()
+        {
+            return nobles;
         }
     };
 }

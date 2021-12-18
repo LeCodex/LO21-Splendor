@@ -15,32 +15,33 @@ namespace Splendor
     class Board
     {
     private:
-        ResourceCard *cards[3][4];
+        const ResourceCard *cards[3][4];
         Bank bank;
         DrawPile drawpiles[3];
-        vector<NobleCard *> nobles;
+        vector<const NobleCard *> nobles;
 
     public:
-        Board() {}
+        Board() = default;
+        ~Board() = default;
 
         // Replinishers
-        void fillDrawPile(size_t i, const BaseCard &c);
+        void fillDrawPile(size_t i, const ResourceCard &c);
         void fillNobles(const NobleCard &c);
 
         // Update functions
         void replenishCenterCards();
 
         // Takers
-        ResourceCard &takeCenterCard(size_t i, size_t j);
+        const ResourceCard &takeCenterCard(size_t i, size_t j);
         // Surcharge pour la vue
-        ResourceCard &takeCenterCard(const ResourceCard &c);
-        ResourceCard &takeDrawCard(size_t i);
-        NobleCard &takeNobleCard(size_t i);
+        const ResourceCard &takeCenterCard(const ResourceCard &c);
+        const ResourceCard &takeDrawCard(size_t i);
+        const NobleCard &takeNobleCard(size_t i);
         // Surcharge pour la vue
-        NobleCard &takeNobleCard(const NobleCard &c);
+        const NobleCard &takeNobleCard(const NobleCard &c);
 
         // Getters
-        ResourceCard &getCard(size_t i, size_t j)
+        const ResourceCard &getCard(size_t i, size_t j)
         {
             if (i > 3 || j > 4)
                 throw "Index out of bound\n";
@@ -53,7 +54,7 @@ namespace Splendor
                 throw "Index out of bound\n";
             return drawpiles[i];
         }
-        vector<NobleCard *> getNobles() { return nobles; }
+        vector<NobleCard const *> getNobles() { return nobles; }
     };
 }
 #endif

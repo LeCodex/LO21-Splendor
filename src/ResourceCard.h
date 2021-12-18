@@ -17,5 +17,12 @@ namespace Splendor
 		int getLevel() const { return level; }
 		// bool getFlipped() const { return flipped; }
 		// bool flip() { flipped = !flipped; return flipped; }
+
+		void print(std::ostream &f = std::cout) const
+		{
+			BaseCard::print(f);
+			f << "Resource : " << resource << "\n";
+			f << "Level : " << level << "\n";
+		}
 	};
 }

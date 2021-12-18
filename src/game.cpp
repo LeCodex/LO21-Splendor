@@ -15,10 +15,13 @@ Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
     // Deck must be generated manually
 
     // Noble deck generation :
-    // TODO
+    resources.loadXML("../data/resources.xml");
 
     // Ressource deck generation :
-    // TODO
+    nobles.loadXML("../data/nobles.xml");
+
+    // Board card distribution
+    // TODO...
 }
 
 Splendor::Game::~Game()
