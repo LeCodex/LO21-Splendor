@@ -67,19 +67,32 @@ void Splendor::TextualController::printGame()
 
     // Printing player hand
     Player &p = game.getPlayer(actual_player);
-    // std::cout << "Player #" << actual_player << " (" << p.getName() << "):\n";
+    std::cout << "Player #" << actual_player << " (" << p.getName() << "):\n";
 
     std::cout << "Hand : \n";
     for (size_t i = 0; i < 3; i++)
     {
         std::cout << "[" << i << "]";
-        // Should get the player hand
-        // Wait for it to be done
+
+        std::vector<const ResourceCard *> res = p.getRessources(i);
+
+        for (size_t j = 0; j < res.size(); j++)
+            std::cout << "[" << res[i] << "]";
 
         std::cout << "\n";
     }
 
+    // Printing reserved cards
     std::cout << "Reserved : \n";
+    for (size_t i = 0; i < 3; i++)
+    {
+        const ResourceCard *r = p.getReservedCards(i);
+        if (r == nullptr)
+            std::cout << "[ ]";
+        else
+            std::cout << "[" << r->toString() << "]";
+    }
+    std::cout << "\n";
 }
 
 void Splendor::TextualController::launch()

@@ -73,7 +73,6 @@ void Splendor::Game::addPlayer(std::string name, int index)
 {
     if (players[index] != NULL)
         throw "Joueur déjà créé";
-    // wait for Player class to be created
     std::cout << "Player \"" << name << "\" has been added to [" << index << "]\n";
-    // players[index] = new Player(name);
+    players[index] = new Player(name);
 }

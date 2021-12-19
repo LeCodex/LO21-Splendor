@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <vector>
 #include "board.h"
-#include "player.h"
+#include "Player.h"
 #include "Deck.h"
 #include <iostream>
 #include "rules.h"
