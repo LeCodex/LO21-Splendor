@@ -10,20 +10,21 @@ namespace Splendor
 	{
 	private:
 		std::vector<const T *> cards;
-		int nb;
-		int nbMax;
 
 		Deck(const Deck &) = delete;
 		Deck &operator=(const Deck &) = delete;
 
 	public:
-		Deck() : nb(0), nbMax(0) {}
+		Deck() = default;
 
-		int getNbCards() const { return nb; }
+		int getNbCards() const
+		{
+			return cards.size();
+		}
 		std::vector<const T *> getAllCards() const { return cards; }
 		const T &getCard(size_t i) const
 		{
-			if (i > nbMax)
+			if (i > cards.size())
 				throw "Index out of bound\n";
 			return *cards[i];
 		}
@@ -35,7 +36,7 @@ namespace Splendor
 	{
 		std::cout << "Resources loading...\n";
 
-		TiXmlDocument doc("../data/resources.xml");
+		TiXmlDocument doc(filename);
 		if (doc.LoadFile())
 		{
 			TiXmlElement *elem = doc.FirstChildElement("cards");
@@ -96,9 +97,9 @@ namespace Splendor
 	template <>
 	inline void Deck<NobleCard>::loadXML(const std::string &filename)
 	{
-		std::cout << "Resources loading...\n";
+		std::cout << "Nobles loading...\n";
 
-		TiXmlDocument doc("../data/resources.xml");
+		TiXmlDocument doc(filename);
 		if (doc.LoadFile())
 		{
 			TiXmlElement *elem = doc.FirstChildElement("cards");
@@ -138,7 +139,6 @@ namespace Splendor
 					child = child->NextSiblingElement("card");
 				}
 			}
-			// Now our deck has been loaded
 		}
 		else
 			throw "Could not load the specified file...\n";

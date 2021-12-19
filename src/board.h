@@ -45,6 +45,8 @@ namespace Splendor
         {
             if (i > 3 || j > 4)
                 throw "Index out of bound\n";
+            if (cards[i][j] == nullptr)
+                throw "No cards here\n";
             return *cards[i][j];
         }
         Bank &getBank() { return bank; }

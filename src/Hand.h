@@ -1,8 +1,9 @@
 #pragma once
-#include "drawpile.h"
+#include "DrawPile.h"
 // #include "player.h"
 
-namespace Splendor {
+namespace Splendor
+{
 	class Hand : public DrawPile
 	{
 	private:
@@ -13,7 +14,6 @@ namespace Splendor {
 
 		// Player& getOwner() const { return *owner; }
 		// bool setOwner(Player& newOwner);
-		const BaseCard& play(size_t index);
+		const BaseCard &play(size_t index);
 	};
 }
-

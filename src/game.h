@@ -7,6 +7,7 @@
 #include "player.h"
 #include "Deck.h"
 #include <iostream>
+#include "rules.h"
 
 namespace Splendor
 {
@@ -74,6 +75,8 @@ namespace Splendor
         {
             return nobles;
         }
+
+        virtual void cardDistribution();
     };
 }
 #endif

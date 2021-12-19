@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseCard.h"
+#include <sstream>
 
 namespace Splendor
 {
@@ -18,11 +19,13 @@ namespace Splendor
 		// bool getFlipped() const { return flipped; }
 		// bool flip() { flipped = !flipped; return flipped; }
 
-		void print(std::ostream &f = std::cout) const
+		virtual std::string toString() const
 		{
-			BaseCard::print(f);
-			f << "Resource : " << resource << "\n";
-			f << "Level : " << level << "\n";
+			std::stringstream s;
+			s << BaseCard::toString();
+			s << ", Resource : " << resource << ", ";
+			s << "Level : " << level;
+			return s.str();
 		}
 	};
 }

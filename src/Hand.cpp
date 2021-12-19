@@ -1,4 +1,4 @@
-#include "hand.h"
+#include "Hand.h"
 
 /*
 bool Splendor::Hand::setOwner(Player& newOwner) {
@@ -14,11 +14,14 @@ bool Splendor::Hand::setOwner(Player& newOwner) {
 }
 */
 
-const Splendor::BaseCard& Splendor::Hand::play(size_t index) {
-	if (index > nb) throw "Trying to play a card with an invalid index";
+const Splendor::BaseCard &Splendor::Hand::play(size_t index)
+{
+	if (index > nb)
+		throw "Trying to play a card with an invalid index";
 
 	const BaseCard card = getCard(index);
-	for (size_t i = index + 1; i < nb; i++) {
+	for (size_t i = index + 1; i < nb; i++)
+	{
 		cards[i] = cards[i - 1];
 	}
 

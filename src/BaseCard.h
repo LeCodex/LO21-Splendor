@@ -1,5 +1,6 @@
 #pragma once
 #include "Splendor.h"
+#include <sstream>
 
 namespace Splendor
 {
@@ -22,10 +23,17 @@ namespace Splendor
 		int getCost(Token t) const { return cost[t]; }
 		int getPrestige() const { return prestige; }
 
-		virtual void print(std::ostream &f = std::cout) const
+		virtual std::string toString() const
 		{
-			f << "Cost : [" << cost[0] << ", " << cost[1] << ", " << cost[2] << ", " << cost[3] << ", " << cost[4] << "]\n";
-			f << "Prestige : " << prestige << "\n";
+			std::stringstream s;
+			s << "Cost : [" << cost[0] << ", " << cost[1] << ", " << cost[2] << ", " << cost[3] << ", " << cost[4] << "],";
+			s << "Prestige : " << prestige << "";
+			return s.str();
+		}
+
+		void print(std::ostream &f = std::cout) const
+		{
+			f << toString() << "\n";
 		}
 	};
 }
