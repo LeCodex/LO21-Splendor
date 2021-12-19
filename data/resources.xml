@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cards>
+    <card>
+        <cost>
+            <token>0</token>
+            <token>0</token>
+            <token>0</token>
+            <token>0</token>
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>0</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <token>1</token>
+            <token>1</token>
+            <token>1</token>
+            <token>1</token>
+            <token>1</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>1</resource>
+        <level>1</level>
+    </card>
+</cards>
