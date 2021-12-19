@@ -27,6 +27,7 @@ namespace Splendor
         void initiateGame();
         void printGame();
         void launch();
+        void play(size_t);
     };
 }
 

@@ -95,6 +95,10 @@ void Splendor::TextualController::printGame()
     std::cout << "\n";
 }
 
+void Splendor::TextualController::play(size_t i)
+{
+}
+
 void Splendor::TextualController::launch()
 {
     initiateGame();
