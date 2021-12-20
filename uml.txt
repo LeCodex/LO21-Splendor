@@ -1,0 +1,185 @@
+@startuml
+abstract Player{
+-name string
+-Bank banque
+-const RessourceCard** cards[3]
+-const NobleCard** nobles
+-const BaseCard ReservedCards[3]
++int TotalToken()
++Action play(vector<Action> actions)
++Bank getBank()
++string getName()
++ResourceCard getResourceCard(int i)
++int* getBonuses()
++int getPoint()
+}
+
+enum Token{
+BLUE,RED,GREEN,WHITE,BLACK,GOLD;
+}
+
+class Bank {
+-int tokens[6]
++Bank()
++bool empty(Token t) const
++int amount(Token t) const
++int take(Token t, int amount)
++int put(Token t, int amount)
+}
+
+abstract BaseCard{
+-int cost[5]
+-int prestige
+-void setCost(int newCost[])
++BaseCard(int c[], int p)
++const int* getFullCost()
++int getCost(Token t) const
++int getPrestige()
+}
+
+class ResourceCard{
+-Token resource
+-int level
++ResourceCard(int c[], int p, Token r, int l)
++Token getResource() const
++int getLevel() const
+}
+
+class NobleCard{
++NobleCard(int c[], int p)
+}
+
+abstract Action{
++virtual bool condition(Board& b,Player& p) const = 0
++virtual void executer(Board& b,Player& p)= 0
+}
+
+class Take_2_identical_Token{
+-Token color
+-void BankUpdate(Board& b) const
+-void PlayerTokenUpdate(Player& p) const
++Take_2_identical_Token(Token c )
++bool condition(Board& b,Player& p) const
++void executer(Board& b,Player& p) final
+}
+
+class ReservCard{
+-const BaseCard card
+-void BoardUpdate(Board& b) const
+-void PlayerTokenUpdate(Player& p) const
+-void PlayerCardUpdate(Player& p) const
++ReservCard(const BaseCard c )
++bool condition(Board& b,Player& p) const
++void executer(Board& b,Player& p) final
+}
+
+class BuyCard{
+#const BaseCard card
+#void BankUpdate(Board& b) const
+#void PlayerTokenUpdate(Player& p) const
+#void PlayerCardUpdate(Player& p) const
++explicit BuyCard(const BaseCard c)
++bool condition(Board& b,Player& p) const final
++virtual void executer(Board& b,Player& p) const = 0
+}
+
+class BuyReservedCard{
+-void ReservedCardUpdate(Player& p) const
++void executer(Board& b,Player& p) const final
+}
+
+class BuyBoardCard{
+-void BoardCardUpdate(Board& b) const
++void executer(Board& b,Player& p) const final
+}
+
+
+class Take_3_diff_Token{
+-Token color1
+-Token color2
+-Token color3
+-void PlayerTokenUpdate(Player& p) const
+-void BankUpdate(Board& b) const
++Take_3_diff_Token(Token c1, Token c2, Token c3 )
++bool condition(Board& b,Player& p) const
++void executer(Board& b,Player& p) final
+}
+
+class DrawPile{
+-size_t nb
+-size_t nbMax
+-const BaseCard* cards[nbMax]
++BaseCard* draw()
++void addCard(BaseCard &c)
++void addCard(BaseCard **c, size_t nb)
++DrawPile(size_t nb, size_t nbMax)
+}
+
+class Board{
+-ResourceCard* cards[3][4]
+-Bank bank
+-DrawPile drawpiles[3]
+-NobleCard **nobles
++Board(ResourceCard** r[3], NobleCard** n)
++ResourceCard& takeCenterCard(int i, int j)
++Bank& getBank()
++ResourceCard& takeDrawCard(int i)
++NobleCard** getNobles()
+}
+
+
+class Game{
+SINGLETON
+-vector<Deck*> decks
+-Board board
+-size_t nb_players
+-Player** players
+-Game(int nb_players)
++start()
++end()
+}
+
+class Deck <class T>{
+-const T** cards
+-size_t nb
+-size_t nbMax
++Deck(string data)
++const T** getCards()
+}
+
+class Rules{
+-int [nomRegle]
++winCondition()
+}
+
+Game *-"1..*" Action
+Game *---- "1" Deck
+Player "2..4"  -*  Game
+Game *---"1" Board
+Rules "1..*"-* Game
+Board o-"*" BaseCard
+DrawPile_lv1.. DrawPile  : instance
+DrawPile_lv2.. DrawPile : instance
+DrawPile_lv3 .. DrawPile : instance
+DrawPile o-- BaseCard
+Board *--- DrawPile
+BaseCard -* Deck
+Bank "1"-o Board
+Player o--"1" Bank
+Token -o Bank
+BaseCard <|-- NobleCard
+BaseCard <|-- ResourceCard
+Human --|> Player
+IA --|> Player
+Action <|- Take_3_diff_Token
+Take_2_identical_Token --|> Action
+BuyCard--|> Action
+ReservCard--|> Action
+
+BuyReservedCard --|> BuyCard
+BuyBoardCard--|> BuyCard
+
+
+Player o--"*"BaseCard
+
+@enduml
