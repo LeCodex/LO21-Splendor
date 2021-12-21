@@ -2,62 +2,152 @@
 <cards>
     <card>
         <cost>
-            <token>0</token>
-            <token>0</token>
-            <token>0</token>
-            <token>0</token>
-            <token>0</token>
-        </cost>
-        <prestige>0</prestige>
-    </card>
-    <card>
-        <cost>
-            <token>1</token>
-            <token>1</token>
-            <token>1</token>
-            <token>1</token>
-            <token>1</token>
-        </cost>
-        <prestige>1</prestige>
-    </card>
-    <card>
-        <cost>
-            <token>2</token>
-            <token>2</token>
-            <token>2</token>
-            <token>2</token>
-            <token>2</token>
-        </cost>
-        <prestige>2</prestige>
-    </card>
-    <card>
-        <cost>
+            <!-- White -->
             <token>3</token>
+            <!-- Blue -->
             <token>3</token>
-            <token>3</token>
-            <token>3</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
             <token>3</token>
         </cost>
         <prestige>3</prestige>
     </card>
     <card>
         <cost>
-            <token>4</token>
-            <token>4</token>
-            <token>4</token>
-            <token>4</token>
-            <token>4</token>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>0</token>
         </cost>
-        <prestige>4</prestige>
+        <prestige>3</prestige>
     </card>
     <card>
         <cost>
-            <token>5</token>
-            <token>5</token>
-            <token>5</token>
-            <token>5</token>
-            <token>5</token>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>3</token>
         </cost>
-        <prestige>5</prestige>
+        <prestige>3</prestige>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>4</token>
+            <!-- Red -->
+            <token>4</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>3</prestige>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>4</token>
+            <!-- Green -->
+            <token>4</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>3</prestige>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>4</token>
+            <!-- Black -->
+            <token>4</token>
+        </cost>
+        <prestige>3</prestige>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>4</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>4</token>
+        </cost>
+        <prestige>3</prestige>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>3</prestige>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>3</prestige>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>4</token>
+            <!-- Black -->
+            <token>4</token>
+        </cost>
+        <prestige>3</prestige>
     </card>
 </cards>

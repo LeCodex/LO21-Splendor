@@ -6,10 +6,10 @@ namespace Splendor
 {
 	enum Token
 	{
-		Red,
+		White,
 		Blue,
 		Green,
-		White,
+		Red,
 		Black,
 		Gold
 	};

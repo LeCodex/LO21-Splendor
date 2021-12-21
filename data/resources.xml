@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cards>
+    <!-- Level 1 cards -->
+    <!-- Gives White -->
     <card>
         <cost>
+            <!-- White -->
             <token>0</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
             <token>0</token>
+            <!-- Red -->
             <token>0</token>
-            <token>0</token>
+            <!-- Black -->
             <token>0</token>
         </cost>
         <prestige>0</prestige>
@@ -14,14 +21,1531 @@
     </card>
     <card>
         <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
             <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>0</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
             <token>1</token>
+            <!-- Green -->
             <token>1</token>
+            <!-- Red -->
             <token>1</token>
+            <!-- Black -->
             <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>0</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>2</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>0</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>4</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>0</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>0</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>0</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>2</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>0</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>0</resource>
+        <level>0</level>
+    </card>
+    <!-- Gives Blue -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>1</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>1</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>1</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>1</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>4</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>1</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>1</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>1</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>1</resource>
+        <level>0</level>
+    </card>
+    <!-- Gives Green -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>2</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>2</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>2</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>2</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>2</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>4</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>2</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>2</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>2</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>2</resource>
+        <level>0</level>
+    </card>
+    <!-- Gives Red -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>2</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>3</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>3</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>3</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>3</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>4</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>3</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>3</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>3</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>3</resource>
+        <level>0</level>
+    </card>
+    <!-- Gives Black -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>4</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>4</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>4</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>4</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>4</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>4</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>2</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>4</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>2</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>4</resource>
+        <level>0</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>0</prestige>
+        <resource>4</resource>
+        <level>0</level>
+    </card>
+    <!-- Level 2 cards -->
+    <!-- Gives White -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>5</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>0</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>6</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>0</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>0</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>1</token>
+            <!-- Red -->
+            <token>4</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>0</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>0</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>5</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>0</resource>
+        <level>1</level>
+    </card>
+    <!-- Gives Blue -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>5</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>1</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>6</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>1</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>2</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>0</token>
         </cost>
         <prestige>1</prestige>
         <resource>1</resource>
         <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>1</token>
+            <!-- Black -->
+            <token>4</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>1</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>5</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>1</resource>
+        <level>1</level>
+    </card>
+    <!-- Gives Green -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>5</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>2</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>6</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>2</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>2</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>2</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>4</token>
+            <!-- Blue -->
+            <token>2</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>1</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>2</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>5</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>2</resource>
+        <level>1</level>
+    </card>
+    <!-- Gives Red -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>5</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>3</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>6</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>3</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>2</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>3</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>1</token>
+            <!-- Blue -->
+            <token>4</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>3</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>3</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>5</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>3</resource>
+        <level>1</level>
+    </card>
+    <!-- Gives Black -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>5</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>4</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>6</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>4</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>2</token>
+            <!-- Green -->
+            <token>2</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>4</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>1</token>
+            <!-- Green -->
+            <token>4</token>
+            <!-- Red -->
+            <token>2</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>4</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>2</token>
+        </cost>
+        <prestige>1</prestige>
+        <resource>4</resource>
+        <level>1</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>5</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>2</prestige>
+        <resource>4</resource>
+        <level>1</level>
+    </card>
+    <!-- Level 3 cards -->
+    <!-- Gives White -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>7</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>0</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>7</token>
+        </cost>
+        <prestige>5</prestige>
+        <resource>0</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>6</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>0</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>5</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>0</resource>
+        <level>2</level>
+    </card>
+    <!-- Gives Blue -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>7</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>1</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>7</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>5</prestige>
+        <resource>1</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>6</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>6</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>1</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>5</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>1</resource>
+        <level>2</level>
+    </card>
+    <!-- Gives Green -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>7</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>2</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>7</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>5</prestige>
+        <resource>2</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>6</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>2</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>5</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>2</resource>
+        <level>2</level>
+    </card>
+    <!-- Gives Red -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>7</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>3</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>7</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>5</prestige>
+        <resource>3</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>6</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>3</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>5</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>0</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>3</resource>
+        <level>2</level>
+    </card>
+    <!-- Gives Black -->
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>7</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>4</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>0</token>
+            <!-- Red -->
+            <token>7</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>5</prestige>
+        <resource>4</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>0</token>
+            <!-- Blue -->
+            <token>0</token>
+            <!-- Green -->
+            <token>3</token>
+            <!-- Red -->
+            <token>6</token>
+            <!-- Black -->
+            <token>3</token>
+        </cost>
+        <prestige>4</prestige>
+        <resource>4</resource>
+        <level>2</level>
+    </card>
+    <card>
+        <cost>
+            <!-- White -->
+            <token>3</token>
+            <!-- Blue -->
+            <token>3</token>
+            <!-- Green -->
+            <token>5</token>
+            <!-- Red -->
+            <token>3</token>
+            <!-- Black -->
+            <token>0</token>
+        </cost>
+        <prestige>3</prestige>
+        <resource>4</resource>
+        <level>2</level>
     </card>
 </cards>
