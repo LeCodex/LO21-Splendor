@@ -5,10 +5,11 @@
 
 class ViewResourceCard : public ViewCard
 {
-private:
-    QImage tokenIcon;
+    Q_OBJECT
+protected:
+    void updateImage() override;
 public:
-    ViewResourceCard(const Splendor::ResourceCard& card, QWidget* parent = nullptr);
+    ViewResourceCard(QWidget* parent = nullptr);
 };
 
 #endif // VUERESOURCECARD_H

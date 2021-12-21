@@ -5,8 +5,11 @@
 
 class ViewNobleCard : public ViewCard
 {
+    Q_OBJECT
+protected:
+    void updateImage() override;
 public:
-    ViewNobleCard(const Splendor::NobleCard& card, QWidget* parent = nullptr);
+    ViewNobleCard(QWidget* parent = nullptr);
 };
 
 #endif // VIEWNOBLECARD_H

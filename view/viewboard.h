@@ -11,6 +11,8 @@ class ViewBoard : public QWidget
 {
     Q_OBJECT
 private:
+    QHBoxLayout* layer;
+    QVBoxLayout* cardBoardLayout;
     QGridLayout* resourceCardsLayout;
     QVBoxLayout* centralBankLayout;
     QHBoxLayout* nobleCardsLayout;

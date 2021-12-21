@@ -14,4 +14,10 @@
         <file alias="red">img/card icons/peaks.png</file>
         <file alias="black">img/card icons/swamp.png</file>
     </qresource>
+    <qresource prefix="/nobles">
+        <file alias="abbot">img/nobles/abbot-meeple.png</file>
+    </qresource>
+    <qresource prefix="/general">
+        <file alias="unknown">img/uncertainty.png</file>
+    </qresource>
 </RCC>
