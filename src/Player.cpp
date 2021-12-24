@@ -20,8 +20,8 @@ int Player::getPoint()
 //getBonuses recupere tous les discounts des cartesRessources
 int *Player::getBonuses()
 {
-    int bonuses[5];
-    for (auto i = 0; i < 3; i++)
+    int *bonuses = new int[5];
+    for (size_t i = 0; i < 3; i++)
     {
         for (auto &tmp : ressource[i])
         {
@@ -69,4 +69,30 @@ void Player::putResourceCard(const ResourceCard &card)
 void Player::putNobleCard(const NobleCard &card)
 {
     nobles.push_back(&card);
+}
+
+std::vector<const NobleCard *> Player::checkCompatibleNobles(std::vector<const NobleCard *> nobles)
+{
+    std::vector<const NobleCard *> output;
+
+    int *bonuses = getBonuses();
+
+    for (size_t i = 0; i < nobles.size(); i++)
+    {
+        bool compatible = true;
+        for (size_t j = 0; j < 5; j++)
+        {
+            if (!(nobles[i]->getFullCost()[j] == bonuses[j]))
+            {
+                compatible = false;
+                break;
+            }
+        }
+        if (compatible)
+            output.push_back(nobles[i]);
+    }
+
+    delete[] bonuses;
+
+    return output;
 }

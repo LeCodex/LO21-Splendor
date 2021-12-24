@@ -1,0 +1,1 @@
+g++ main.cpp textualcontroller.cpp game.cpp board.cpp DrawPile.cpp Bank.cpp -ltinyxml -o main

@@ -41,10 +41,17 @@ namespace Splendor
         Game &operator=(const Game &) = delete;
 
         // Singleton getter
-        static Game &getInstance(size_t n)
+        static Game &createInstance(size_t n)
         {
             if (handler.instance == nullptr)
                 handler.instance = new Game(n);
+            return *handler.instance;
+        }
+
+        static Game &getInstance()
+        {
+            if (handler.instance == nullptr)
+                throw "No instance created\n";
             return *handler.instance;
         }
 
@@ -77,6 +84,8 @@ namespace Splendor
         }
 
         virtual void cardDistribution();
+
+        size_t getNbPlayer() const { return nb_players; }
     };
 }
 #endif

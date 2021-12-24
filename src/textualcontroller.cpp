@@ -13,7 +13,7 @@ void Splendor::TextualController::initiateGame()
     Game::deleteInstance();
 
     // Instanciate the game
-    Game &game = Game::getInstance(n);
+    Game &game = Game::createInstance(n);
 
     std::cout << "A " << n << " players game has been created.\n";
 
@@ -33,7 +33,7 @@ void Splendor::TextualController::printGame()
 {
     // We get the game instance
     // -1 is to make sure the game is created (if not, provoke an error)
-    Game &game = Game::getInstance(-1);
+    Game &game = Game::getInstance();
 
     Board &board = game.getBoard();
 
@@ -48,7 +48,7 @@ void Splendor::TextualController::printGame()
     // Printing the middle board
     for (size_t i = 0; i < 3; i++)
     {
-        std::cout << "[" << i << "]";
+        std::cout << "[Lvl : " << (i + 1) << "][Remaining : " << board.getDrawPile(i).getCardAmount() << "]";
         for (size_t j = 0; j < 4; j++)
         {
             try
@@ -95,12 +95,82 @@ void Splendor::TextualController::printGame()
     std::cout << "\n";
 }
 
-void Splendor::TextualController::play(size_t i)
+void Splendor::TextualController::playTurn(size_t i)
 {
+    Game &g = Game::getInstance();
+    Player &p = g.getPlayer(i);
+
+    // List every actions
+}
+
+#define WINNING_POINTS 15
+
+bool Splendor::TextualController::hasWon(size_t i)
+{
+    Player &p = Game::getInstance().getPlayer(i);
+
+    int points = p.getPoint();
+
+    return points >= WINNING_POINTS;
+}
+
+void Splendor::TextualController::nobleVerification(size_t i)
+{
+    Game &g = Game::getInstance();
+    Player &p = g.getPlayer(i);
+
+    std::vector<const NobleCard *> nobles = g.getBoard().getNobles();
+
+    std::vector<const NobleCard *> compatibles = p.checkCompatibleNobles(nobles);
+
+    if (compatibles.size() > 0)
+    {
+        // One noble
+        if (compatibles.size() == 1)
+        {
+            // Remove from the board
+            p.putNobleCard(g.getBoard().takeNobleCard(*compatibles[0]));
+            return;
+        }
+        // Many nobles
+        // Ask which noble to remove
+        std::cout << "Many nobles wants to join your financial empire!\n"
+                  << "Unfortunately, you have to pick one (and only one) from the following :\n";
+
+        for (size_t i = 0; i < compatibles.size(); i++)
+            std::cout << "[" << i << "]" << compatibles[i]->toString() << "\n";
+
+        std::cout << "Pick a number (fast)\n";
+        int j;
+
+        std::cin >> j;
+
+        while (j < 0 || j > compatibles.size())
+        {
+            std::cout << "This number doesn't seem appropriate... "
+                      << "Please select a number between 0 and " << compatibles.size() << ".\n";
+            std::cin >> j;
+        }
+
+        p.putNobleCard(g.getBoard().takeNobleCard(*compatibles[j]));
+    }
 }
 
 void Splendor::TextualController::launch()
 {
     initiateGame();
-    printGame();
+
+    while (true)
+    {
+        printGame();
+
+        if (hasWon(actual_player))
+            break;
+
+        // Noble verification
+        nobleVerification(actual_player);
+
+        // Incrementation
+        actual_player = (actual_player + 1) % Game::getInstance().getNbPlayer();
+    }
 }

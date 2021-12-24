@@ -3,6 +3,8 @@
 
 #include "Splendor.h"
 #include "game.h"
+#include "action.h"
+#include "actions/BuyCard.h"
 #include <iostream>
 
 namespace Splendor
@@ -12,22 +14,33 @@ namespace Splendor
     protected:
         // View v;
         size_t actual_player = 0;
+        std::vector<void (*)()> actions;
 
     public:
         Controller() = default;
 
         virtual void initiateGame() = 0;
         virtual void launch() = 0;
+        virtual void playTurn(size_t) = 0;
+        // Verifiy if the specified player has won
+        virtual bool hasWon(size_t) = 0;
+        virtual void nobleVerification(size_t) = 0;
     };
 
     class TextualController : public Controller
     {
     private:
     public:
+        TextualController() : Controller()
+        {
+            // Add the actions func
+        }
         void initiateGame();
         void printGame();
+        bool hasWon(size_t);
         void launch();
-        void play(size_t);
+        void playTurn(size_t);
+        void nobleVerification(size_t);
     };
 }
 

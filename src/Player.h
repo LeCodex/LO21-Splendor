@@ -76,6 +76,8 @@ namespace Splendor
         {
             return ReservedCards[i];
         }
+
+        std::vector<const NobleCard *> checkCompatibleNobles(std::vector<const NobleCard *>);
     };
 }
 
