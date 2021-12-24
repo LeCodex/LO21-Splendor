@@ -6,6 +6,8 @@
 #include "viewtoken.h"
 #include "viewresourcecard.h"
 #include "viewnoblecard.h"
+#include <initializer_list>
+#include <list>
 
 class ViewPlayer : public QWidget
 {
@@ -13,10 +15,10 @@ class ViewPlayer : public QWidget
 private:
     QHBoxLayout* bankLayout;
     QVBoxLayout* reservedCardsLayout;
-    QVBoxLayout* resourcesLayout[3];
+    QVBoxLayout* resourcesLayout[3] = {new QVBoxLayout(), new QVBoxLayout(), new QVBoxLayout()};
     QVBoxLayout* noblesLayout;
     QHBoxLayout* cardsLayout;
-    QVBoxLayout* globalLayout;
+    QVBoxLayout* layer;
     ViewToken* viewTokens[6];
     std::vector<ViewResourceCard*> viewResourceCards;
     std::vector<ViewNobleCard*> viewNobleCards;

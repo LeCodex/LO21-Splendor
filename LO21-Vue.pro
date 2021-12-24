@@ -1,4 +1,5 @@
 QT += widgets
+QT += gui
 
 SOURCES += \
     main.cpp \
@@ -6,6 +7,7 @@ SOURCES += \
     view/viewboard.cpp \
     view/viewcard.cpp \
     view/viewclickable.cpp \
+    view/viewcost.cpp \
     view/viewdrawpile.cpp \
     view/viewgame.cpp \
     view/viewnoblecard.cpp \
@@ -19,6 +21,7 @@ HEADERS += \
     view/viewboard.h \
     view/viewcard.h \
     view/viewclickable.h \
+    view/viewcost.h \
     view/viewdrawpile.h \
     view/viewgame.h \
     view/viewnoblecard.h \

@@ -8,6 +8,8 @@ ViewCard::ViewCard(QWidget* parent) : ViewClickable(parent), card(nullptr)
     number = new QLCDNumber(this);
     number->setGeometry(0, 0, 150, 50);
     number->setFrameStyle(0);
+
+    for (size_t i = 0; i < 5; i ++) costs[i] = new ViewCost();
 }
 
 void ViewCard::updatePrestige() {

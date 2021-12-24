@@ -16,10 +16,13 @@ namespace Splendor {
     class BaseCard {
     private:
         int prestige;
+        int cost[5];
     public:
         BaseCard(int p = 0): prestige(p) {}
         int getPrestige() const { return prestige; }
         void setPrestige(int p) { prestige = p; }
+        int getTokenCost(Token t) const { return cost[t]; }
+        void setCost(int c[5]) { for (size_t i = 0; i < 5; i ++) cost[i] = c[i]; }
         virtual ~BaseCard() = default;
     };
     class NobleCard : public BaseCard {

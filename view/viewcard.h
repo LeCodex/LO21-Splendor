@@ -4,6 +4,7 @@
 #include <QLCDNumber>
 #include "splendor.h"
 #include "viewclickable.h"
+#include "viewcost.h"
 
 class ViewCard : public ViewClickable
 {
@@ -11,13 +12,15 @@ class ViewCard : public ViewClickable
 protected:
     const Splendor::BaseCard* card = nullptr;
     QLCDNumber* number;
+    ViewCost* costs[5];
 
     virtual void updateImage() = 0;
+    virtual void updateCost() = 0;
     virtual void updatePrestige();
 public:
     explicit ViewCard(QWidget* parent = nullptr);
     const Splendor::BaseCard& getCard() const { return *card; }
-    void setCard(const Splendor::BaseCard* c) { card = c; updateImage(); updatePrestige(); }
+    void setCard(const Splendor::BaseCard* c) { card = c; updateImage(); updateCost(); updatePrestige(); }
 
 signals:
     void cardClicked(ViewCard*);
