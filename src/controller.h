@@ -13,7 +13,6 @@ namespace Splendor
     protected:
         // View v;
         size_t actual_player = 0;
-        std::vector<void (*)()> actions;
 
     public:
         Controller() = default;
@@ -31,16 +30,21 @@ namespace Splendor
     {
     private:
     public:
-        TextualController() : Controller()
-        {
-            // Add the actions func
-        }
+        TextualController() = default;
         void initiateGame();
         void printGame();
         bool hasWon(size_t);
         void launch();
         void playTurn(size_t);
         void nobleVerification(size_t);
+
+        // Fonction d'actions
+        bool buyReservedCard();
+        bool buyBoardCard();
+        bool reserveCenterCard();
+        bool reserveDrawCard();
+        bool takeTwoIdenticalToken();
+        bool takeThreeDifferentToken();
     };
 }
 

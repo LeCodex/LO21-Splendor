@@ -100,7 +100,41 @@ void Splendor::TextualController::playTurn(size_t i)
     Game &g = Game::getInstance();
     Player &p = g.getPlayer(i);
 
-    // List every actions
+    size_t length = 6;
+    string actionsName[length] = {"Prendre 3 jetons pierre précieuse de couleur différente",
+                                  "Prendre 2 jetons pierre précieuse de la même couleur",
+                                  "Réserver 1 carte développement depuis une pioche et prendre 1 or (joker)",
+                                  "Réserver 1 carte développement depuis le centre et prendre 1 or (joker)",
+                                  "Acheter  1  carte  développement  face  visible  au  centre  de  la  table",
+                                  "Acheter  1  carte  développement  préalablement reservée"};
+
+    bool (Splendor::TextualController::*(actions[]))() = {&Splendor::TextualController::takeThreeDifferentToken,
+                                                          &Splendor::TextualController::takeTwoIdenticalToken,
+                                                          &Splendor::TextualController::reserveDrawCard,
+                                                          &Splendor::TextualController::reserveCenterCard,
+                                                          &Splendor::TextualController::buyBoardCard,
+                                                          &Splendor::TextualController::buyReservedCard};
+
+    // On boucle a l'infini tant qu'aucune action valide n'a été effectuée
+    do
+    { // List every actions
+        std::cout << "Joueur " << p.getName() << ", choisissez une action entre 0 et " << (length - 1) << " : \n";
+        for (size_t i = 0; i < length; i++)
+            std::cout << "[" << i << "] " << actionsName[i] << "\n";
+
+        int n;
+        std::cin >> n;
+
+        while (n < 0 || n > length)
+        {
+            std::cout << "Erreur, chiffre non pris en charge... Réessayez en choisissant une action entre 0 et " << (length - 1) << "\n";
+            std::cin >> n;
+        }
+
+        if ((*this.*actions[n])())
+            break;
+
+    } while (true);
 }
 
 #define WINNING_POINTS 15
@@ -164,13 +198,78 @@ void Splendor::TextualController::launch()
     {
         printGame();
 
-        if (hasWon(actual_player))
-            break;
+        playTurn(actual_player);
+
+        // Overflow of token verification
+        // TODO...
 
         // Noble verification
         nobleVerification(actual_player);
 
+        // End game verification
+        if (hasWon(actual_player))
+            break;
+
         // Incrementation
         actual_player = (actual_player + 1) % Game::getInstance().getNbPlayer();
     }
+}
+
+// Actions
+
+bool Splendor::TextualController::buyReservedCard()
+{
+    Game &g = Game::getInstance();
+    Player &p = g.getPlayer(actual_player);
+
+    const ResourceCard *cards[3] = {p.getReservedCards(0),
+                                    p.getReservedCards(1),
+                                    p.getReservedCards(2)};
+
+    // Cas ou aucune carte n'est reservée
+    if (cards[0] == nullptr && cards[1] == nullptr && cards[2] == nullptr)
+    {
+        std::cout << "Aucune carte reservée...\n";
+        return false;
+    }
+
+    std::cout << "Choissisez une carte entre 0 et 3\n";
+
+    int n;
+    std::cin >> n;
+
+    while (n < 0 || n > 3)
+    {
+        std::cout << "Erreur, chiffre non pris en charge... Réessayez en choisissant une carte entre 0 et 3";
+    }
+
+    if (g.buyReservedCard(*cards[n], p))
+    {
+        std::cout << "Achat de la carte reservée effectué avec succès!\n";
+        return true;
+    }
+
+    std::cout << "Impossible d'acheter la carte reservée selectionnée...\n";
+    return false;
+}
+
+bool Splendor::TextualController::buyBoardCard()
+{
+    return false;
+}
+bool Splendor::TextualController::reserveCenterCard()
+{
+    return false;
+}
+bool Splendor::TextualController::reserveDrawCard()
+{
+    return false;
+}
+bool Splendor::TextualController::takeTwoIdenticalToken()
+{
+    return false;
+}
+bool Splendor::TextualController::takeThreeDifferentToken()
+{
+    return false;
 }

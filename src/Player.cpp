@@ -41,23 +41,21 @@ void Player::putReservedCard(const ResourceCard &card)
             return;
         }
     }
-    throw "Po de place\n";
+    throw "No space available\n";
 }
 
 const ResourceCard &Player::takeReservedCard(size_t i)
 {
+    const ResourceCard &card = *ReservedCards[i];
     ReservedCards[i] = nullptr;
+    return card;
 }
 const ResourceCard &Player::takeReservedCard(const ResourceCard &card)
 {
     for (size_t i = 0; i < 3; i++)
-    {
         if (&card == ReservedCards[i])
-        {
-            ReservedCards[i] = nullptr;
-            return card;
-        }
-    }
+            return takeReservedCard(i);
+    throw "Error, this card isnt reserved by this player.\n";
 }
 
 void Player::putResourceCard(const ResourceCard &card)
