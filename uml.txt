@@ -81,6 +81,11 @@ class Game{
 -Player** players
 -Game(int nb_players)
 +start()
++reservePileCard()
++reserveBoardCard()
++buyCard()
++take2SameTokens()
++take3DifferentTokens()
 +end()
 }
 
@@ -101,11 +106,6 @@ class Rules{
 
 class Controller {
 #size_t current_player$
-+reservePileCard()
-+reserveBoardCard()
-+buyCard()
-+take2SameTokens()
-+take3DifferentTokens()
 +controller() = default
 +virtual initiatGame() = 0
 +virtual launch() = 0
