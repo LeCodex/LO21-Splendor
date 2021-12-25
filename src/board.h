@@ -21,7 +21,11 @@ namespace Splendor
         vector<const NobleCard *> nobles;
 
     public:
-        Board() = default;
+        Board()
+        {
+            int t[6] = {7, 7, 7, 7, 7, 5};
+            bank = Bank(t);
+        }
         ~Board() = default;
 
         // Replinishers

@@ -78,7 +78,7 @@ namespace Splendor
         }
 
         std::vector<const NobleCard *> checkCompatibleNobles(std::vector<const NobleCard *>);
-    };
+        };
 }
 
 #endif

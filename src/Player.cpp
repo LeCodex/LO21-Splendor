@@ -21,6 +21,9 @@ int Player::getPoint()
 int *Player::getBonuses()
 {
     int *bonuses = new int[5];
+    for (size_t i = 0; i < 5; i++)
+        bonuses[i] = 0;
+
     for (size_t i = 0; i < 3; i++)
     {
         for (auto &tmp : ressource[i])
@@ -34,13 +37,11 @@ int *Player::getBonuses()
 void Player::putReservedCard(const ResourceCard &card)
 {
     for (size_t i = 0; i < 3; i++)
-    {
-        if (ReservedCards[i] != nullptr)
+        if (ReservedCards[i] == nullptr)
         {
             ReservedCards[i] = &card;
             return;
         }
-    }
     throw "No space available\n";
 }
 

@@ -9,7 +9,7 @@ namespace Splendor
 		int tokens[6]{0, 0, 0, 0, 0, 0};
 
 	public:
-		Bank(int t[] = nullptr);
+		Bank(int t[6] = nullptr);
 
 		bool empty(Token t) const { return tokens[t] == 0; }
 		int amount(Token t) const { return tokens[t]; }

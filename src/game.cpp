@@ -83,6 +83,8 @@ bool Splendor::Game::canPlayerBuyCard(Splendor::Player &p, const Splendor::Resou
 {
     //le cumulé des jetons du joueur (notamment le gold qui est un cas particulier), et de ses bonus doivent etre suffisant pour acheter la carte
 
+    std::cout << card.toString() << "\n";
+
     int *bonus = p.getBonuses();
     int GoldAmount = p.getBank().amount(Gold);
 
@@ -209,12 +211,13 @@ bool Splendor::Game::reserveDrawCard(size_t i, Splendor::Player &p)
     // Retrait de la carte du plateau
     if (board.getDrawPile(i).empty())
         return false;
+
     const ResourceCard &card = board.getDrawPile(i).draw();
 
-    ///Ajout de la carte choisis au tableau de cartes reservées du joueur
+    // Ajout de la carte choisis au tableau de cartes reservées du joueur
     p.putReservedCard(card);
 
-    ///Ajout d'un jeton or au joueur apres chaque reservation
+    // Ajout d'un jeton or au joueur apres chaque reservation
     p.getBank().put(Gold, 1);
 
     return true;
@@ -247,7 +250,7 @@ bool Splendor::Game::takeThreeDifferentToken(Splendor::Token color1, Splendor::T
 
     // Etude de la condition de l'action
     // La banque doit avoir assez de jeton
-    if (!(board.getBank().amount(color1) >= 1) && (board.getBank().amount(color2) >= 1) && (board.getBank().amount(color3) >= 1))
+    if (!((board.getBank().amount(color1) >= 1) && (board.getBank().amount(color2) >= 1) && (board.getBank().amount(color3) >= 1)))
         return false;
 
     // Mise à jour des jetons du joueur

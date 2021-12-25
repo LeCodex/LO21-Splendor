@@ -3,7 +3,6 @@
 
 #include "Splendor.h"
 #include "game.h"
-#include "action.h"
 #include <iostream>
 
 namespace Splendor
@@ -24,6 +23,8 @@ namespace Splendor
         virtual bool hasWon(size_t) = 0;
         // Verify if the specified player can receive a noble
         virtual void nobleVerification(size_t) = 0;
+        // Verifiy if the player is too rich
+        virtual void overflowVerification(size_t) = 0;
     };
 
     class TextualController : public Controller
@@ -37,6 +38,7 @@ namespace Splendor
         void launch();
         void playTurn(size_t);
         void nobleVerification(size_t);
+        void overflowVerification(size_t);
 
         // Fonction d'actions
         bool buyReservedCard();
