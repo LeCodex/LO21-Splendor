@@ -5,6 +5,7 @@
 #include <vector>
 #include "board.h"
 #include "Player.h"
+#include "ResourceCard.h"
 #include "Deck.h"
 #include <iostream>
 #include "rules.h"
@@ -86,6 +87,28 @@ namespace Splendor
         virtual void cardDistribution();
 
         size_t getNbPlayer() const { return nb_players; }
+
+        // Actions
+
+        // Verification
+        bool canPlayerBuyCard(Player &p, const ResourceCard &card);
+        int getRealCost(Player &p, const ResourceCard &card, Token t);
+
+        // Le joueur p achete une carte qu'il a deja reservée
+        bool buyReservedCard(const ResourceCard &card, Player &p);
+
+        // Le joueur p achete une carte du plateau
+        bool buyBoardCard(const ResourceCard &card, Player &p);
+
+        // Le joueur reserve une carte
+        bool reserveCenterCard(const ResourceCard &card, Player &p);
+        bool reserveDrawCard(size_t i, Player &p);
+
+        // Le joueur prend 2 jetons identiques
+        bool takeTwoIdenticalToken(Token color, Player &p);
+
+        // Le joueur prend 3 jetons diffèrents
+        bool takeThreeDifferentToken(Token color1, Token color2, Token color3, Player &p);
     };
 }
 #endif

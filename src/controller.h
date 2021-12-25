@@ -4,7 +4,6 @@
 #include "Splendor.h"
 #include "game.h"
 #include "action.h"
-#include "actions/BuyCard.h"
 #include <iostream>
 
 namespace Splendor
@@ -24,6 +23,7 @@ namespace Splendor
         virtual void playTurn(size_t) = 0;
         // Verifiy if the specified player has won
         virtual bool hasWon(size_t) = 0;
+        // Verify if the specified player can receive a noble
         virtual void nobleVerification(size_t) = 0;
     };
 
