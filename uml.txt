@@ -106,6 +106,7 @@ class Take_3_diff_Token{
 }
 
 class DrawPile{
+##Utilisation_ITERATOR##
 -size_t nb
 -size_t nbMax
 -const BaseCard* cards[nbMax]
@@ -129,7 +130,7 @@ class Board{
 
 
 class Game{
-SINGLETON
+##SINGLETON##
 -vector<Deck*> decks
 -Board board
 -size_t nb_players
@@ -140,6 +141,7 @@ SINGLETON
 }
 
 class Deck <class T>{
+##Utilisation_ITERATOR##
 -const T** cards
 -size_t nb
 -size_t nbMax
@@ -151,6 +153,22 @@ class Rules{
 -int [nomRegle]
 +winCondition()
 }
+
+
+class Controller {
+#size_t current_player$
++controller() = default
++virtual initiatGame() = 0
++virtual launch() = 0
+}
+
+class TextualController{
++initiateGame()
++printGame()
++launch()
++play(size_t)
+}
+
 
 Game *-"1..*" Action
 Game *---- "1" Deck
@@ -172,14 +190,17 @@ BaseCard <|-- ResourceCard
 Human --|> Player
 IA --|> Player
 Action <|- Take_3_diff_Token
-Take_2_identical_Token --|> Action
+Action <|-- Take_2_identical_Token
 BuyCard--|> Action
-ReservCard--|> Action
+Action <|-- ReservCard
 
 BuyReservedCard --|> BuyCard
 BuyBoardCard--|> BuyCard
-
-
+TextualController --|> Controller
+Controller "1"-- "1" Game : control >
 Player o--"*"BaseCard
 
+
+
+note right of Board #aqua: Begining Token : \n-if 2 players:5 gold, 4 of the others \n-if 3 players:5 of each \n-if 4 players:5 gold, 7 of the others \nBegining NobleCard : \n nb of players+1 cards
 @enduml
