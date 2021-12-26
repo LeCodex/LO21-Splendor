@@ -24,32 +24,3 @@ void ViewNobleCard::updateImage() {
     setIcon(icon);
     setIconSize(QSize(120, 120));
 }
-
-void ViewNobleCard::updateCost() {
-    // Unload cost images to clear them
-    for (auto i: costs) i->getImage()->clear();;
-
-    if (!card) {
-        return;
-    } else {
-        std::string icons[6] = {
-            ":/cards/red",
-            ":/cards/blue",
-            ":/cards/green",
-            ":/cards/white",
-            ":/cards/black"
-        };
-
-        size_t j = 0;
-        for (size_t i = 0; i < 5; i ++) {
-            int c = card->getTokenCost((Splendor::Token)i);
-
-            if (c > 0) {
-                QPixmap pixmap(icons[i].c_str());
-                costs[j]->getImage()->setPixmap(pixmap);
-                costs[j]->getAmount()->display(c);
-                j++;
-            }
-        }
-    }
-}

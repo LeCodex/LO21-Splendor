@@ -8,7 +8,6 @@ class ViewResourceCard : public ViewCard
     Q_OBJECT
 protected:
     void updateImage() override;
-    void updateCost() override;
 public:
     ViewResourceCard(QWidget* parent = nullptr);
 };

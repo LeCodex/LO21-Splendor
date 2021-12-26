@@ -8,7 +8,6 @@ class ViewNobleCard : public ViewCard
     Q_OBJECT
 protected:
     void updateImage() override;
-    void updateCost() override;
 public:
     ViewNobleCard(QWidget* parent = nullptr);
 };
