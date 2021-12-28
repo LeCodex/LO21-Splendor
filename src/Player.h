@@ -54,6 +54,16 @@ namespace Splendor {
 
         const ResourceCard** getReservedCards() { return ReservedCards; };
     };
+
+    class PlayerExtStronghold : public Player{
+    private:
+        size_t availableStrongholds;
+
+    public:
+        size_t getAvailableStrongholds () {return availableStrongholds;}
+        void putStrongholds();
+        void takeStrongholds();
+    };
 }
 
 #endif
