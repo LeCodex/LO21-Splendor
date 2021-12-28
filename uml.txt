@@ -49,63 +49,8 @@ class NobleCard{
 +NobleCard(int c[], int p)
 }
 
-abstract Action{
-+virtual bool condition(Board& b,Player& p) const = 0
-+virtual void executer(Board& b,Player& p)= 0
-}
-
-class Take_2_identical_Token{
--Token color
--void BankUpdate(Board& b) const
--void PlayerTokenUpdate(Player& p) const
-+Take_2_identical_Token(Token c )
-+bool condition(Board& b,Player& p) const
-+void executer(Board& b,Player& p) final
-}
-
-class ReservCard{
--const BaseCard card
--void BoardUpdate(Board& b) const
--void PlayerTokenUpdate(Player& p) const
--void PlayerCardUpdate(Player& p) const
-+ReservCard(const BaseCard c )
-+bool condition(Board& b,Player& p) const
-+void executer(Board& b,Player& p) final
-}
-
-class BuyCard{
-#const BaseCard card
-#void BankUpdate(Board& b) const
-#void PlayerTokenUpdate(Player& p) const
-#void PlayerCardUpdate(Player& p) const
-+explicit BuyCard(const BaseCard c)
-+bool condition(Board& b,Player& p) const final
-+virtual void executer(Board& b,Player& p) const = 0
-}
-
-class BuyReservedCard{
--void ReservedCardUpdate(Player& p) const
-+void executer(Board& b,Player& p) const final
-}
-
-class BuyBoardCard{
--void BoardCardUpdate(Board& b) const
-+void executer(Board& b,Player& p) const final
-}
-
-
-class Take_3_diff_Token{
--Token color1
--Token color2
--Token color3
--void PlayerTokenUpdate(Player& p) const
--void BankUpdate(Board& b) const
-+Take_3_diff_Token(Token c1, Token c2, Token c3 )
-+bool condition(Board& b,Player& p) const
-+void executer(Board& b,Player& p) final
-}
-
 class DrawPile{
+##Utilisation_ITERATOR##
 -size_t nb
 -size_t nbMax
 -const BaseCard* cards[nbMax]
@@ -129,17 +74,23 @@ class Board{
 
 
 class Game{
-SINGLETON
+##SINGLETON##
 -vector<Deck*> decks
 -Board board
 -size_t nb_players
 -Player** players
 -Game(int nb_players)
 +start()
++reservePileCard()
++reserveBoardCard()
++buyCard()
++take2SameTokens()
++take3DifferentTokens()
 +end()
 }
 
 class Deck <class T>{
+##Utilisation_ITERATOR##
 -const T** cards
 -size_t nb
 -size_t nbMax
@@ -152,7 +103,22 @@ class Rules{
 +winCondition()
 }
 
-Game *-"1..*" Action
+
+class Controller {
+#size_t current_player$
++controller() = default
++virtual initiatGame() = 0
++virtual launch() = 0
+}
+
+class TextualController{
++initiateGame()
++printGame()
++launch()
++play(size_t)
+}
+
+
 Game *---- "1" Deck
 Player "2..4"  -*  Game
 Game *---"1" Board
@@ -171,15 +137,12 @@ BaseCard <|-- NobleCard
 BaseCard <|-- ResourceCard
 Human --|> Player
 IA --|> Player
-Action <|- Take_3_diff_Token
-Take_2_identical_Token --|> Action
-BuyCard--|> Action
-ReservCard--|> Action
 
-BuyReservedCard --|> BuyCard
-BuyBoardCard--|> BuyCard
-
-
+TextualController --|> Controller
+Controller "1"-- "1" Game : control >
 Player o--"*"BaseCard
 
+
+
+note right of Board #aqua: Begining Token : \n-if 2 players:5 gold, 4 of the others \n-if 3 players:5 of each \n-if 4 players:5 gold, 7 of the others \nBegining NobleCard : \n nb of players+1 cards
 @enduml
