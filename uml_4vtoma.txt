@@ -1,0 +1,161 @@
+@startuml
+abstract Player{
+-name string
+-Bank banque
+-const RessourceCard** cards[3]
+-const NobleCard** nobles
+-const BaseCard ReservedCards[3]
++int TotalToken()
++Bank getBank()
++string getName()
++int* getBonuses()
++int getPoint()
++void putReservedCard(const ResourceCard &card)
++const ResourceCard& takeReservedCard(size_t i)
++const ResourceCard& takeReservedCard(const ResourceCard &card)
++void putResourceCard(const ResourceCard &card)
++void putNobleCard(const NobleCard &card)
++ const ResourceCard** getReservedCards()
+}
+
+enum Token{
+BLUE,RED,GREEN,WHITE,BLACK,GOLD;
+}
+
+class Bank {
+-int tokens[6]
++Bank()
++bool empty(Token t) const
++int amount(Token t) const
++int take(Token t, int amount)
++int put(Token t, int amount)
+}
+
+abstract BaseCard{
+-int cost[5]
+-int prestige
+-void setCost(int newCost[])
++BaseCard(int c[], int p)
++const int* getFullCost()
++int getCost(Token t) const
++int getPrestige()
+}
+
+class ResourceCard{
+-Token resource
+-int level
++ResourceCard(int c[], int p, Token r, int l)
++Token getResource() const
++int getLevel() const
+}
+
+class NobleCard{
++NobleCard(int c[], int p)
+}
+
+class DrawPile{
+##Utilisation_ITERATOR##
+-size_t nb
+-size_t nbMax
+-const BaseCard* cards[nbMax]
++BaseCard* draw()
++void addCard(BaseCard &c)
++void addCard(BaseCard **c, size_t nb)
++DrawPile(size_t nb, size_t nbMax)
+}
+
+class Board{
+-ResourceCard* cards[3][4]
+-Bank bank
+-DrawPile drawpiles[3]
+-NobleCard **nobles
++Board(ResourceCard** r[3], NobleCard** n)
++ResourceCard& takeCenterCard(int i, int j)
++Bank& getBank()
++ResourceCard& takeDrawCard(int i)
++NobleCard** getNobles()
+}
+
+
+class Game{
+##SINGLETON##
+-vector<Deck*> decks
+-Board board
+-size_t nb_players
+-Player** players
+-Game(int nb_players)
++start()
++reservePileCard()
++reserveBoardCard()
++buyCard()
++take2SameTokens()
++take3DifferentTokens()
++end()
+}
+
+class Deck <class T>{
+##Utilisation_ITERATOR##
+-const T** cards
+-size_t nb
+-size_t nbMax
++Deck(string data)
++const T** getCards()
+}
+
+class Rules{
+-int [nomRegle]
++winCondition()
+}
+
+
+class Controller {
+#size_t current_player$
++controller() = default
++virtual initiatGame() = 0
++virtual launch() = 0
+}
+
+class TextualController{
++TextualController() = default
++void initiateGame()
++void printGame()
++bool hasWon(size_t)
++void launch()
++void playTurn(size_t)
++void nobleVerification(size_t)
++bool buyReservedCard();
++bool buyBoardCard();
++bool reserveCenterCard();
++bool reserveDrawCard();
++bool takeTwoIdenticalToken();
++bool takeThreeDifferentToken();
+}
+
+
+Game *---- "1" Deck
+Player "2..4"  -*  Game
+Game *---"1" Board
+Rules "1..*"-* Game
+Board o-"*" BaseCard
+DrawPile_lv1.. DrawPile  : instance
+DrawPile_lv2.. DrawPile : instance
+DrawPile_lv3 .. DrawPile : instance
+DrawPile o-- BaseCard
+Board *--- DrawPile
+BaseCard -* Deck
+Bank "1"-o Board
+Player o--"1" Bank
+Token -o Bank
+BaseCard <|-- NobleCard
+BaseCard <|-- ResourceCard
+Human --|> Player
+IA --|> Player
+
+TextualController --|> Controller
+Controller "1"-- "1" Game : control >
+Player o--"*"BaseCard
+
+
+
+note right of Board #aqua: Begining Token : \n-if 2 players:5 gold, 4 of the others \n-if 3 players:5 of each \n-if 4 players:5 gold, 7 of the others \nBegining NobleCard : \n nb of players+1 cards
+@enduml
