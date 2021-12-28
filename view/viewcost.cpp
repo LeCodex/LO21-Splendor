@@ -3,13 +3,11 @@
 ViewCost::ViewCost(QWidget *parent) : QWidget(parent)
 {
     amount = new QLCDNumber(1, this);
-    amount->setFixedHeight(50);
-    amount->setFixedWidth(20);
     amount->setFrameStyle(0);
     amount->setContentsMargins(0, 0, 0, 0);
+    amount->setMinimumHeight(50);
 
-    setFixedHeight(50);
-    setFixedWidth(20);
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
 
 ViewCost::~ViewCost() {

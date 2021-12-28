@@ -5,6 +5,7 @@ SOURCES += \
     main.cpp \
     view/controller.cpp \
     view/viewboard.cpp \
+    view/viewbonus.cpp \
     view/viewcard.cpp \
     view/viewclickable.cpp \
     view/viewcost.cpp \
@@ -19,6 +20,7 @@ HEADERS += \
     view/controller.h \
     view/splendor.h \
     view/viewboard.h \
+    view/viewbonus.h \
     view/viewcard.h \
     view/viewclickable.h \
     view/viewcost.h \

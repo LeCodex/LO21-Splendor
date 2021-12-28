@@ -13,13 +13,22 @@ class ViewGame : public QWidget
 private:
     Splendor::Game* game;
     Splendor::Controller* controller; // Might not be necessary if the Controller is a Singleton
-    QHBoxLayout* playersLayout;
-    QVBoxLayout* globalLayout;
+
+    QVBoxLayout* playersLayout;
+    QHBoxLayout* gameLayout;
+    QHBoxLayout* infoLayout;
+    QVBoxLayout* layer;
+
+    QLabel* info;
     ViewBoard* board;
     std::vector<ViewPlayer*> viewPlayers;
 public:
     // Might make it into a Singleton too
     explicit ViewGame(Splendor::Game* g, QWidget* parent = nullptr);
+    auto getPlayers() const { return viewPlayers; }
+    auto getBoard() const { return board; }
+
+    void setInfo(std::string i) { info->setText(i.c_str()); }
 };
 
 #endif // VIEWGAME_H

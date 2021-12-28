@@ -2,13 +2,18 @@
 
 ViewToken::ViewToken(Splendor::Token t, QWidget* parent) : ViewClickable(parent), token(t)
 {
-    setFixedWidth(100);
-    setFixedHeight(100);
     setFlat(true);
 
-    number = new QLCDNumber(this);
-    number->setGeometry(0, 0, 100, 100);
+    number = new QLCDNumber(1);
+    number->setMinimumHeight(40);
     number->setFrameStyle(0);
+    number->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    layout = new QHBoxLayout();
+    layout->addWidget(number, 0, Qt::AlignCenter);
+
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    setLayout(layout);
 
     updateIcon();
     updateAmount();

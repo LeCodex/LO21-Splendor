@@ -15,6 +15,8 @@ protected:
     QLCDNumber* number;
     ViewCost* costs[5];
     QVBoxLayout* costLayout;
+    QVBoxLayout* rightLayout;
+    QHBoxLayout* layer;
 
     virtual void updateImage() = 0;
     virtual void updateCost();
@@ -28,7 +30,7 @@ signals:
     void cardClicked(ViewCard*);
 public slots:
 private slots:
-    void clickedEvent() { emit cardClicked(this); }
+    void clickedEvent() override { emit cardClicked(this); }
 };
 
 #endif // VUECARD_H

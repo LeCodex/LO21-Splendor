@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QLCDNumber>
+#include <QLayout>
 #include "splendor.h"
 #include "viewclickable.h"
 
@@ -13,6 +14,7 @@ private:
     Splendor::Token token;
     int amount = 0;
     QLCDNumber* number;
+    QHBoxLayout* layout;
 
     void updateIcon();
     void updateAmount();

@@ -1,27 +1,117 @@
 #include "viewplayer.h"
 
-ViewPlayer::ViewPlayer(QWidget *parent) : QWidget(parent)
+ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), player(p), nbReserved(0)
 {
+    // Score
+    score = new QLCDNumber();
+    score->display(0);
+
     // Bank
     bankLayout = new QHBoxLayout();
     for (int i = 0; i < 6; i++) {
         viewTokens[i] = new ViewToken((Splendor::Token)i);
-        viewTokens[i]->setAmount(8);
+        viewTokens[i]->setAmount(0);
         bankLayout->addWidget(viewTokens[i]);
     }
 
     // Cards
-    noblesLayout = new QVBoxLayout();
     reservedCardsLayout = new QVBoxLayout();
+    for (size_t i = 0; i < 3; i++) {
+        viewReservedCards[i] = new ViewResourceCard();
+        viewReservedCards[i]->setCard(nullptr);
+        reservedCardsLayout->addWidget(viewReservedCards[i]);
+    }
 
-    cardsLayout = new QHBoxLayout();
-    cardsLayout->addLayout(noblesLayout);
-    for (auto r : resourcesLayout) cardsLayout->addLayout(r);
-    cardsLayout->addLayout(reservedCardsLayout);
+    // Hand
+    hand = new QWidget();
+    hand->setLayout(reservedCardsLayout);
+
+    handButton = new QPushButton();
+    handButton->setText("Montrer les cartes réservées (0)");
+    connect(handButton, SIGNAL(clicked()), this, SLOT(showHand()));
+
+    // Infos
+    scoreLabel = new QLabel();
+    scoreLabel->setText("Score:");
+//    scoreLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+
+    nameLabel = new QLabel();
+    nameLabel->setText(player->getName().c_str());
+
+    infoLayout = new QHBoxLayout();
+    infoLayout->addWidget(scoreLabel);
+    infoLayout->addWidget(score);
+    infoLayout->addWidget(handButton);
+
+    bonusLayout = new QHBoxLayout();
+    std::string paths[5] {
+        ":/cards/red",
+        ":/cards/blue",
+        ":/cards/green",
+        ":/cards/white",
+        ":/cards/black"
+    };
+    for (size_t i = 0; i < 5; i++) {
+        viewBonus[i] = new ViewBonus(paths[i]);
+        bonusLayout->addWidget(viewBonus[i]);
+    }
 
     layer = new QVBoxLayout();
+    layer->addLayout(infoLayout);
+    layer->addLayout(bonusLayout);
     layer->addLayout(bankLayout);
-    layer->addLayout(cardsLayout);
 
     setLayout(layer);
+    setFrameStyle(1);
+
+    setAsCurrent(false);
+}
+
+void ViewPlayer::updateCurrentStatus() {
+    handButton->setDisabled(!isCurrent);
+    for (size_t i = 0; i < 5; i ++) viewBonus[i]->setDisabled(!isCurrent);
+    for (size_t i = 0; i < 6; i ++) viewTokens[i]->setDisabled(!isCurrent);
+    setFrameShadow(isCurrent ? Shadow::Raised : Shadow::Plain);
+};
+
+void ViewPlayer::updateCards() {
+    // Resources
+    std::vector<const Splendor::ResourceCard*> cards;
+    for (size_t i = 0; i < 3; i++) {
+        auto level = player->getRessources(i);
+        for (auto c : level) {
+            cards.push_back(c);
+        }
+    }
+
+    int amounts[5] = {0, 0, 0, 0, 0};
+    for (auto c : cards) {
+        amounts[c->getToken()]++;
+    }
+
+    for (size_t i = 0; i < 5; i++) {
+        viewBonus[i]->updateAmount(amounts[i]);
+    }
+
+    // Reserved
+    for (size_t i = 0; i < 3; i++) {
+        viewReservedCards[i]->setCard(player->getReservedCards(i));
+    }
+}
+
+void ViewPlayer::updateTokens() {
+    for (size_t i = 0; i < 6; i++) {
+        viewTokens[i]->setAmount(player->getBank().getAll()[i]);
+    }
+}
+
+ViewPlayer::~ViewPlayer() {
+    delete(bankLayout);
+    delete(bonusLayout);
+    delete(infoLayout);
+    delete(nameLabel);
+    delete(scoreLabel);
+    delete(score);
+    delete(hand);
+    delete(handButton);
 }

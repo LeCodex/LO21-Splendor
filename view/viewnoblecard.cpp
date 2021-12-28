@@ -4,8 +4,8 @@
 
 ViewNobleCard::ViewNobleCard(QWidget* parent) : ViewCard(parent)
 {
-    setFixedWidth(150);
-    setFixedHeight(150);
+//    setFixedWidth(150);
+//    setFixedHeight(150);
 }
 
 void ViewNobleCard::updateImage() {
@@ -22,5 +22,5 @@ void ViewNobleCard::updateImage() {
 
     QIcon icon(pixmap);
     setIcon(icon);
-    setIconSize(QSize(120, 120));
+    setIconSize(QSize(100, 100));
 }
