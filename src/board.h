@@ -25,6 +25,7 @@ namespace Splendor
         {
             int t[6] = {7, 7, 7, 7, 7, 5};
             bank = Bank(t);
+            for (size_t i = 0; i < 3; i ++) for (size_t j = 0; j < 4; j ++) cards[i][j] = nullptr;
         }
         ~Board() = default;
 

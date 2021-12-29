@@ -35,7 +35,7 @@ namespace Splendor
     public:
         Game(size_t n);
 
-        ~Game();
+        virtual ~Game();
 
         // Deletion of the assign and copy constructor
         Game(const Game &) = delete;

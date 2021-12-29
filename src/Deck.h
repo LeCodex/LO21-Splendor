@@ -101,6 +101,7 @@ namespace Splendor
 				}
 
 			// Now our deck has been loaded
+            qInfo() << "Resources loaded";
 		}
 		else
 			throw "Could not load the specified file...\n";
@@ -162,6 +163,7 @@ namespace Splendor
                 }
 
             // Now our deck has been loaded
+            qInfo() << "Nobles loaded";
         }
         else
             throw "Could not load the specified file...\n";
