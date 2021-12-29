@@ -94,9 +94,17 @@ void ViewPlayer::updateCards() {
     }
 
     // Reserved
+    size_t amount = 0;
     for (size_t i = 0; i < 3; i++) {
-        viewReservedCards[i]->setCard(player->getReservedCards(i));
+        if (player->getReservedCards(i)) {
+            viewReservedCards[i]->setCard(player->getReservedCards(i));
+            amount++;
+        }
     }
+    std::string text = "Montrer les cartes réservées (";
+    text.append(std::to_string(amount));
+    text.append(")");
+    handButton->setText(text.c_str());
 }
 
 void ViewPlayer::updateTokens() {
