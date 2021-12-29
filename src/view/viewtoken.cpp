@@ -37,7 +37,7 @@ void ViewToken::updateIcon() {
 
 void ViewToken::updateAmount() {
     number->display(amount);
-    number->setPalette(Qt::gray);
+    number->setPalette(Qt::darkGray);
 
     if (amount == 0)
         number->setPalette(Qt::red);

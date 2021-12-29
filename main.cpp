@@ -25,6 +25,7 @@ int main(int argc, char* argv[]) {
 //    ViewPlayer player;
 //    player.show();
 
+    srand(time(NULL));
     Splendor::Game& g = Splendor::Game::createInstance(4);
 
     ViewGame game(&g);
