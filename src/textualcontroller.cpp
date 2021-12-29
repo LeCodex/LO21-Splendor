@@ -314,7 +314,7 @@ bool Splendor::TextualController::buyBoardCard()
 
     if (g.buyBoardCard(card, p))
     {
-        std::cout << "Achat de la carte reservée effectué avec succès!\n";
+        std::cout << "Achat de la carte effectué avec succès!\n";
         return true;
     }
 
