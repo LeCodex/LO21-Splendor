@@ -2,6 +2,7 @@
 #define VUEDRAWPILE_H
 
 #include <QWidget>
+#include <QLCDNumber>
 #include "../Splendor.h"
 #include "viewclickable.h"
 #include "../DrawPile.h"
@@ -10,11 +11,12 @@ class ViewDrawPile : public ViewClickable
 {
     Q_OBJECT
 private:
-    QImage back;
+    QLCDNumber* quantity;
 
     Splendor::DrawPile* drawPile;
 public:
     ViewDrawPile(Splendor::DrawPile& d, QWidget* parent = nullptr);
+    void updateQuantity();
 
 signals:
     void drawPileClicked(ViewDrawPile*);

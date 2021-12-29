@@ -6,6 +6,7 @@
 #include "viewresourcecard.h"
 #include "viewnoblecard.h"
 #include "viewtoken.h"
+#include "viewdrawpile.h"
 #include "../board.h"
 
 class ViewBoard : public QWidget
@@ -19,6 +20,7 @@ private:
     QHBoxLayout* nobleCardsLayout;
     std::vector<ViewResourceCard*> viewResourceCards;
     std::vector<ViewNobleCard*> viewNobleCards;
+    std::vector<ViewDrawPile*> viewDrawPiles;
     ViewToken* viewTokens[6]; // The bank
 
     Splendor::Board* board;

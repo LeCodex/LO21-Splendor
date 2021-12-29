@@ -16,10 +16,12 @@ ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), boa
     // Resource cards
     resourceCardsLayout = new QGridLayout();
     for (size_t i = 0; i < 3; i++) {
+        viewDrawPiles.push_back(new ViewDrawPile(board->getDrawPile(i)));
+        resourceCardsLayout->addWidget(viewDrawPiles.back(), i, 0);
         for (size_t j = 0; j < 4; j ++) {
             viewResourceCards.push_back(new ViewResourceCard());
             viewResourceCards.back()->setCard(nullptr);
-            resourceCardsLayout->addWidget(viewResourceCards.back(), i, j);
+            resourceCardsLayout->addWidget(viewResourceCards.back(), i, j + 1);
         }
     }
 
