@@ -17,4 +17,19 @@ namespace Splendor {
 		// bool getFlipped() const { return flipped; }
 		// bool flip() { flipped = !flipped; return flipped; }
 	};
+
+	class ResourceCardStronghold : public ResourceCard{
+	private:
+		Player& occupant;
+		size_t nbStronghold;
+	public:
+		Player& getOccupant() {return occupant;}
+		size_t getNbStrongholds() {return nbStronghold;}
+
+		bool canBeConquested() {return (nbStronghold==3);}
+
+		bool occupy(PlayerExtStronghold& player);
+		bool remove(PlayerExtStronghold& player);
+		bool conquest ();
+	};
 }
