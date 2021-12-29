@@ -3,7 +3,6 @@
 #include "ResourceCard.h"
 #include "NobleCard.h"
 #include <vector>
-#include <tinyxml.h>
 #include <QFile>
 #include <QDomDocument>
 #include <QDebug>

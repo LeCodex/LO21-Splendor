@@ -55,7 +55,10 @@ void ViewCard::updateCost() {
         for (size_t i = 0; i < 5; i ++) {
             int c = card->getCost((Splendor::Token)i);
 
+            // qInfo() << QString::fromStdString(Splendor::getTokenName((Splendor::Token) i)) << " : " << c << "\n";
+
             if (c > 0) {
+
                 costs[j]->getAmount()->display(c);
                 costs[j]->getAmount()->setPalette(colors[i]);
                 costs[j]->getAmount()->show();

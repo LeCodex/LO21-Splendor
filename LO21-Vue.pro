@@ -4,6 +4,7 @@ QT += xml
 
 SOURCES += \
     main.cpp \
+    src/View.cpp \
     src/controller.cpp \
     src/DrawPile.cpp \
     src/Bank.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     src/view/viewtoken.cpp \
 
 HEADERS += \
+    src/View.h \
     src/controller.h \
     src/Splendor.h \
     src/DrawPile.h \

@@ -244,31 +244,6 @@ void Splendor::TextualController::overflowVerification(size_t i)
     std::cout << "Perfect, you now have exactly 10 tokens!\n";
 }
 
-void Splendor::TextualController::launch()
-{
-    initiateGame();
-
-    while (true)
-    {
-        printGame();
-
-        playTurn(actual_player);
-
-        // Overflow of token verification
-        overflowVerification(actual_player);
-
-        // Noble verification
-        nobleVerification(actual_player);
-
-        // End game verification
-        if (hasWon(actual_player))
-            break;
-
-        // Incrementation
-        actual_player = (actual_player + 1) % Game::getInstance().getNbPlayer();
-    }
-}
-
 // Actions
 
 bool Splendor::TextualController::buyReservedCard()

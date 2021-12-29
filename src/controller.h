@@ -4,20 +4,43 @@
 #include "Splendor.h"
 #include "game.h"
 #include <iostream>
+#include "View.h"
 
 namespace Splendor
 {
     class Controller
     {
     protected:
-        // View v;
+        View* view;
         size_t actual_player = 0;
 
     public:
         Controller() = default;
 
+        void launch(){
+            initiateGame();
+
+            while (true)
+            {
+                view->update();
+
+                playTurn(actual_player);
+
+                // Overflow of token verification
+                overflowVerification(actual_player);
+
+                // Noble verification
+                nobleVerification(actual_player);
+
+                // End game verification
+                if (hasWon(actual_player))
+                    break;
+
+                // Incrementation
+                actual_player = (actual_player + 1) % Game::getInstance().getNbPlayer();
+            }
+        }
         virtual void initiateGame() = 0;
-        virtual void launch() = 0;
         virtual void playTurn(size_t) = 0;
         // Verifiy if the specified player has won
         virtual bool hasWon(size_t) = 0;
@@ -33,7 +56,6 @@ namespace Splendor
     public:
         TextualController() = default;
         void initiateGame();
-        void printGame();
         bool hasWon(size_t);
         void launch();
         void playTurn(size_t);
