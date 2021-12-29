@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/tokens">
+        <file alias="black">img/tokens/black.png</file>
+        <file alias="blue">img/tokens/blue.png</file>
+        <file alias="gold">img/tokens/gold.png</file>
+        <file alias="green">img/tokens/green.png</file>
+        <file alias="red">img/tokens/red.png</file>
+        <file alias="white">img/tokens/white.png</file>
+    </qresource>
+    <qresource prefix="/cards">
+        <file alias="green">img/card icons/forest.png</file>
+        <file alias="white">img/card icons/hills.png</file>
+        <file alias="blue">img/card icons/island.png</file>
+        <file alias="red">img/card icons/peaks.png</file>
+        <file alias="black">img/card icons/swamp.png</file>
+    </qresource>
+    <qresource prefix="/nobles">
+        <file alias="abbot">img/nobles/abbot-meeple.png</file>
+    </qresource>
+    <qresource prefix="/general">
+        <file alias="unknown">img/uncertainty.png</file>
+    </qresource>
+</RCC>

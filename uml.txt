@@ -1,0 +1,149 @@
+@startuml
+class QFrame {}
+class QPushButton {}
+class QWidget {}
+
+class ViewPlayer {
+-Splendor::Player* player
+-QHBoxLayout* infoLayout
+-QLCDNumber* score
+-QLabel* scoreLabel
+-QLabel* nameLabel
+-ViewResourceCard* viewReservedCards[3]
+-QVBoxLayout* reservedCardsLayout
+-size_t nbReserved = 0
+-QPushButton* handButton
+-QWidget* hand
+-QHBoxLayout* bonusLayout
+-ViewBonus* viewBonus[6]
+-QHBoxLayout* bankLayout
+-ViewToken* viewTokens[6]
+-QVBoxLayout* layer
+-bool isCurrent
+-void updateCurrentStatus()
++ViewPlayer(Splendor::Player *player, QWidget *parent=nullptr)
++ViewToken* getToken(Splendor::Token token) const
++void setAsCurrent(bool c)
++auto getReservedCards() const
++auto getTokens() const
++auto getBonus() const
++void updateCards()
++void updateTokens()
++~ViewPlayer()
+}
+
+class ViewClickable {
++ViewClickable(QWidget* parent = nullptr)
++virtual ~ViewClickable() = default
+}
+
+class ViewToken {
+-Splendor::Token token
+-int amount = 0
+-QLCDNumber* number
+-QHBoxLayout* layout
+-void updateIcon()
+-void updateAmount()
++ViewToken(Splendor::Token t, QWidget* parent = nullptr)
++void setAmount(int a)
++int getAmount() const
++void setToken(Splendor::Token t)
++Splendor::Token getToken() const
+}
+
+class ViewBonus {
+-QLCDNumber* number
+-QHBoxLayout* layout
++explicit ViewBonus(std::string& path, QWidget *parent = nullptr)
++void updateIcon(std::string& path)
++void updateAmount(int amount)
+}
+
+class ViewCost {
+-QLCDNumber* amount
++explicit ViewCost(QWidget *parent = nullptr)
++QLCDNumber* getAmount() const
++~ViewCost()
+}
+
+abstract class ViewCard {
+#const Splendor::BaseCard* card = nullptr
+#QLCDNumber* number
+#ViewCost* costs[5]
+#QVBoxLayout* costLayout
+#QVBoxLayout* rightLayout
+#QHBoxLayout* layer
+#virtual void updateImage() = 0
+#virtual void updateCost()
+#virtual void updatePrestige()
++explicit ViewCard(QWidget* parent = nullptr)
++const Splendor::BaseCard& getCard() const
++void setCard(const Splendor::BaseCard* c)
+}
+
+class ViewResourceCard {
+#void updateImage() override
++ViewResourceCard(QWidget* parent = nullptr)
+}
+
+class ViewNobleCard {
+#void updateImage() override
++ViewNobleCard(QWidget* parent = nullptr)
+}
+
+class ViewBoard {
+-QHBoxLayout* layer
+-QVBoxLayout* cardBoardLayout
+-QGridLayout* resourceCardsLayout
+-QVBoxLayout* centralBankLayout
+-QHBoxLayout* nobleCardsLayout
+-std::vector<ViewResourceCard*> viewResourceCards
+-std::vector<ViewNobleCard*> viewNobleCards
+-ViewToken* viewTokens[6]
+-Splendor::Board* board
++explicit ViewBoard(Splendor::Board& b, QWidget *parent = nullptr)
++auto getResourceCards() const
++auto getNobleCards() const
++auto getTokens() const
++void updateCards()
++void updateTokens()
+}
+
+class ViewGame {
+-Splendor::Game* game
+-Splendor::Controller* controller
+-QVBoxLayout* playersLayout
+-QHBoxLayout* gameLayout
+-QHBoxLayout* infoLayout
+-QVBoxLayout* layer
+-QLabel* info
+-ViewBoard* board
+-std::vector<ViewPlayer*> viewPlayers
++explicit ViewGame(Splendor::Game* g, QWidget* parent = nullptr)
++auto getPlayers() const
++auto getBoard() const
++void setInfo(std::string i)
+}
+
+ViewGame *-- ViewBoard
+ViewGame *-- ViewPlayer
+QWidget <|-- ViewGame
+ViewBoard *-- ViewToken
+ViewBoard *-- ViewResourceCard
+ViewBoard *-- ViewNobleCard
+QWidget <|-- ViewBoard
+ViewCard <|-- ViewNobleCard
+ViewCard <|-- ViewResourceCard
+ViewCard *-- ViewCost
+ViewClickable <|-- ViewCard
+ViewPlayer *-- ViewBonus
+ViewPlayer *-- ViewToken
+ViewPlayer *-- ViewResourceCard
+ViewPlayer *- QPushButton
+QWidget <|-- ViewCost
+QWidget <|-- QFrame
+ViewClickable <|-- ViewBonus
+ViewClickable <|-- ViewToken
+QPushButton <|-- ViewClickable
+QFrame <|-- ViewPlayer
+@enduml

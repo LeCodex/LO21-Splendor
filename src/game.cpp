@@ -17,10 +17,10 @@ Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
         // Deck must be generated manually
 
         // Noble deck generation :
-        resources.loadXML("../data/resources.xml");
+        resources.loadXML(":/resources/resourcesxml");
 
         // Ressource deck generation :
-        nobles.loadXML("../data/nobles.xml");
+        nobles.loadXML(":/nobles/noblesxml");
 
         // Board card distribution
         cardDistribution();
@@ -64,8 +64,6 @@ void Splendor::Game::cardDistribution()
 Splendor::Game::~Game()
 {
     // Deleting the players
-    for (size_t i = 0; i < nb_players; i++)
-        delete players[i];
     delete[] players;
 }
 

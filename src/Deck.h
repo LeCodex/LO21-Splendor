@@ -1,7 +1,12 @@
 #pragma once
 #include "BaseCard.h"
+#include "ResourceCard.h"
+#include "NobleCard.h"
 #include <vector>
 #include <tinyxml.h>
+#include <QFile>
+#include <QDomDocument>
+#include <QDebug>
 
 namespace Splendor
 {
@@ -32,19 +37,27 @@ namespace Splendor
 	};
 
 	template <>
-	inline void Deck<ResourceCard>::loadXML(const std::string &filename)
+    inline void Deck<ResourceCard>::loadXML(const std::string &filename)
 	{
 		std::cout << "Resources loading...\n";
 
-		TiXmlDocument doc(filename);
-		if (doc.LoadFile())
-		{
-			TiXmlElement *elem = doc.FirstChildElement("cards");
-			if (elem)
-			{
-				TiXmlElement *child = elem->FirstChildElement("card");
-				while (child)
+        QFile file(QString::fromStdString(filename));
+
+        file.open(QFile::ReadOnly | QFile::Text);
+
+        QDomDocument doc;
+
+        doc.setContent(&file, false);
+
+        // racine pointe sur cards
+        QDomElement racine = doc.documentElement();
+
+        if (!racine.isNull())
+        {
+                QDomElement child = racine.firstChildElement("card");
+                while (!child.isNull())
 				{
+
 					// Now we iterate through cards
 					int price[5];
 					int prestige;
@@ -52,42 +65,42 @@ namespace Splendor
 					int level;
 
 					// We load token price
-					TiXmlElement *param = child->FirstChildElement("cost");
+                    QDomElement param = child.firstChildElement("cost");
 
-					if (param)
+                    if (!param.isNull())
 					{
-						TiXmlElement *cost = param->FirstChildElement("token");
+                        QDomElement cost = param.firstChildElement("token");
 
 						size_t i = 0;
-						while (cost)
+                        while (!cost.isNull())
 						{
-							price[i++] = std::stoi(cost->GetText());
-							cost = cost->NextSiblingElement("token");
+                            price[i++] = std::stoi(cost.text().toStdString());
+                            cost = cost.nextSiblingElement("token");
 						}
 					}
 
 					// We load prestige
-					param = param->NextSiblingElement("prestige");
-					if (param)
-						prestige = std::stoi(param->GetText());
+                    param = param.nextSiblingElement("prestige");
+                    if (!param.isNull())
+                        prestige = std::stoi(param.text().toStdString());
 
 					// We load resource
-					param = param->NextSiblingElement("resource");
-					if (param)
-						resource = Token(std::stoi(param->GetText()));
+                    param = param.nextSiblingElement("resource");
+                    if (!param.isNull())
+                        resource = Token(std::stoi(param.text().toStdString()));
 
 					// We load level
-					param = param->NextSiblingElement("level");
-					if (param)
-						level = std::stoi(param->GetText());
+                    param = param.nextSiblingElement("level");
+                    if (!param.isNull())
+                        level = std::stoi(param.text().toStdString());
 
 					const ResourceCard *c = new ResourceCard(price, prestige, resource, level);
 
 					cards.push_back(c);
 
-					child = child->NextSiblingElement("card");
+                    child = child.nextSiblingElement("card");
 				}
-			}
+
 			// Now our deck has been loaded
 		}
 		else
@@ -96,51 +109,62 @@ namespace Splendor
 
 	template <>
 	inline void Deck<NobleCard>::loadXML(const std::string &filename)
-	{
-		std::cout << "Nobles loading...\n";
+    {
+        std::cout << "Nobles loading...\n";
 
-		TiXmlDocument doc(filename);
-		if (doc.LoadFile())
-		{
-			TiXmlElement *elem = doc.FirstChildElement("cards");
-			if (elem)
-			{
-				TiXmlElement *child = elem->FirstChildElement("card");
-				while (child)
-				{
-					// Now we iterate through cards
-					int price[5];
-					int prestige;
+        QFile file(QString::fromStdString(filename));
 
-					// We load token price
-					TiXmlElement *param = child->FirstChildElement("cost");
+        file.open(QFile::ReadOnly | QFile::Text);
 
-					if (param)
-					{
-						TiXmlElement *cost = param->FirstChildElement("token");
+        QDomDocument doc;
 
-						size_t i = 0;
-						while (cost)
-						{
-							price[i++] = std::stoi(cost->GetText());
-							cost = cost->NextSiblingElement("token");
-						}
-					}
+        doc.setContent(&file, false);
 
-					// We load prestige
-					param = param->NextSiblingElement("prestige");
-					if (param)
-						prestige = std::stoi(param->GetText());
+        // racine pointe sur cards
+        QDomElement racine = doc.documentElement();
 
-					const NobleCard *c = new NobleCard(price, prestige);
+        if (!racine.isNull())
+        {
+                QDomElement child = racine.firstChildElement("card");
+                while (!child.isNull())
+                {
 
-					cards.push_back(c);
+                    // Now we iterate through cards
+                    int price[5];
+                    int prestige;
+                    Token resource;
+                    int level;
 
-					child = child->NextSiblingElement("card");
-				}
-			}
-		}
-		else
-			throw "Could not load the specified file...\n";
-	}
+                    // We load token price
+                    QDomElement param = child.firstChildElement("cost");
+
+                    if (!param.isNull())
+                    {
+                        QDomElement cost = param.firstChildElement("token");
+
+                        size_t i = 0;
+                        while (!cost.isNull())
+                        {
+                            price[i++] = std::stoi(cost.text().toStdString());
+                            cost = cost.nextSiblingElement("token");
+                        }
+                    }
+
+                    // We load prestige
+                    param = param.nextSiblingElement("prestige");
+                    if (!param.isNull())
+                        prestige = std::stoi(param.text().toStdString());
+
+                    const NobleCard *c = new NobleCard(price, prestige);
+
+                    cards.push_back(c);
+
+                    child = child.nextSiblingElement("card");
+                }
+
+            // Now our deck has been loaded
+        }
+        else
+            throw "Could not load the specified file...\n";
+    }
 }
