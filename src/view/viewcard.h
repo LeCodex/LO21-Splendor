@@ -17,9 +17,9 @@ protected:
     const Splendor::BaseCard* card = nullptr;
     QLCDNumber* number;
     ViewCost* costs[5];
-    QVBoxLayout* costLayout;
+    QBoxLayout* costLayout;
     QVBoxLayout* rightLayout;
-    QHBoxLayout* layer;
+    QBoxLayout* layer;
 
     virtual void updateImage() = 0;
     virtual void updateCost();

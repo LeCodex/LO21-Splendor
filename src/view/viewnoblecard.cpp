@@ -4,8 +4,8 @@
 
 ViewNobleCard::ViewNobleCard(QWidget* parent) : ViewCard(parent)
 {
-//    setFixedWidth(150);
-//    setFixedHeight(150);
+    costLayout->setDirection(QBoxLayout::Direction::LeftToRight);
+    layer->setDirection(QBoxLayout::Direction::TopToBottom);
 }
 
 void ViewNobleCard::updateImage() {
