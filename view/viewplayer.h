@@ -35,22 +35,15 @@ private:
 
     QVBoxLayout* layer;
 
-    std::vector<ViewResourceCard*> viewResourceCards;
-    std::vector<ViewNobleCard*> viewNobleCards;
-
     bool isCurrent;
 
     void updateCurrentStatus();
 public:
     explicit ViewPlayer(Splendor::Player* player, QWidget *parent = nullptr);
     ViewToken* getToken(Splendor::Token token) const { return viewTokens[token]; }
-    std::vector<ViewResourceCard*> getResources() const { return viewResourceCards; }
-    std::vector<ViewNobleCard*> getNobles() const { return viewNobleCards; }
 
     void setAsCurrent(bool c) { isCurrent = c; updateCurrentStatus(); } // Pour marquer pour quel joueur c'est le tour
-    auto getResourceCards() const { return viewResourceCards; }
     auto getReservedCards() const { return viewReservedCards; }
-    auto getNobleCards() const { return viewNobleCards; }
     auto getTokens() const { return viewTokens; }
     auto getBonus() const { return viewBonus; }
 
