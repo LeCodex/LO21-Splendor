@@ -46,10 +46,10 @@ void ViewCard::updateCost() {
         return;
     } else {
         Qt::GlobalColor colors[5] {
-            Qt::red,
+            Qt::white,
             Qt::blue,
             Qt::green,
-            Qt::white,
+            Qt::red,
             Qt::black
         };
 

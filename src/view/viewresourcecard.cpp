@@ -12,10 +12,10 @@ void ViewResourceCard::updateImage() {
         pixmap.load(":/general/unknown");
     } else {
         std::string paths[5] = {
-            ":/cards/red",
+            ":/cards/white",
             ":/cards/blue",
             ":/cards/green",
-            ":/cards/white",
+            ":/cards/red",
             ":/cards/black"
         };
         pixmap.load(paths[((const Splendor::ResourceCard*) card)->getResource()].c_str());

@@ -21,10 +21,10 @@ ViewToken::ViewToken(Splendor::Token t, QWidget* parent) : ViewClickable(parent)
 
 void ViewToken::updateIcon() {
     std::string paths[6] = {
-        ":/tokens/red",
+        ":/tokens/white",
         ":/tokens/blue",
         ":/tokens/green",
-        ":/tokens/white",
+        ":/tokens/red",
         ":/tokens/black",
         ":/tokens/gold"
     };

@@ -46,10 +46,10 @@ ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), p
 
     bonusLayout = new QHBoxLayout();
     std::string paths[5] {
-        ":/cards/red",
+        ":/cards/white",
         ":/cards/blue",
         ":/cards/green",
-        ":/cards/white",
+        ":/cards/red",
         ":/cards/black"
     };
     for (size_t i = 0; i < 5; i++) {
