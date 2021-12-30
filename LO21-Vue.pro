@@ -23,6 +23,8 @@ SOURCES += \
     src/view/viewnoblecard.cpp \
     src/view/viewplayer.cpp \
     src/view/viewresourcecard.cpp \
+    src/view/viewstronghold.cpp \
+    src/view/viewstrongholdcard.cpp \
     src/view/viewtoken.cpp \
     src/qtcontroller.cpp \
 
@@ -50,6 +52,8 @@ HEADERS += \
     src/view/viewnoblecard.h \
     src/view/viewplayer.h \
     src/view/viewresourcecard.h \
+    src/view/viewstronghold.h \
+    src/view/viewstrongholdcard.h \
     src/view/viewtoken.h \
 
 RESOURCES += \

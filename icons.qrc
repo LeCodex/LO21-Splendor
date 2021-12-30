@@ -19,5 +19,6 @@
     </qresource>
     <qresource prefix="/general">
         <file alias="unknown">img/uncertainty.png</file>
+        <file alias="stronghold">img/stone-tower.png</file>
     </qresource>
 </RCC>
