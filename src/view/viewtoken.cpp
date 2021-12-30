@@ -42,3 +42,8 @@ void ViewToken::updateAmount() {
     if (amount == 0)
         number->setPalette(Qt::red);
 }
+
+ViewToken::~ViewToken() {
+    delete number;
+    delete layout;
+}

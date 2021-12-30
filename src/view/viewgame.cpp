@@ -2,10 +2,9 @@
 
 ViewGame::ViewGame(Splendor::Game* g, QWidget* parent) : QWidget(parent), game(g)
 {
-
     playersLayout = new QVBoxLayout();
     for (size_t i = 0; i < game->getNbPlayer(); i++) {
-        ViewPlayer* v = new ViewPlayer(new Splendor::Player("Bob"), this);
+        ViewPlayer* v = new ViewPlayer(new Splendor::Player(game->getPlayer(i).getName()), this);
         viewPlayers.push_back(v);
         playersLayout->addWidget(v);
     }
@@ -27,4 +26,11 @@ ViewGame::ViewGame(Splendor::Game* g, QWidget* parent) : QWidget(parent), game(g
     layer->addLayout(gameLayout);
 
     setLayout(layer);
+}
+
+ViewGame::~ViewGame() {
+    delete playersLayout;
+    delete gameLayout;
+    delete infoLayout;
+    delete layer;
 }

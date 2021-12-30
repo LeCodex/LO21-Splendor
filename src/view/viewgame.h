@@ -24,7 +24,7 @@ private:
     std::vector<ViewPlayer*> viewPlayers;
 public:
     // Might make it into a Singleton too
-    ~ViewGame(){}
+    ~ViewGame();
     void update(){}
     explicit ViewGame(Splendor::Game* g, QWidget* parent = nullptr);
     auto getPlayers() const { return viewPlayers; }

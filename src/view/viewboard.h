@@ -34,6 +34,8 @@ public:
     void updateCards();
     void updateTokens();
 
+    ~ViewBoard();
+
 signals:
 
 };

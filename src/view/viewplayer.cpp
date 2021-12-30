@@ -39,6 +39,7 @@ ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), p
     nameLabel->setText(player->getName().c_str());
 
     infoLayout = new QHBoxLayout();
+    infoLayout->addWidget(nameLabel);
     infoLayout->addWidget(scoreLabel);
     infoLayout->addWidget(score);
     infoLayout->addWidget(handButton);
@@ -114,12 +115,12 @@ void ViewPlayer::updateTokens() {
 }
 
 ViewPlayer::~ViewPlayer() {
-    delete(bankLayout);
-    delete(bonusLayout);
-    delete(infoLayout);
-    delete(nameLabel);
-    delete(scoreLabel);
-    delete(score);
-    delete(hand);
-    delete(handButton);
+    delete bankLayout;
+    delete bonusLayout;
+    delete infoLayout;
+    delete nameLabel;
+    delete scoreLabel;
+    delete score;
+    delete hand;
+    delete handButton;
 }

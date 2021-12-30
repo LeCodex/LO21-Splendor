@@ -25,6 +25,8 @@ public:
     void setToken(Splendor::Token t) { token = t; updateIcon(); }
     Splendor::Token getToken() const { return token; }
 
+    ~ViewToken();
+
 signals:
     void tokenClicked(ViewToken*);
 public slots:

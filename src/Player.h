@@ -45,7 +45,7 @@ namespace Splendor
             return FinalAmount;
         }
 
-        std::string getName() { return name; }
+        const std::string& getName() { return name; }
 
         int *getBonuses();
 

@@ -13,6 +13,9 @@ Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
         // Board is auto generated
 
         // Players must be initiated with the addPlayer method
+        for (size_t i = 0; i < n; i++) {
+            players[i] = nullptr;
+        }
 
         // Deck must be generated manually
 
@@ -69,7 +72,7 @@ Splendor::Game::~Game()
 
 void Splendor::Game::addPlayer(std::string name, int index)
 {
-    if (players[index] != NULL)
+    if (players[index] != nullptr)
         throw "Joueur déjà créé";
     std::cout << "Player \"" << name << "\" has been added to [" << index << "]\n";
     players[index] = new Player(name);

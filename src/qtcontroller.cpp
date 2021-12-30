@@ -29,7 +29,13 @@ void Splendor::QtController::initiateGame(){
     msgBox.setDefaultButton(speed);
     msgBox.exec();
 
-    Splendor::Game& g = Splendor::Game::createInstance(4);
+    size_t n = 4;
+    Splendor::Game& g = Splendor::Game::createInstance(n);
+
+    for (size_t i = 0; i < 4; i++)
+    {
+        g.addPlayer("Bob", i);
+    }
 
     view = new ViewGame(&g);
 }

@@ -18,6 +18,8 @@ public:
     ViewDrawPile(Splendor::DrawPile& d, QWidget* parent = nullptr);
     void updateQuantity();
 
+    ~ViewDrawPile();
+
 signals:
     void drawPileClicked(ViewDrawPile*);
 public slots:
