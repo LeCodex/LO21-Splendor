@@ -135,6 +135,6 @@ ViewPlayer::~ViewPlayer() {
     delete nameLabel;
     delete scoreLabel;
     delete score;
-    delete hand;
+    if(hand) delete hand;
     delete handButton;
 }

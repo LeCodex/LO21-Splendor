@@ -7,7 +7,12 @@
 #include <QSpinBox>
 #include <QCheckBox>
 
-Splendor::QtController::QtController(QWidget *parent) : QWidget(parent) {}
+// Instantiation of the handler
+Splendor::QtController::Handler Splendor::QtController::handler;
+
+Splendor::QtController::QtController(QWidget *parent) : QMainWindow(parent) {
+    setAttribute( Qt::WA_DeleteOnClose, true );
+}
 
 void Splendor::QtController::initiateGame()
 {
@@ -80,6 +85,8 @@ void Splendor::QtController::initiateGame()
 
     dialog.exec();
 
+    dialog.close();
+
     size_t nb = std::stoi(nbJoueurs->text().toStdString());
 
     // Create an instance of nb player
@@ -92,13 +99,11 @@ void Splendor::QtController::initiateGame()
     view = new ViewGame(this);
 
     // Après avoir initalisé le jeu, l'ajoute a la fenêtre
-    QGridLayout *layout = new QGridLayout(this);
-    layout->addWidget(view);
+    setCentralWidget(view);
 
-    setLayout(layout);
-
-    showNormal();
+    show();
 }
+
 bool actionPerformed = false;
 
 void Splendor::QtController::playTurn(size_t)
@@ -107,17 +112,27 @@ void Splendor::QtController::playTurn(size_t)
     view->setActivePlayer(actual_player);
 
     // While no action has been performed, just wait for one
-    while (!actionPerformed)
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    while (!actionPerformed && !this->stopped){
+        QApplication::processEvents();
+    }
+
+    if(this->stopped) return;
+
+    // Hiding the hand in case it hasnt
+    view->getPlayers()[actual_player]->getHand()->hide();
 
     qInfo() << "Action performed!";
 
     actionPerformed = false;
 }
 // Verify if the specified player can receive a noble
-void Splendor::QtController::nobleVerification(size_t) {}
+void Splendor::QtController::nobleVerification(size_t) {
+    qInfo() << "Noble verification";
+}
 // Verifiy if the player is too rich
-void Splendor::QtController::overflowVerification(size_t) {}
+void Splendor::QtController::overflowVerification(size_t) {
+    qInfo() << "Overflow verification";
+}
 
 bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
 {
@@ -139,6 +154,7 @@ bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
 
     return actionPerformed;
 }
+
 bool Splendor::QtController::buyBoardCard(Splendor::ResourceCard *c)
 {
     Game &g = Splendor::Game::getInstance();
@@ -152,6 +168,7 @@ bool Splendor::QtController::buyBoardCard(Splendor::ResourceCard *c)
 
     return actionPerformed;
 }
+
 bool Splendor::QtController::reserveCenterCard(Splendor::ResourceCard *c)
 {
     Game &g = Splendor::Game::getInstance();
@@ -165,6 +182,7 @@ bool Splendor::QtController::reserveCenterCard(Splendor::ResourceCard *c)
 
     return actionPerformed;
 }
+
 bool Splendor::QtController::reserveDrawCard(size_t i)
 {
     Game &g = Splendor::Game::getInstance();
@@ -178,10 +196,12 @@ bool Splendor::QtController::reserveDrawCard(size_t i)
 
     return actionPerformed;
 }
+
 bool Splendor::QtController::takeTwoIdenticalToken()
 {
     return false;
 }
+
 bool Splendor::QtController::takeThreeDifferentToken()
 {
     return false;
@@ -195,4 +215,11 @@ void Splendor::QtController::promptError(std::string s)
     message.setText(QString::fromStdString(s));
 
     message.exec();
+}
+
+void Splendor::QtController::closeEvent(QCloseEvent *event)
+{
+    this->stopped = true;
+
+    QMainWindow::closeEvent(event);
 }

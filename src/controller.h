@@ -8,6 +8,7 @@
 #include "view/viewgame.h"
 #include <QApplication>
 #include <QTime>
+#include <QMainWindow>
 
 namespace Splendor
 {
@@ -19,13 +20,15 @@ namespace Splendor
         size_t actual_player = 0;
 
         Controller() = default;
-        virtual ~Controller(){ if(view) delete view; }
-
+        virtual ~Controller(){
+            if(view) delete view;
+        }
+         bool stopped = false;
     public:
         void launch(){
             initiateGame();
 
-            while (true)
+            while (!stopped)
             {
                 view->update();
 
@@ -44,10 +47,13 @@ namespace Splendor
                 // Incrementation
                 actual_player = (actual_player + 1) % Game::getInstance().getNbPlayer();
             }
+
+            end();
         }
 
         virtual void initiateGame() = 0;
         virtual void playTurn(size_t) = 0;
+        virtual void end() = 0;
         // Verifiy if the specified player has won  
         #define WINNING_POINTS 15
         bool hasWon(size_t i){
@@ -72,6 +78,8 @@ namespace Splendor
         void playTurn(size_t);
         void nobleVerification(size_t);
         void overflowVerification(size_t);
+        void end(){
+        }
 
         // Fonction d'actions
         bool buyReservedCard();
@@ -82,22 +90,50 @@ namespace Splendor
         bool takeThreeDifferentToken();
     };
 
-    class QtController : public QWidget, public Controller<ViewGame>
+    class QtController : public QMainWindow, public Controller<ViewGame>
     {
         Q_OBJECT
     private:
         explicit QtController(QWidget* parent = nullptr);
         void promptError(std::string);
-    public:
+
+        // Inner classes
+        struct Handler
+        {
+            QtController *instance;
+            Handler() : instance(nullptr) {}
+            ~Handler() { delete instance; }
+        };
+
+        static Handler handler;
+    protected:
+        void closeEvent(QCloseEvent *event);
+    public:    
+        ~QtController(){}
         void initiateGame();
         void playTurn(size_t);
         void nobleVerification(size_t);
         void overflowVerification(size_t);
+        void end(){
+            qInfo() << "Thanks for playing!";
+
+            deleteInstance();
+
+            std::exit(0);
+        }
 
         static auto &getInstance()
         {
-            static QtController c;
-            return c;
+            if (handler.instance == nullptr)
+                handler.instance = new QtController();
+            return *handler.instance;
+        }
+
+        // Singleton deleter
+        static void deleteInstance()
+        {
+            delete handler.instance;
+            handler.instance = nullptr;
         }
 
         // Fonction d'actions
@@ -108,6 +144,8 @@ namespace Splendor
         bool takeTwoIdenticalToken();
         bool takeThreeDifferentToken();
     };
+
+
 }
 
 #endif

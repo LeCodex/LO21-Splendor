@@ -46,6 +46,7 @@ public:
     ViewToken* getToken(Splendor::Token token) const { return viewTokens[token]; }
 
     void setAsCurrent(bool c) { isCurrent = c; updateCurrentStatus(); } // Pour marquer pour quel joueur c'est le tour
+    auto getHand() const{ return hand; }
     auto getReservedCards() const { return viewReservedCards; }
     auto getTokens() const { return viewTokens; }
     auto getBonus() const { return viewBonus; }

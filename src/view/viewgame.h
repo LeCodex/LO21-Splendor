@@ -7,6 +7,7 @@
 #include "viewboard.h"
 #include "../View.h"
 #include "viewplayer.h"
+#include <QCloseEvent>
 
 class ViewGame : public QWidget, public View
 {
@@ -20,15 +21,16 @@ private:
     QLabel *info;
     ViewBoard *board;
     std::vector<ViewPlayer *> viewPlayers;
-
 public:
     // Might make it into a Singleton too
     ~ViewGame();
+
     void update();
     explicit ViewGame(QWidget *parent = nullptr);
     auto getPlayers() const { return viewPlayers; }
     auto getBoard() const { return board; }
     void setActivePlayer(size_t i);
 };
+
 
 #endif // VIEWGAME_H
