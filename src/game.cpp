@@ -285,8 +285,8 @@ void Splendor::Game::playIA(Splendor::Player &p, int level){
 
 
         ///2 )Recherche de la premiere carte qu'elle peut acheter sur le plateau et achat eventuel
-        for(int i = 0; i < 3; i ++){
-            for(int j = 0; j < 4; j ++){
+        for(int i = 2; i >= 0; i --){ //l'IA essaye d'abord d'acheter les cartes du haut du plateau car il y a plus de points de prestige generalement.
+            for(int j = 3; j >= 0; j --){
                 if (buyBoardCard(board.getCard(i,j))) return; //L'IA a acheté la carte du plateau d'indice i,j
         }}
 
@@ -304,7 +304,7 @@ void Splendor::Game::playIA(Splendor::Player &p, int level){
                     }
                 }
             }
-            //Si le joueur n'a pas pu prendre 3 jetons differents on essaye d'en prendre 2
+            //Si le joueur n'a pas pu prendre 3 jetons differents on essaye d'en prendre 2 id
             for (int t = White; t != Gold; t++){
                 if (takeTwoIdenticalToken((Token)t,p)) return // l'IA a pris ses 2 jetons
             }
@@ -333,6 +333,73 @@ void Splendor::Game::playIA(Splendor::Player &p, int level){
 
         //Si toutes les pioches sont vide reservation de la premiere carte du plateau
         reserveCenterCard(board.getCard(0,0),p);
+
+    }
+
+
+    if (level == 0) {
+        ///Stratégie de l'IA radine: (achete en dernier recourt)
+        //1 ) Elle prend de maniere aléatoire soit 2 token identique soit 3 diffèrents
+        //Si elle ne parvint pas à faire l'action retenue on essaye de faire l'autre
+        //2 ) Si elle a trop de jetons et qu'elle n'a pas pu en prendre elle reserve une carte
+        //3 ) Si non si elle peut acheter une de ses cartes reservées elle l'achete
+        //4 ) Si non si elle peut acheter une des cartes du plateau elle l'achete
+
+
+        ///1 )Recherche des jetons qu'elle peut obtenir et prise eventuelle
+
+        //Selection de l'action de manière aléatoire
+        std::srand(std::time(nullptr));
+        int choice = std::rand() % 2;
+        if( choice == 1 ){     //Action retenue : Pioche de 3 token diffèrents
+            for (int t1 = White; t1 != Gold; t1++){
+                for (int t2 = Blue ; t2 != Gold; t2++){
+                    for (int t3 = Green ; t3 != Gold; t3++){
+                        if (takeThreeDifferentToken((Token)t1,(Token)t2,(Token)t3,p)) return // l'IA a pris ses trois jetons
+                    }
+                }
+            }
+            //Si le joueur n'a pas pu prendre 3 jetons differents on essaye d'en prendre 2
+            for (int t = White; t != Gold; t++){
+                if (takeTwoIdenticalToken((Token)t,p)) return // l'IA a pris ses 2 jetons
+            }
+
+        }else {             //Action retenue :Pioche de 2 token identiques
+            for (int t = White; t != Gold; t++){
+                if (takeTwoIdenticalToken((Token)t,p)) return // l'IA a pris ses 2 jetons
+            }
+            //Si le joueur n'a pas pu prendre 2 jetons identiques on essaye d'en prendre 3 diffèrents
+            for (int t1 = White; t1 != Gold; t1++){
+                for (int t2 = Blue ; t2 != Gold; t2++){
+                    for (int t3 = Green ; t3 != Gold; t3++){
+                        if (takeThreeDifferentToken((Token)t1,(Token)t2,(Token)t3,p)) return // l'IA a pris ses trois jetons
+                    }
+                }
+            }
+        }
+
+
+        ///2 )Recherche des cartes qu'elle peut reserver et reservation
+
+        //Tentative de reservation d'une carte venant d'une des trois pioches
+        for (int i =0; i != 3; i++){
+            if (reserveDrawCard(i,p)) return; // L'IA a reservé une carte de la pioche i
+        }
+
+        //Si toutes les pioches sont vides reservation de la premiere carte du plateau
+        if (reserveCenterCard(board.getCard(0,0),p)) return; //reservation de la premier carte du plateau
+
+        ///3 )Recherche de la premiere carte reservée qu'elle peut acheter et achat eventuel
+        for(int i = 0; i < 3; i ++){
+            if (buyReservedCard(board.getCard(i))) return; //L'IA a acheté sa iéme carte reservée
+        }
+
+
+        ///4 )Recherche de la premiere carte qu'elle peut acheter sur le plateau et achat eventuel en partant des cartes les moins cher
+        for(int i = 0; i < 3; i ++){
+            for(int j = 0; j < 4; j ++){
+                if (buyBoardCard(board.getCard(i,j))) return; //L'IA a acheté la carte du plateau d'indice i,j
+            }}
 
     }
 
