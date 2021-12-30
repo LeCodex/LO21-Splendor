@@ -9,6 +9,9 @@
 #include "NobleCard.h"
 #include "Bank.h"
 
+
+#include <QDebug>
+
 namespace Splendor
 {
 

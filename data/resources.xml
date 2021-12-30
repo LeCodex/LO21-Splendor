@@ -92,23 +92,6 @@
             <!-- White -->
             <token>0</token>
             <!-- Blue -->
-            <token>0</token>
-            <!-- Green -->
-            <token>0</token>
-            <!-- Red -->
-            <token>0</token>
-            <!-- Black -->
-            <token>0</token>
-        </cost>
-        <prestige>0</prestige>
-        <resource>0</resource>
-        <level>0</level>
-    </card>
-    <card>
-        <cost>
-            <!-- White -->
-            <token>0</token>
-            <!-- Blue -->
             <token>1</token>
             <!-- Green -->
             <token>2</token>

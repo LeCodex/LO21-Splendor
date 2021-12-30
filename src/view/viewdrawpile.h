@@ -6,6 +6,7 @@
 #include "../Splendor.h"
 #include "viewclickable.h"
 #include "../DrawPile.h"
+#include <QDebug>
 
 class ViewDrawPile : public ViewClickable
 {
@@ -14,9 +15,11 @@ private:
     QLCDNumber* quantity;
 
     Splendor::DrawPile* drawPile;
+    size_t index;
 public:
-    ViewDrawPile(Splendor::DrawPile& d, QWidget* parent = nullptr);
+    ViewDrawPile(Splendor::DrawPile& d, size_t index, QWidget* parent = nullptr);
     void updateQuantity();
+    size_t getDrawPileIndex(){ return index; }
 
 signals:
     void drawPileClicked(ViewDrawPile*);

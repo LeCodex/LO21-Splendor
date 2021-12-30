@@ -1,6 +1,6 @@
 #include "viewdrawpile.h"
 
-ViewDrawPile::ViewDrawPile(Splendor::DrawPile& d, QWidget* parent): ViewClickable(parent), drawPile(&d)
+ViewDrawPile::ViewDrawPile(Splendor::DrawPile& d, size_t index, QWidget* parent): ViewClickable(parent), drawPile(&d), index(index)
 {
     quantity = new QLCDNumber(this);
     quantity->setFrameStyle(0);

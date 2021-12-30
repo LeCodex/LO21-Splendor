@@ -32,10 +32,11 @@ namespace Splendor
 
         static Handler handler;
 
-    public:
         Game(size_t n);
 
         virtual ~Game();
+
+    public:
 
         // Deletion of the assign and copy constructor
         Game(const Game &) = delete;
@@ -44,8 +45,8 @@ namespace Splendor
         // Singleton getter
         static Game &createInstance(size_t n)
         {
-            if (handler.instance == nullptr)
-                handler.instance = new Game(n);
+            delete handler.instance;
+            handler.instance = new Game(n);
             return *handler.instance;
         }
 

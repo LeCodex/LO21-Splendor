@@ -1,19 +1,19 @@
 #include "viewgame.h"
 
-ViewGame::ViewGame(Splendor::Game* g, QWidget* parent) : QWidget(parent), game(g)
+ViewGame::ViewGame(QWidget* parent) : QWidget(parent)
 {
-
+    Splendor::Game &g = Splendor::Game::getInstance();
     playersLayout = new QVBoxLayout();
-    for (size_t i = 0; i < game->getNbPlayer(); i++) {
-        ViewPlayer* v = new ViewPlayer(new Splendor::Player("Bob"), this);
+    for (size_t i = 0; i < g.getNbPlayer(); i++) {
+        ViewPlayer* v = new ViewPlayer(&g.getPlayer(i), this);
         viewPlayers.push_back(v);
         playersLayout->addWidget(v);
     }
 
-    viewPlayers[0]->setAsCurrent(true);
+    setActivePlayer(0);
 
     gameLayout = new QHBoxLayout();
-    board = new ViewBoard(g->getBoard());
+    board = new ViewBoard(g.getBoard());
     gameLayout->addLayout(playersLayout);
     gameLayout->addWidget(board);
 
@@ -27,4 +27,18 @@ ViewGame::ViewGame(Splendor::Game* g, QWidget* parent) : QWidget(parent), game(g
     layer->addLayout(gameLayout);
 
     setLayout(layer);
+}
+
+void ViewGame::setActivePlayer(size_t i){
+    for(size_t k = 0; k < Splendor::Game::getInstance().getNbPlayer(); k++)
+        viewPlayers[k]->setAsCurrent(false);
+    viewPlayers[i]->setAsCurrent(true);
+}
+
+void ViewGame::update(){
+    board->updateCards();
+    for(size_t i = 0; i < Splendor::Game::getInstance().getNbPlayer(); i++){
+        viewPlayers[i]->updateCards();
+        viewPlayers[i]->updateTokens();
+    }
 }

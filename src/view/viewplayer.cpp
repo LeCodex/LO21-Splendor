@@ -1,4 +1,5 @@
 #include "viewplayer.h"
+#include "../controller.h"
 
 ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), player(p), nbReserved(0)
 {
@@ -17,8 +18,17 @@ ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), p
     // Cards
     reservedCardsLayout = new QVBoxLayout();
     for (size_t i = 0; i < 3; i++) {
-        viewReservedCards[i] = new ViewResourceCard();
-        viewReservedCards[i]->setCard(nullptr);
+        ViewResourceCard* v = new ViewResourceCard();
+        viewReservedCards[i] = v;
+        v->setCard(nullptr);
+
+        // When clicking on a reserved card, tries to buy it
+        QObject::connect(v, &ViewResourceCard::cardClicked, [this, v](){
+            if(v->getCard())
+                if(Splendor::QtController::getInstance().buyReservedCard((Splendor::ResourceCard*) v->getCard()))
+                    this->hand->hide();
+        });
+
         reservedCardsLayout->addWidget(viewReservedCards[i]);
     }
 
@@ -97,8 +107,12 @@ void ViewPlayer::updateCards() {
     size_t amount = 0;
     for (size_t i = 0; i < 3; i++) {
         if (player->getReservedCards(i)) {
-            viewReservedCards[i]->setCard(player->getReservedCards(i));
+            ViewResourceCard* v = viewReservedCards[i];
+            v->setCard(player->getReservedCards(i));
+
             amount++;
+        }else{
+            viewReservedCards[i]->setCard(nullptr);
         }
     }
     std::string text = "Montrer les cartes réservées (";

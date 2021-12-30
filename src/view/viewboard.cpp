@@ -1,4 +1,8 @@
 #include "viewboard.h"
+#include "../controller.h"
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QMessageBox>
 
 ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), board(&b)
 {
@@ -16,11 +20,49 @@ ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), boa
     // Resource cards
     resourceCardsLayout = new QGridLayout();
     for (size_t i = 0; i < 3; i++) {
-        viewDrawPiles.push_back(new ViewDrawPile(board->getDrawPile(i)));
+        viewDrawPiles.push_back(new ViewDrawPile(board->getDrawPile(i),i));
+
+        // When clicking on a drawpile, tries to reserve
+        QObject::connect(viewDrawPiles.back(), &ViewDrawPile::drawPileClicked, [i](){
+            Splendor::QtController::getInstance().reserveDrawCard(i);
+        });
+
         resourceCardsLayout->addWidget(viewDrawPiles.back(), i, 0);
         for (size_t j = 0; j < 4; j ++) {
-            viewResourceCards.push_back(new ViewResourceCard());
-            viewResourceCards.back()->setCard(nullptr);
+            ViewResourceCard *v = new ViewResourceCard();
+            viewResourceCards.push_back(v);
+            v->setCard(nullptr);
+
+            // When clicking on a card, try to reserve or buy it
+            QObject::connect(v, &ViewResourceCard::cardClicked, [v](){
+                QDialog dialog;
+
+                dialog.setWindowTitle("Splendor");
+
+                QVBoxLayout vBox;
+                QLabel label("Que voulez vous faire?");
+                vBox.addWidget(&label);
+
+                QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, &dialog);
+                QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+                QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
+                buttonBox.button(QDialogButtonBox::Ok)->setText("Acheter la carte");
+                buttonBox.button(QDialogButtonBox::Ok)->setIcon(QIcon());
+
+                buttonBox.button(QDialogButtonBox::Cancel)->setText("Reserver la carte");
+                buttonBox.button(QDialogButtonBox::Cancel)->setIcon(QIcon());
+
+                vBox.addWidget(&buttonBox);
+
+                dialog.setLayout(&vBox);
+
+                // Execute the action
+                if(dialog.exec() == QDialog::Accepted) Splendor::QtController::getInstance().buyBoardCard((Splendor::ResourceCard*) v->getCard());
+                else Splendor::QtController::getInstance().reserveCenterCard((Splendor::ResourceCard*) v->getCard());
+
+            });
+
             resourceCardsLayout->addWidget(viewResourceCards.back(), i, j + 1);
         }
     }
@@ -45,6 +87,8 @@ void ViewBoard::updateCards() {
         delete(viewNobleCards[i]);
     }
 
+    viewNobleCards.clear();
+
     auto nobles = board->getNobles();
     for (size_t i = 0; i < nobles.size(); i++) {
         viewNobleCards.push_back(new ViewNobleCard());
@@ -58,6 +102,10 @@ void ViewBoard::updateCards() {
            viewResourceCards[j + i * 4]->setCard(&board->getCard(i, j));
         }
     }
+
+    // DrawPiles
+    for (size_t i = 0; i < 3; i++)
+        viewDrawPiles[i]->updateQuantity();
 }
 
 void ViewBoard::updateTokens() {

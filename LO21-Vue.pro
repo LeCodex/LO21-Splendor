@@ -24,7 +24,6 @@ SOURCES += \
     src/view/viewplayer.cpp \
     src/view/viewresourcecard.cpp \
     src/view/viewtoken.cpp \
-    src/textualcontroller.cpp \
     src/qtcontroller.cpp \
 
 HEADERS += \

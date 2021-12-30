@@ -33,7 +33,9 @@ int main(int argc, char* argv[]) {
 
     game.showNormal(); */
 
-    Splendor::QtController controller;
+    Splendor::QtController &controller = Splendor::QtController::getInstance();
+
+    controller.launch();
 
     return app.exec();
 }

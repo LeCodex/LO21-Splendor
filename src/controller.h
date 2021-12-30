@@ -7,6 +7,7 @@
 #include "View.h"
 #include "view/viewgame.h"
 #include <QApplication>
+#include <QTime>
 
 namespace Splendor
 {
@@ -17,10 +18,10 @@ namespace Splendor
         T* view = nullptr;
         size_t actual_player = 0;
 
-    public:
         Controller() = default;
         virtual ~Controller(){ if(view) delete view; }
 
+    public:
         void launch(){
             initiateGame();
 
@@ -84,12 +85,28 @@ namespace Splendor
     class QtController : public QWidget, public Controller<ViewGame>
     {
         Q_OBJECT
-    public:
+    private:
         explicit QtController(QWidget* parent = nullptr);
+        void promptError(std::string);
+    public:
         void initiateGame();
         void playTurn(size_t);
         void nobleVerification(size_t);
         void overflowVerification(size_t);
+
+        static auto &getInstance()
+        {
+            static QtController c;
+            return c;
+        }
+
+        // Fonction d'actions
+        bool buyReservedCard(Splendor::ResourceCard* c);
+        bool buyBoardCard(Splendor::ResourceCard* c);
+        bool reserveCenterCard(Splendor::ResourceCard* c);
+        bool reserveDrawCard(size_t i);
+        bool takeTwoIdenticalToken();
+        bool takeThreeDifferentToken();
     };
 }
 

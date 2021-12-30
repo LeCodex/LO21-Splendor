@@ -26,7 +26,7 @@ protected:
     virtual void updatePrestige();
 public:
     explicit ViewCard(QWidget* parent = nullptr);
-    const Splendor::BaseCard& getCard() const { return *card; }
+    const Splendor::BaseCard* getCard() const { return card; }
     void setCard(const Splendor::BaseCard* c) { card = c; updateImage(); updateCost(); updatePrestige(); }
 
 signals:
