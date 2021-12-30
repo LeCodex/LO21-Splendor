@@ -46,10 +46,10 @@ void ViewCard::updateCost() {
         return;
     } else {
         Qt::GlobalColor colors[5] {
-            Qt::red,
+            Qt::white,
             Qt::blue,
             Qt::green,
-            Qt::white,
+            Qt::red,
             Qt::black
         };
 
@@ -68,4 +68,12 @@ void ViewCard::updateCost() {
             }
         }
     }
+}
+
+ViewCard::~ViewCard() {
+    delete number;
+    delete costLayout;
+    delete rightLayout;
+    delete layer;
+    for (size_t i = 1; i < 5; i++) if (costs[i]) delete costs[i];
 }

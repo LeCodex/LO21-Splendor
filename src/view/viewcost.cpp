@@ -11,5 +11,5 @@ ViewCost::ViewCost(QWidget *parent) : QWidget(parent)
 }
 
 ViewCost::~ViewCost() {
-    delete(amount);
+    delete amount;
 }

@@ -113,3 +113,11 @@ void ViewBoard::updateTokens() {
         viewTokens[i]->setAmount(board->getBank().getAll()[i]);
     }
 }
+
+ViewBoard::~ViewBoard() {
+    delete centralBankLayout;
+    delete nobleCardsLayout;
+    delete resourceCardsLayout;
+    delete cardBoardLayout;
+    delete layer;
+}

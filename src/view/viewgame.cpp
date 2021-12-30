@@ -2,10 +2,16 @@
 
 ViewGame::ViewGame(QWidget* parent) : QWidget(parent)
 {
+<<<<<<< HEAD
     Splendor::Game &g = Splendor::Game::getInstance();
     playersLayout = new QVBoxLayout();
     for (size_t i = 0; i < g.getNbPlayer(); i++) {
         ViewPlayer* v = new ViewPlayer(&g.getPlayer(i), this);
+=======
+    playersLayout = new QVBoxLayout();
+    for (size_t i = 0; i < game->getNbPlayer(); i++) {
+        ViewPlayer* v = new ViewPlayer(new Splendor::Player(game->getPlayer(i).getName()), this);
+>>>>>>> aa3162cceede6de81b3e53d417e0c57a94036783
         viewPlayers.push_back(v);
         playersLayout->addWidget(v);
     }
@@ -29,6 +35,7 @@ ViewGame::ViewGame(QWidget* parent) : QWidget(parent)
     setLayout(layer);
 }
 
+<<<<<<< HEAD
 void ViewGame::setActivePlayer(size_t i){
     for(size_t k = 0; k < Splendor::Game::getInstance().getNbPlayer(); k++)
         viewPlayers[k]->setAsCurrent(false);
@@ -41,4 +48,11 @@ void ViewGame::update(){
         viewPlayers[i]->updateCards();
         viewPlayers[i]->updateTokens();
     }
+=======
+ViewGame::~ViewGame() {
+    delete playersLayout;
+    delete gameLayout;
+    delete infoLayout;
+    delete layer;
+>>>>>>> aa3162cceede6de81b3e53d417e0c57a94036783
 }

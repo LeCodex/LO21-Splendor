@@ -21,6 +21,8 @@ public:
     void updateQuantity();
     size_t getDrawPileIndex(){ return index; }
 
+    ~ViewDrawPile();
+
 signals:
     void drawPileClicked(ViewDrawPile*);
 public slots:

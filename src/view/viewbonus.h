@@ -16,6 +16,8 @@ public:
     void updateIcon(std::string& path);
     void updateAmount(int amount);
 
+    ~ViewBonus();
+
 signals:
     void bonusClicked(ViewBonus*);
 public slots:

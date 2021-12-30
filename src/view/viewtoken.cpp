@@ -21,10 +21,10 @@ ViewToken::ViewToken(Splendor::Token t, QWidget* parent) : ViewClickable(parent)
 
 void ViewToken::updateIcon() {
     std::string paths[6] = {
-        ":/tokens/red",
+        ":/tokens/white",
         ":/tokens/blue",
         ":/tokens/green",
-        ":/tokens/white",
+        ":/tokens/red",
         ":/tokens/black",
         ":/tokens/gold"
     };
@@ -41,4 +41,9 @@ void ViewToken::updateAmount() {
 
     if (amount == 0)
         number->setPalette(Qt::red);
+}
+
+ViewToken::~ViewToken() {
+    delete number;
+    delete layout;
 }

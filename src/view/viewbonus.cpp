@@ -26,3 +26,8 @@ void ViewBonus::updateIcon(std::string& path) {
 void ViewBonus::updateAmount(int amount) {
     number->display(amount);
 }
+
+ViewBonus::~ViewBonus() {
+    delete layout;
+    delete number;
+}

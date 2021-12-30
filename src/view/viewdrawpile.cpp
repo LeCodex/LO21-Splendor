@@ -17,3 +17,7 @@ void ViewDrawPile::updateQuantity() {
     if (drawPile->getCardAmount() == 0)
         quantity->setPalette(Qt::red);
 }
+
+ViewDrawPile::~ViewDrawPile() {
+    delete quantity;
+}

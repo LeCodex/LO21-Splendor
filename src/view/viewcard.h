@@ -29,6 +29,8 @@ public:
     const Splendor::BaseCard* getCard() const { return card; }
     void setCard(const Splendor::BaseCard* c) { card = c; updateImage(); updateCost(); updatePrestige(); }
 
+    ~ViewCard();
+
 signals:
     void cardClicked(ViewCard*);
 public slots:

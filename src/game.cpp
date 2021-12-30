@@ -14,6 +14,9 @@ Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
         // Board is auto generated
 
         // Players must be initiated with the addPlayer method
+        for (size_t i = 0; i < n; i++) {
+            players[i] = nullptr;
+        }
 
         // Deck must be generated manually
 
