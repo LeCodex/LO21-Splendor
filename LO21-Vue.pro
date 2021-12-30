@@ -5,12 +5,10 @@ QT += xml
 SOURCES += \
     main.cpp \
     src/View.cpp \
-    src/controller.cpp \
     src/DrawPile.cpp \
     src/Bank.cpp \
     src/BaseCard.cpp \
     src/board.cpp \
-    src/controller.cpp \
     src/game.cpp \
     src/NobleCard.cpp \
     src/Player.cpp \
@@ -26,6 +24,8 @@ SOURCES += \
     src/view/viewplayer.cpp \
     src/view/viewresourcecard.cpp \
     src/view/viewtoken.cpp \
+    src/textualcontroller.cpp \
+    src/qtcontroller.cpp \
 
 HEADERS += \
     src/View.h \

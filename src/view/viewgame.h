@@ -3,16 +3,16 @@
 
 #include <QWidget>
 #include <QLayout>
-#include "../controller.h"
+#include "../game.h"
 #include "viewboard.h"
+#include "../View.h"
 #include "viewplayer.h"
 
-class ViewGame : public QWidget
+class ViewGame : public QWidget, public View
 {
     Q_OBJECT
 private:
     Splendor::Game* game;
-    Splendor::Controller* controller; // Might not be necessary if the Controller is a Singleton
 
     QVBoxLayout* playersLayout;
     QHBoxLayout* gameLayout;
@@ -24,11 +24,11 @@ private:
     std::vector<ViewPlayer*> viewPlayers;
 public:
     // Might make it into a Singleton too
+    ~ViewGame(){}
+    void update(){}
     explicit ViewGame(Splendor::Game* g, QWidget* parent = nullptr);
     auto getPlayers() const { return viewPlayers; }
     auto getBoard() const { return board; }
-
-    void setInfo(std::string i) { info->setText(i.c_str()); }
 };
 
 #endif // VIEWGAME_H

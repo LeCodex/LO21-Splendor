@@ -44,6 +44,7 @@ void Splendor::TextualController::initiateGame()
     }
 }
 
+/*
 void Splendor::TextualController::printGame()
 {
     // We get the game instance
@@ -132,6 +133,8 @@ void Splendor::TextualController::printGame()
     std::cout << "\n";
 }
 
+*/
+
 void Splendor::TextualController::playTurn(size_t i)
 {
     Game &g = Game::getInstance();
@@ -165,17 +168,6 @@ void Splendor::TextualController::playTurn(size_t i)
             break;
 
     } while (true);
-}
-
-#define WINNING_POINTS 15
-
-bool Splendor::TextualController::hasWon(size_t i)
-{
-    Player &p = Game::getInstance().getPlayer(i);
-
-    int points = p.getPoint();
-
-    return points >= WINNING_POINTS;
 }
 
 void Splendor::TextualController::nobleVerification(size_t i)

@@ -1,6 +1,7 @@
 #include <QApplication>
 #include "src/view/viewgame.h"
 #include <QDebug>
+#include "src/controller.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
@@ -25,12 +26,14 @@ int main(int argc, char* argv[]) {
 //    ViewPlayer player;
 //    player.show();
 
-    srand(time(NULL));
+/*    srand(time(NULL));
     Splendor::Game& g = Splendor::Game::createInstance(4);
 
     ViewGame game(&g);
 
-    game.showNormal();
+    game.showNormal(); */
+
+    Splendor::QtController controller;
 
     return app.exec();
 }
