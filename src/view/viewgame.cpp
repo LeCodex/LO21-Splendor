@@ -19,7 +19,7 @@ ViewGame::ViewGame(QWidget* parent) : QWidget(parent)
 
     infoLayout = new QHBoxLayout();
     info = new QLabel();
-    info->setText("Bienvenue dans Splendor!");
+    info->setText("Bienvenue dans Splendor! Cliquez sur les jetons ou cartes du plateau pour effectuer des actions");
     infoLayout->addWidget(info);
 
     layer = new QVBoxLayout();
@@ -37,6 +37,7 @@ void ViewGame::setActivePlayer(size_t i){
 
 void ViewGame::update(){
     board->updateCards();
+    board->updateTokens();
     for(size_t i = 0; i < Splendor::Game::getInstance().getNbPlayer(); i++){
         viewPlayers[i]->updateCards();
         viewPlayers[i]->updateTokens();

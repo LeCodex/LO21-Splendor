@@ -36,7 +36,7 @@ namespace Splendor
         ~Player() = default;
 
         //Action play(vector<Action> actions);
-        Bank getBank() { return bank; }
+        Bank& getBank() { return bank; }
 
         int TotalToken()
         {
@@ -52,7 +52,7 @@ namespace Splendor
 
         int *getBonuses();
 
-        int getPoint();
+        int getScore();
 
         // CHANGER DANS ACTION
         void putReservedCard(const ResourceCard &card);
@@ -81,7 +81,7 @@ namespace Splendor
         }
 
         std::vector<const NobleCard *> checkCompatibleNobles(std::vector<const NobleCard *>);
-        };
+    };
 }
 
 #endif

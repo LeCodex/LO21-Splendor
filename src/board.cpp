@@ -43,6 +43,7 @@ const Splendor::ResourceCard &Splendor::Board::takeCenterCard(size_t i, size_t j
 
     return r;
 }
+
 // Surcharge pour la vue
 const Splendor::ResourceCard &Splendor::Board::takeCenterCard(const ResourceCard &c)
 {
@@ -54,12 +55,14 @@ const Splendor::ResourceCard &Splendor::Board::takeCenterCard(const ResourceCard
                 return takeCenterCard(i, j);
     throw "Unknown card\n";
 }
+
 const Splendor::ResourceCard &Splendor::Board::takeDrawCard(size_t i)
 {
     if (i > 3)
         throw "Index out of bound\n";
     return drawpiles[i].draw();
 }
+
 const Splendor::NobleCard &Splendor::Board::takeNobleCard(size_t i)
 {
     if (i > nobles.size())
@@ -68,6 +71,7 @@ const Splendor::NobleCard &Splendor::Board::takeNobleCard(size_t i)
     nobles.erase(nobles.begin() + i);
     return n;
 }
+
 // Surcharge pour la vue
 const Splendor::NobleCard &Splendor::Board::takeNobleCard(const Splendor::NobleCard &c)
 {

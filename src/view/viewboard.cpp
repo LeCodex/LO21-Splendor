@@ -9,8 +9,12 @@ ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), boa
     // Central bank
     centralBankLayout = new QVBoxLayout();
     for (size_t i = 0; i < 6; i++) {
-        viewTokens[i] = new ViewToken((Splendor::Token)i);
-        viewTokens[i]->setAmount(8);
+        ViewToken* v = new ViewToken((Splendor::Token)i);
+        viewTokens[i] = v;
+        viewTokens[i]->setAmount(board->getBank().amount((Splendor::Token)i));
+        QObject::connect(v, &ViewToken::tokenClicked, [v](){
+            if (v->getToken() != Splendor::Gold) Splendor::QtController::getInstance().takeToken(v->getToken());
+        });
         centralBankLayout->addWidget(viewTokens[i]);
     }
 
@@ -110,7 +114,7 @@ void ViewBoard::updateCards() {
 
 void ViewBoard::updateTokens() {
     for (size_t i = 0; i < 6; i ++) {
-        viewTokens[i]->setAmount(board->getBank().getAll()[i]);
+        viewTokens[i]->setAmount(board->getBank().amount((Splendor::Token)i));
     }
 }
 

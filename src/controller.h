@@ -17,7 +17,7 @@ namespace Splendor
     {
     protected:
         T* view = nullptr;
-        size_t actual_player = 0;
+        size_t currentPlayer = 0;
 
         Controller() = default;
         virtual ~Controller(){
@@ -32,20 +32,20 @@ namespace Splendor
             {
                 view->update();
 
-                playTurn(actual_player);
+                playTurn(currentPlayer);
 
                 // Overflow of token verification
-                overflowVerification(actual_player);
+                overflowVerification(currentPlayer);
 
                 // Noble verification
-                nobleVerification(actual_player);
+                nobleVerification(currentPlayer);
 
                 // End game verification
-                if (hasWon(actual_player))
+                if (hasWon(currentPlayer))
                     break;
 
                 // Incrementation
-                actual_player = (actual_player + 1) % Game::getInstance().getNbPlayer();
+                currentPlayer = (currentPlayer + 1) % Game::getInstance().getNbPlayer();
             }
 
             end();
@@ -59,7 +59,7 @@ namespace Splendor
         bool hasWon(size_t i){
             Player &p = Game::getInstance().getPlayer(i);
 
-            int points = p.getPoint();
+            int points = p.getScore();
 
             return points >= WINNING_POINTS;
         }
@@ -96,6 +96,7 @@ namespace Splendor
     private:
         explicit QtController(QWidget* parent = nullptr);
         void promptError(std::string);
+        vector<Token> tokenSelection;
 
         // Inner classes
         struct Handler
@@ -136,13 +137,14 @@ namespace Splendor
             handler.instance = nullptr;
         }
 
+        const vector<Token>& getTokenSelection() { return tokenSelection; }
+
         // Fonction d'actions
         bool buyReservedCard(Splendor::ResourceCard* c);
         bool buyBoardCard(Splendor::ResourceCard* c);
         bool reserveCenterCard(Splendor::ResourceCard* c);
         bool reserveDrawCard(size_t i);
-        bool takeTwoIdenticalToken();
-        bool takeThreeDifferentToken();
+        bool takeToken(Splendor::Token t);
     };
 
 

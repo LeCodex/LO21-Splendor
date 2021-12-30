@@ -95,6 +95,9 @@ namespace Splendor
         bool canPlayerBuyCard(Player &p, const ResourceCard &card);
         int getRealCost(Player &p, const ResourceCard &card, Token t);
 
+        // Fonction de service pour acheter une carte de manière générale
+        bool buyCard(const ResourceCard &card, Player &p);
+
         // Le joueur p achete une carte qu'il a deja reservée
         bool buyReservedCard(const ResourceCard &card, Player &p);
 

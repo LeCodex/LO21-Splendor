@@ -120,11 +120,14 @@ void ViewPlayer::updateCards() {
     text.append(std::to_string(amount));
     text.append(")");
     handButton->setText(text.c_str());
+
+    // Score
+    score->display(player->getScore());
 }
 
 void ViewPlayer::updateTokens() {
-    for (size_t i = 0; i < 6; i++) {
-        viewTokens[i]->setAmount(player->getBank().getAll()[i]);
+    for (size_t i = 0; i < 6; i ++) {
+        viewTokens[i]->setAmount(player->getBank().amount((Splendor::Token)i));
     }
 }
 
