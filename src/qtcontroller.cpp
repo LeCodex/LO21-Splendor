@@ -110,6 +110,7 @@ void Splendor::QtController::playTurn(size_t)
 {
     qInfo() << "Waiting for player action...";
     view->setActivePlayer(currentPlayer);
+    tokenSelection.clear();
 
     // While no action has been performed, just wait for one
     while (!actionPerformed && !this->stopped){

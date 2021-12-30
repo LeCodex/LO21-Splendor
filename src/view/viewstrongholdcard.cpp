@@ -7,7 +7,8 @@ ViewStrongholdCard::ViewStrongholdCard(QWidget* parent) : ViewResourceCard(paren
     rightLayout->addWidget(stronghold);
 }
 
-void ViewStrongholdCard::updateStronghold() {
+void ViewStrongholdCard::updateStronghold()
+{
 
 }
 
