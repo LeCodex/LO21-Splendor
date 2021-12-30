@@ -4,7 +4,7 @@
 using namespace Splendor;
 
 //getPoint calcule le nombre de points d'un joueur en additionnant les prestiges des cartes ressources
-int Player::getPoint()
+int Player::getScore()
 {
     int result = 0;
     for (size_t i = 0; i < 3; i++)
@@ -18,7 +18,7 @@ int Player::getPoint()
 }
 
 //getBonuses recupere tous les discounts des cartesRessources
-int *Player::getBonuses()
+int* Player::getBonuses()
 {
     int *bonuses = new int[5];
     for (size_t i = 0; i < 5; i++)

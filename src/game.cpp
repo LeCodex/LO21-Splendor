@@ -96,7 +96,7 @@ bool Splendor::Game::canPlayerBuyCard(Splendor::Player &p, const Splendor::Resou
         if (deficit > 0)
         {
             //Pour un jeton i, le cout sur la carte de ce jeton est supperieur aux bonus que possede le joueur sur ce jeton + le nombre de jetons qu'il possede de ce type
-            if (deficit < GoldAmount) //Le joueur peut payer avec les jetons gold
+            if (deficit <= GoldAmount) //Le joueur peut payer avec les jetons gold
                 GoldAmount = GoldAmount - deficit;
             else //impossible de payer et arret
                 return false;
@@ -116,30 +116,38 @@ int Splendor::Game::getRealCost(Splendor::Player &p, const Splendor::ResourceCar
     return (card.getCost(t) > bonus[int(t)]) ? card.getCost(t) - bonus[int(t)] : 0;
 }
 
+bool Splendor::Game::buyCard(const Splendor::ResourceCard& card, Splendor::Player &p)
+{
+    if (!canPlayerBuyCard(p, card))
+        return false;
+
+    // Retrait des jetons au joueur
+    int d = 0;
+    for (int t = White; t != Gold; t++)
+    {
+        // On retire au joueur le prix à payer pour chaque jeton
+        int c = getRealCost(p, card, (Token)t);
+        int ta = p.getBank().take((Token)t, c);
+        board.getBank().put((Token)t, ta);
+        d += c - ta;
+    }
+    p.getBank().take(Gold, d);
+    board.getBank().put(Gold, d);
+
+    // Ajout de la carte au joueur
+    p.putResourceCard(card);
+
+    return true;
+}
+
 bool Splendor::Game::buyReservedCard(const Splendor::ResourceCard &card, Splendor::Player &p)
 {
-
     // Etude de la condition de l'action
     if (!canPlayerBuyCard(p, card))
         return false;
 
     // Execution de l'action
-
-    // Retrait des jetons au joueur
-    for (int t = Red; t != Gold; t++)
-    {
-        // On retire au joueur le prix à payer pour chaque jeton
-        p.getBank().take((Token)t, getRealCost(p, card, (Token)t));
-    }
-
-    // Ajout de la carte au joueur
-    p.putResourceCard(card);
-
-    // Ajoute à la bank le prix que le joueur paye
-    for (int t = Red; t != Gold; t++)
-    {
-        board.getBank().put((Token)t, getRealCost(p, card, (Token)t));
-    }
+    buyCard(card, p);
 
     // Retrait de la carte du tableau de cartes reservées du joueur
     p.takeReservedCard(card);
@@ -154,22 +162,7 @@ bool Splendor::Game::buyBoardCard(const Splendor::ResourceCard &card, Splendor::
         return false;
 
     // Execution de l'action
-
-    // Retrait des jetons au joueur
-    for (int t = Red; t != Gold; t++)
-    {
-        p.getBank().take((Token)t, getRealCost(p, card, (Token)t));
-        //On retire au joueur le prix de la carte pour chaque jeton
-    }
-
-    // Ajout de la carte au joueur
-    p.putResourceCard(card);
-
-    // Ajoute à la bank le prix que le joueur paye
-    for (int t = Red; t != Gold; t++)
-    {
-        board.getBank().put((Token)t, getRealCost(p, card, (Token)t));
-    }
+    buyCard(card, p);
 
     // Retrait de la carte du plateau
     board.takeCenterCard(card);
@@ -197,7 +190,7 @@ bool Splendor::Game::reserveCenterCard(const Splendor::ResourceCard &card, Splen
     p.putReservedCard(card);
 
     ///Ajout d'un jeton or au joueur apres chaque reservation
-    p.getBank().put(Gold, 1);
+    p.getBank().put(Gold, board.getBank().take(Gold, 1));
 
     return true;
 }
@@ -219,7 +212,7 @@ bool Splendor::Game::reserveDrawCard(size_t i, Splendor::Player &p)
     p.putReservedCard(card);
 
     // Ajout d'un jeton or au joueur apres chaque reservation
-    p.getBank().put(Gold, 1);
+    p.getBank().put(Gold, board.getBank().take(Gold, 1));
 
     return true;
 }
@@ -240,8 +233,8 @@ bool Splendor::Game::takeTwoIdenticalToken(Splendor::Token color, Splendor::Play
     board.getBank().take(color, 2);
 
     // DO SOMETHING HERE
-    if (p.TotalToken() > 10)
-        ;
+//    if (p.TotalToken() > 10)
+//        ;
 
     return true;
 }
@@ -265,8 +258,8 @@ bool Splendor::Game::takeThreeDifferentToken(Splendor::Token color1, Splendor::T
     board.getBank().take(color3, 1);
 
     // DO SOMETHING HERE
-    if (p.TotalToken() > 10)
-        ;
+//    if (p.TotalToken() > 10)
+//        ;
 
     return true;
 }

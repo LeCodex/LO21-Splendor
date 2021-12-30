@@ -9,8 +9,37 @@ ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), boa
     // Central bank
     centralBankLayout = new QVBoxLayout();
     for (size_t i = 0; i < 6; i++) {
-        viewTokens[i] = new ViewToken((Splendor::Token)i);
-        viewTokens[i]->setAmount(8);
+        ViewToken* v = new ViewToken((Splendor::Token)i);
+        viewTokens[i] = v;
+        viewTokens[i]->setAmount(board->getBank().amount((Splendor::Token)i));
+        QObject::connect(v, &ViewToken::tokenClicked, [v](){
+            QDialog dialog;
+
+            dialog.setWindowTitle("Splendor");
+
+            QVBoxLayout vBox;
+            QLabel label("Que voulez vous faire?");
+            vBox.addWidget(&label);
+
+            QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, &dialog);
+            QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
+            QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
+
+            buttonBox.button(QDialogButtonBox::Ok)->setText("Prendre 2 tokens identiques");
+            buttonBox.button(QDialogButtonBox::Ok)->setIcon(QIcon());
+
+            buttonBox.button(QDialogButtonBox::Cancel)->setText("Prendre 3 tokens différents");
+            buttonBox.button(QDialogButtonBox::Cancel)->setIcon(QIcon());
+
+            vBox.addWidget(&buttonBox);
+
+            dialog.setLayout(&vBox);
+
+            // Execute the action
+            if(dialog.exec() == QDialog::Accepted) Splendor::QtController::getInstance().takeTwoIdenticalToken(v->getToken());
+            // else Splendor::QtController::getInstance().takeThreeDifferentToken();
+
+        });
         centralBankLayout->addWidget(viewTokens[i]);
     }
 
@@ -110,7 +139,7 @@ void ViewBoard::updateCards() {
 
 void ViewBoard::updateTokens() {
     for (size_t i = 0; i < 6; i ++) {
-        viewTokens[i]->setAmount(board->getBank().getAll()[i]);
+        viewTokens[i]->setAmount(board->getBank().amount((Splendor::Token)i));
     }
 }
 

@@ -19,5 +19,6 @@ int Splendor::Bank::take(Token t, int amount)
 
 int Splendor::Bank::put(Token t, int amount)
 {
-	return (tokens[t] += amount);
+    tokens[t] += amount;
+    return tokens[t];
 }

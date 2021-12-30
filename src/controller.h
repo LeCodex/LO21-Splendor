@@ -16,7 +16,7 @@ namespace Splendor
     {
     protected:
         T* view = nullptr;
-        size_t actual_player = 0;
+        size_t currentPlayer = 0;
 
         Controller() = default;
         virtual ~Controller(){ if(view) delete view; }
@@ -29,20 +29,20 @@ namespace Splendor
             {
                 view->update();
 
-                playTurn(actual_player);
+                playTurn(currentPlayer);
 
                 // Overflow of token verification
-                overflowVerification(actual_player);
+                overflowVerification(currentPlayer);
 
                 // Noble verification
-                nobleVerification(actual_player);
+                nobleVerification(currentPlayer);
 
                 // End game verification
-                if (hasWon(actual_player))
+                if (hasWon(currentPlayer))
                     break;
 
                 // Incrementation
-                actual_player = (actual_player + 1) % Game::getInstance().getNbPlayer();
+                currentPlayer = (currentPlayer + 1) % Game::getInstance().getNbPlayer();
             }
         }
 
@@ -105,8 +105,8 @@ namespace Splendor
         bool buyBoardCard(Splendor::ResourceCard* c);
         bool reserveCenterCard(Splendor::ResourceCard* c);
         bool reserveDrawCard(size_t i);
-        bool takeTwoIdenticalToken();
-        bool takeThreeDifferentToken();
+        bool takeTwoIdenticalToken(Splendor::Token token);
+        bool takeThreeDifferentToken(Splendor::Token t1, Splendor::Token t2, Splendor::Token t3);
     };
 }
 

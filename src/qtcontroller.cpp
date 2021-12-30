@@ -104,7 +104,7 @@ bool actionPerformed = false;
 void Splendor::QtController::playTurn(size_t)
 {
     qInfo() << "Waiting for player action...";
-    view->setActivePlayer(actual_player);
+    view->setActivePlayer(currentPlayer);
 
     // While no action has been performed, just wait for one
     while (!actionPerformed)
@@ -122,7 +122,7 @@ void Splendor::QtController::overflowVerification(size_t) {}
 bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
 {
     Game &g = Splendor::Game::getInstance();
-    Player &p = g.getPlayer(actual_player);
+    Player &p = g.getPlayer(currentPlayer);
 
     try
     {
@@ -142,7 +142,7 @@ bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
 bool Splendor::QtController::buyBoardCard(Splendor::ResourceCard *c)
 {
     Game &g = Splendor::Game::getInstance();
-    Player &p = g.getPlayer(actual_player);
+    Player &p = g.getPlayer(currentPlayer);
 
     bool action = g.buyBoardCard(*c, p);
     actionPerformed = action;
@@ -155,7 +155,7 @@ bool Splendor::QtController::buyBoardCard(Splendor::ResourceCard *c)
 bool Splendor::QtController::reserveCenterCard(Splendor::ResourceCard *c)
 {
     Game &g = Splendor::Game::getInstance();
-    Player &p = g.getPlayer(actual_player);
+    Player &p = g.getPlayer(currentPlayer);
 
     bool action = g.reserveCenterCard(*c, p);
     actionPerformed = action;
@@ -168,7 +168,7 @@ bool Splendor::QtController::reserveCenterCard(Splendor::ResourceCard *c)
 bool Splendor::QtController::reserveDrawCard(size_t i)
 {
     Game &g = Splendor::Game::getInstance();
-    Player &p = g.getPlayer(actual_player);
+    Player &p = g.getPlayer(currentPlayer);
 
     bool action = g.reserveDrawCard(i, p);
     actionPerformed = action;
@@ -178,13 +178,31 @@ bool Splendor::QtController::reserveDrawCard(size_t i)
 
     return actionPerformed;
 }
-bool Splendor::QtController::takeTwoIdenticalToken()
+bool Splendor::QtController::takeTwoIdenticalToken(Splendor::Token t)
 {
-    return false;
+    Game &g = Splendor::Game::getInstance();
+    Player &p = g.getPlayer(currentPlayer);
+
+    bool action = g.takeTwoIdenticalToken(t, p);
+    actionPerformed = action;
+
+    if (!action)
+        promptError("Impossible de prendre les jetons demandés");
+
+    return actionPerformed;
 }
-bool Splendor::QtController::takeThreeDifferentToken()
+bool Splendor::QtController::takeThreeDifferentToken(Splendor::Token t1, Splendor::Token t2, Splendor::Token t3)
 {
-    return false;
+    Game &g = Splendor::Game::getInstance();
+    Player &p = g.getPlayer(currentPlayer);
+
+    bool action = g.takeThreeDifferentToken(t1, t2, t3, p);
+    actionPerformed = action;
+
+    if (!action)
+        promptError("Impossible de prendre les jetons demandés");
+
+    return actionPerformed;
 }
 
 void Splendor::QtController::promptError(std::string s)
