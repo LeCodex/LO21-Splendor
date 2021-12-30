@@ -243,6 +243,10 @@ bool Splendor::Game::takeThreeDifferentToken(Splendor::Token color1, Splendor::T
 {
 
     // Etude de la condition de l'action
+    // Les trois jetons doivent être différents
+    if (color1 == color2 || color2 == color3 || color1 == color3)
+        return false;
+
     // La banque doit avoir assez de jeton
     if (!((board.getBank().amount(color1) >= 1) && (board.getBank().amount(color2) >= 1) && (board.getBank().amount(color3) >= 1)))
         return false;

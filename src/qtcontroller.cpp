@@ -139,6 +139,7 @@ bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
 
     return actionPerformed;
 }
+
 bool Splendor::QtController::buyBoardCard(Splendor::ResourceCard *c)
 {
     Game &g = Splendor::Game::getInstance();
@@ -152,6 +153,7 @@ bool Splendor::QtController::buyBoardCard(Splendor::ResourceCard *c)
 
     return actionPerformed;
 }
+
 bool Splendor::QtController::reserveCenterCard(Splendor::ResourceCard *c)
 {
     Game &g = Splendor::Game::getInstance();
@@ -165,6 +167,7 @@ bool Splendor::QtController::reserveCenterCard(Splendor::ResourceCard *c)
 
     return actionPerformed;
 }
+
 bool Splendor::QtController::reserveDrawCard(size_t i)
 {
     Game &g = Splendor::Game::getInstance();
@@ -178,29 +181,29 @@ bool Splendor::QtController::reserveDrawCard(size_t i)
 
     return actionPerformed;
 }
-bool Splendor::QtController::takeTwoIdenticalToken(Splendor::Token t)
+
+bool Splendor::QtController::takeToken(Splendor::Token t)
 {
     Game &g = Splendor::Game::getInstance();
     Player &p = g.getPlayer(currentPlayer);
 
-    bool action = g.takeTwoIdenticalToken(t, p);
-    actionPerformed = action;
+    tokenSelection.push_back(t);
 
-    if (!action)
-        promptError("Impossible de prendre les jetons demandés");
+    bool cont = true;
+    if (tokenSelection.size() == 2 && tokenSelection[0] == tokenSelection[1]) {
+        actionPerformed = g.takeTwoIdenticalToken(tokenSelection[0], p);
+    } else if (tokenSelection.size() == 3) {
+        actionPerformed = g.takeThreeDifferentToken(tokenSelection[0], tokenSelection[1], tokenSelection[2], p);
+    } else {
+        cont = false;
+    }
 
-    return actionPerformed;
-}
-bool Splendor::QtController::takeThreeDifferentToken(Splendor::Token t1, Splendor::Token t2, Splendor::Token t3)
-{
-    Game &g = Splendor::Game::getInstance();
-    Player &p = g.getPlayer(currentPlayer);
+    if (cont) {
+        tokenSelection.clear();
 
-    bool action = g.takeThreeDifferentToken(t1, t2, t3, p);
-    actionPerformed = action;
-
-    if (!action)
-        promptError("Impossible de prendre les jetons demandés");
+        if (!actionPerformed)
+            promptError("Impossible de prendre les jetons demandés");
+    }
 
     return actionPerformed;
 }

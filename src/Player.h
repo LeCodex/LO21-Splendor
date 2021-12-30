@@ -52,7 +52,7 @@ namespace Splendor
 
         int *getBonuses();
 
-        int getPoint();
+        int getScore();
 
         // CHANGER DANS ACTION
         void putReservedCard(const ResourceCard &card);

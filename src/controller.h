@@ -53,7 +53,7 @@ namespace Splendor
         bool hasWon(size_t i){
             Player &p = Game::getInstance().getPlayer(i);
 
-            int points = p.getPoint();
+            int points = p.getScore();
 
             return points >= WINNING_POINTS;
         }
@@ -88,6 +88,8 @@ namespace Splendor
     private:
         explicit QtController(QWidget* parent = nullptr);
         void promptError(std::string);
+        vector<Token> tokenSelection;
+
     public:
         void initiateGame();
         void playTurn(size_t);
@@ -100,13 +102,14 @@ namespace Splendor
             return c;
         }
 
+        const vector<Token>& getTokenSelection() { return tokenSelection; }
+
         // Fonction d'actions
         bool buyReservedCard(Splendor::ResourceCard* c);
         bool buyBoardCard(Splendor::ResourceCard* c);
         bool reserveCenterCard(Splendor::ResourceCard* c);
         bool reserveDrawCard(size_t i);
-        bool takeTwoIdenticalToken(Splendor::Token token);
-        bool takeThreeDifferentToken(Splendor::Token t1, Splendor::Token t2, Splendor::Token t3);
+        bool takeToken(Splendor::Token t);
     };
 }
 
