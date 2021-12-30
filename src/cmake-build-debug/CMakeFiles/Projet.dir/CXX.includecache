@@ -1,0 +1,60 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Travail Ecole/A21/LO21/Projet/Basecard.h
+splendor.h
+D:/Travail Ecole/A21/LO21/Projet/Splendor.h
+
+D:/Travail Ecole/A21/LO21/Projet/NobleCard.h
+BaseCard.h
+D:/Travail Ecole/A21/LO21/Projet/Basecard.h
+
+D:/Travail Ecole/A21/LO21/Projet/Player.cpp
+player.h
+D:/Travail Ecole/A21/LO21/Projet/Player.h
+ResourceCard.h
+D:/Travail Ecole/A21/LO21/Projet/ResourceCard.h
+
+D:/Travail Ecole/A21/LO21/Projet/Player.h
+stdlib.h
+-
+iostream
+-
+string
+-
+vector
+-
+ResourceCard.h
+D:/Travail Ecole/A21/LO21/Projet/ResourceCard.h
+NobleCard.h
+D:/Travail Ecole/A21/LO21/Projet/NobleCard.h
+
+D:/Travail Ecole/A21/LO21/Projet/ResourceCard.h
+basecard.h
+D:/Travail Ecole/A21/LO21/Projet/Basecard.h
+
+D:/Travail Ecole/A21/LO21/Projet/Rules.h
+
+D:/Travail Ecole/A21/LO21/Projet/Splendor.h
+iostream
+-
+exception
+-
+
+D:/Travail Ecole/A21/LO21/Projet/main.cpp
+iostream
+-
+player.h
+D:/Travail Ecole/A21/LO21/Projet/Player.h
+player.cpp
+D:/Travail Ecole/A21/LO21/Projet/Player.cpp
+rules.h
+D:/Travail Ecole/A21/LO21/Projet/Rules.h
+ResourceCard.h
+D:/Travail Ecole/A21/LO21/Projet/ResourceCard.h
+
