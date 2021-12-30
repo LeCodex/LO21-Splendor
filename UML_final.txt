@@ -1,0 +1,206 @@
+@startuml
+abstract Player{
+-const string name
+-Bank bank
+-vector<const ResourceCard *> ressource[3]
+-vector<const NobleCard *> nobles
+-const ResourceCard *ReservedCards[3]
++Player(std::string s)
++int TotalToken()
++Bank getBank()
++string getName()
++int* getBonuses()
++int getPoint()
++void putReservedCard(const ResourceCard &card)
++const ResourceCard& takeReservedCard(size_t i)
++const ResourceCard& takeReservedCard(const ResourceCard &card)
++void putResourceCard(const ResourceCard &card)
++void putNobleCard(const NobleCard &card)
++vector<const NobleCard *> checkCompatibleNobles(vector<const NobleCard *>)
++vector<const ResourceCard *> getRessources(size_t i) {const}
++vector<const NobleCard *> getNobles() {const}
++const ResourceCard *getReservedCards(size_t i) {const}
+}
+
+
+class Bank {
+-int tokens[6]
++Bank(int t[6] = nullptr)
++bool empty(Token t) {const}
++int amount(Token t) {const}
++const int *getAll() {const}
++int take(Token t, int amount)
++int put(Token t, int amount)
+}
+
+abstract BaseCard{
+-int cost[5]
+-int prestige
+-void setCost(int newCost[])
++BaseCard(int c[], int p)
++const int* getFullCost() {const}
++int getCost(Token t) {const}
++int getPrestige() {const}
+}
+
+
+enum Token{
+BLUE,RED,GREEN,WHITE,BLACK,GOLD;
+}
+
+class ResourceCard{
+-Token resource
+-int level
++ResourceCard(int c[], int p, Token r, int l)
++Token getResource() const
++int getLevel() const
+}
+
+class NobleCard{
++NobleCard(int c[], int p)
+}
+
+class DrawPile{
+##Utilisation_ITERATOR##
+#const ResourceCard **cards
+#size_t nb
+#size_t nbMax
++explicit DrawPile()
++size_t getCardAmount() {const}
++bool empty() {const}
++const ResourceCard &getCard(size_t index)
++const ResourceCard &draw()
++void addCard(const ResourceCard &card)
++DrawPile(DrawPile &) = delete
++DrawPile &operator=(DrawPile &) = delete
++const_iterator begin() {const}
++const_iterator end() {const}
++~DrawPile()
++class const_iterator{}
+}
+
+class Board{
+-const ResourceCard* cards[3][4]
+-Bank bank
+-DrawPile drawpiles[3]
+-vector< const NobleCard *> nobles
++Board()
++void fillDrawPile(size_t i, const ResourceCard &c)
++void fillNobles(const NobleCard &c)
++ResourceCard& takeCenterCard(int i, int j)
++void replenishCenterCards()
++const ResourceCard &takeCenterCard(size_t i, size_t j)
++Bank& getBank()
++const ResourceCard &takeCenterCard(const ResourceCard &c)
++const ResourceCard &takeDrawCard(size_t i)
++const NobleCard &takeNobleCard(size_t i)
++const ResourceCard &getCard(size_t i, size_t j)
++Bank &getBank()
++DrawPile &getDrawPile(size_t i)
++vector<NobleCard const *> getNobles()
+}
+
+
+class Game{
+##SINGLETON##
+-Deck<NobleCard> nobles
+-Deck<ResourceCard> resources
+-Board board
+-size_t nb_players
+-Player **players
+-struct Handler
+-static Handler handler
++Game(size_t n)
++virtual ~Game()
++Game(const Game &) = delete
++Game &operator=(const Game &) = delete
++static Game &createInstance(size_t n)
++static Game &getInstance()
++static void deleteInstance()
++void addPlayer(std::string, int)
++Board &getBoard()
++Player &getPlayer(int i)
++Deck<ResourceCard> &getResourceDeck()
++Deck<NobleCard> &getNobleDeck()
++virtual void cardDistribution()
++size_t getNbPlayer() {const}
++bool canPlayerBuyCard(Player &p, const ResourceCard &card)
++int getRealCost(Player &p, const ResourceCard &card, Token t)
++bool buyReservedCard(const ResourceCard &card, Player &p)
++bool buyBoardCard(const ResourceCard &card, Player &p)
++bool reserveCenterCard(const ResourceCard &card, Player &p)
++bool reserveDrawCard(size_t i, Player &p)
++bool takeTwoIdenticalToken(Token color, Player &p)
++bool takeThreeDifferentToken(Token color1, Token color2, Token color3, Player &p)
++void playIA(Splendor::Player &p, int level)
+}
+
+class Deck <class T>{
+-vector<const T *> cards
+-Deck(const Deck &) = delete
+-Deck &operator=(const Deck &) = delete;
++Deck()
++const T** getCards()
++vector<const T *> getAllCards(){const}
++int getNbCards() {const}
++const T &getCard(size_t i) const
++void loadXML(const std::string &filename)
++inline void Deck<NobleCard>::loadXML(const std::string &filename)
++inline void Deck<ResourceCard>::loadXML(const std::string &filename)
+}
+
+class Rules{
++static int getNumberOfNobles(int n)
+}
+
+
+class Controller {
+#View* view
+#size_t current_player$ = 0
++controller() = default
++virtual initiatGame() = 0
++void launch()
++virtual void initiateGame() = 0;
++virtual void playTurn(size_t) = 0;
++virtual bool hasWon(size_t) = 0;
++virtual void nobleVerification(size_t) = 0
++virtual void overflowVerification(size_t) = 0
+}
+
+class TextualController{
++TextualController() = default
++void initiateGame()
++void printGame()
++bool hasWon(size_t)
++void launch()
++void playTurn(size_t)
++void nobleVerification(size_t)
++bool buyReservedCard();
++bool buyBoardCard();
++bool reserveCenterCard();
++bool reserveDrawCard();
++bool takeTwoIdenticalToken();
++bool takeThreeDifferentToken();
+}
+
+
+Game *---- "1" Deck
+Player "2..4"  -*  Game
+Game *---"1" Board
+Game *-"1..*" Rules
+Board o-"*" BaseCard
+DrawPile o- BaseCard
+Board *--- DrawPile
+BaseCard -* Deck
+Bank "1"-o Board
+Player o--"1" Bank
+Token -o Bank
+BaseCard <|-- NobleCard
+BaseCard <|-- ResourceCard
+Human --|> Player
+IA --|> Player
+
+TextualController -|> Controller
+Controller "1"-- "1" Game : control >
+Player o--"*"BaseCard
+@enduml
