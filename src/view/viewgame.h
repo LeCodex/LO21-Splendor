@@ -23,7 +23,7 @@ private:
 
 public:
     // Might make it into a Singleton too
-    ~ViewGame() {}
+    ~ViewGame();
     void update();
     explicit ViewGame(QWidget *parent = nullptr);
     auto getPlayers() const { return viewPlayers; }
