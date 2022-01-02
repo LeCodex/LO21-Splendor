@@ -19,14 +19,16 @@ namespace Splendor
         T* view = nullptr;
         size_t currentPlayer = 0;
 
-        virtual void promptError(std::string) = 0;
-
-        Controller() = default;
+        Controller(){}
         virtual ~Controller(){
             if(view) delete view;
         }
-         bool stopped = false;
+
+        bool stopped = false;
     public:
+        Controller(const Controller&) = delete;
+        Controller& operator==(const Controller&) = delete;
+
         void launch(){
             initiateGame();
 
@@ -58,7 +60,7 @@ namespace Splendor
         virtual void initiateGame() = 0;
         virtual void playTurn(size_t) = 0;
         virtual void end() = 0;
-        // Verifiy if the specified player has won  
+        // Verifiy if the specified player has won
         #define WINNING_POINTS 15
         bool hasWon(size_t i){
             Player &p = Game::getInstance().getPlayer(i);
@@ -71,8 +73,10 @@ namespace Splendor
         virtual void nobleVerification(size_t) = 0;
         // Verifiy if the player is too rich
         virtual void overflowVerification(size_t) = 0;
+        virtual void promptError(std::string) = 0;
     };
 
+    /*
     class TextualController : public Controller<TextualView>
     {
     protected:
@@ -83,8 +87,7 @@ namespace Splendor
         void playTurn(size_t) override;
         void nobleVerification(size_t) override;
         void overflowVerification(size_t) override;
-        void end() override{
-        }
+        void end() override{}
 
         // Fonction d'actions
         bool buyReservedCard();
@@ -94,13 +97,34 @@ namespace Splendor
         bool takeTwoIdenticalToken();
         bool takeThreeDifferentToken();
     };
+    */
 
-    class QtController : public QMainWindow, public Controller<ViewGame>
+    template<typename T>
+    class Singleton
+    {
+    protected:
+        Singleton() noexcept = default;
+
+        Singleton(const Singleton&) = delete;
+
+        Singleton& operator=(const Singleton&) = delete;
+
+        virtual ~Singleton() = default;
+
+    public:
+        static T& getInstance() noexcept(std::is_nothrow_constructible<T>::value)
+        {
+            static T instance{};
+            return instance;
+        }
+    };
+
+    class QtController :  public QMainWindow, public Singleton<QtController>, public Controller<ViewGame>
     {
         Q_OBJECT
+        friend class Singleton<QtController>;
     private:
         explicit QtController(QWidget* parent = nullptr);
-
         vector<Token> tokenSelection;
 
         enum Phase {
@@ -109,44 +133,19 @@ namespace Splendor
             Nobles
         };
         Phase phase;
-
-        // Inner classes
-        struct Handler
-        {
-            QtController *instance;
-            Handler() : instance(nullptr) {}
-            ~Handler() { delete instance; }
-        };
-
-        static Handler handler;
     protected:
-        void promptError(std::string) override;
         void closeEvent(QCloseEvent *event) override;
     public:
-        ~QtController(){}
+        ~QtController() override {}
         void initiateGame() override;
         void playTurn(size_t) override;
         void nobleVerification(size_t) override;
         void overflowVerification(size_t) override;
         void end() override {
             qInfo() << "Thanks for playing!";
-            deleteInstance();
             std::exit(0);
         }
-
-        static auto &getInstance()
-        {
-            if (handler.instance == nullptr)
-                handler.instance = new QtController();
-            return *handler.instance;
-        }
-
-        // Singleton deleter
-        static void deleteInstance()
-        {
-            delete handler.instance;
-            handler.instance = nullptr;
-        }
+        void promptError(std::string) override;
 
         const vector<Token>& getTokenSelection() { return tokenSelection; }
 
@@ -160,7 +159,6 @@ namespace Splendor
         bool chooseNoble(Splendor::NobleCard* c);
     };
 
-
-}
+   }
 
 #endif
