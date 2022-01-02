@@ -19,6 +19,8 @@ namespace Splendor
         T* view = nullptr;
         size_t currentPlayer = 0;
 
+        virtual void promptError(std::string) = 0;
+
         Controller() = default;
         virtual ~Controller(){
             if(view) delete view;
@@ -30,8 +32,6 @@ namespace Splendor
 
             while (!stopped)
             {
-                view->update();
-
                 playTurn(currentPlayer);
 
                 // Overflow of token verification
@@ -41,8 +41,12 @@ namespace Splendor
                 nobleVerification(currentPlayer);
 
                 // End game verification
-                if (hasWon(currentPlayer))
+                if (hasWon(currentPlayer)) {
+                    std::stringstream s;
+                    s << "Victoire du joueur " << currentPlayer + 1 << ", " << Game::getInstance().getPlayer(currentPlayer).getName() << "!";
+                    promptError(s.str());
                     break;
+                }
 
                 // Incrementation
                 currentPlayer = (currentPlayer + 1) % Game::getInstance().getNbPlayer();
@@ -71,14 +75,15 @@ namespace Splendor
 
     class TextualController : public Controller<TextualView>
     {
-    private:
+    protected:
+        void promptError(std::string s) override { std::cout << s; }
     public:
         TextualController() = default;
-        void initiateGame();
-        void playTurn(size_t);
-        void nobleVerification(size_t);
-        void overflowVerification(size_t);
-        void end(){
+        void initiateGame() override;
+        void playTurn(size_t) override;
+        void nobleVerification(size_t) override;
+        void overflowVerification(size_t) override;
+        void end() override{
         }
 
         // Fonction d'actions
@@ -95,8 +100,15 @@ namespace Splendor
         Q_OBJECT
     private:
         explicit QtController(QWidget* parent = nullptr);
-        void promptError(std::string);
+
         vector<Token> tokenSelection;
+
+        enum Phase {
+            Play,
+            Overflow,
+            Nobles
+        };
+        Phase phase;
 
         // Inner classes
         struct Handler
@@ -108,18 +120,17 @@ namespace Splendor
 
         static Handler handler;
     protected:
-        void closeEvent(QCloseEvent *event);
-    public:    
+        void promptError(std::string) override;
+        void closeEvent(QCloseEvent *event) override;
+    public:
         ~QtController(){}
-        void initiateGame();
-        void playTurn(size_t);
-        void nobleVerification(size_t);
-        void overflowVerification(size_t);
-        void end(){
+        void initiateGame() override;
+        void playTurn(size_t) override;
+        void nobleVerification(size_t) override;
+        void overflowVerification(size_t) override;
+        void end() override {
             qInfo() << "Thanks for playing!";
-
             deleteInstance();
-
             std::exit(0);
         }
 
@@ -145,6 +156,8 @@ namespace Splendor
         bool reserveCenterCard(Splendor::ResourceCard* c);
         bool reserveDrawCard(size_t i);
         bool takeToken(Splendor::Token t);
+        bool returnToken(Splendor::Token t);
+        bool chooseNoble(Splendor::NobleCard* c);
     };
 
 

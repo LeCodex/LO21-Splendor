@@ -14,7 +14,6 @@ namespace Splendor
 {
     class Game
     {
-
     private:
         Deck<NobleCard> nobles;
         Deck<ResourceCard> resources;
@@ -113,6 +112,12 @@ namespace Splendor
 
         // Le joueur prend 3 jetons diffèrents
         bool takeThreeDifferentToken(Token color1, Token color2, Token color3, Player &p);
+
+        // Le joueur retourne un jeton à la banque
+        bool returnToken(Token color, Player& p);
+
+        // Le joueur choisit un noble à prendre
+        bool chooseNoble(const NobleCard& card, Player& p);
     };
 }
 #endif

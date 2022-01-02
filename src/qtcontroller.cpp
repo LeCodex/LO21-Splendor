@@ -108,35 +108,98 @@ bool actionPerformed = false;
 
 void Splendor::QtController::playTurn(size_t)
 {
+    view->getInfo()->setText("Cliquez sur les jetons ou cartes du plateau pour effectuer des actions");
+    view->update();
+
     qInfo() << "Waiting for player action...";
     view->setActivePlayer(currentPlayer);
     tokenSelection.clear();
+    phase = Phase::Play;
 
     // While no action has been performed, just wait for one
-    while (!actionPerformed && !this->stopped){
+    while (!actionPerformed && !this->stopped) {
         QApplication::processEvents();
     }
 
     if(this->stopped) return;
 
-    // Hiding the hand in case it hasnt
+    // Hiding the hand in case it isn't
     view->getPlayers()[currentPlayer]->getHand()->hide();
 
     qInfo() << "Action performed!";
 
     actionPerformed = false;
 }
+
 // Verify if the specified player can receive a noble
 void Splendor::QtController::nobleVerification(size_t) {
     qInfo() << "Noble verification";
+
+    Splendor::Game& game = Splendor::Game::getInstance();
+    Splendor::Player& player = game.getPlayer(currentPlayer);
+
+    phase = Phase::Nobles;
+
+    vector<const Splendor::NobleCard*> nobles = player.checkCompatibleNobles(game.getBoard().getNobles());
+    qInfo() << nobles.size();
+
+    if (nobles.size() == 1) {
+        game.chooseNoble(*nobles[0], player);
+    } else if (nobles.size() > 1) {
+        // Disable nobles that can't be picked
+        for (auto viewNoble : view->getBoard()->getNobleCards()) {
+            viewNoble->setDisabled(true);
+
+            for (auto noble : nobles) {
+                if (noble == viewNoble->getCard()) {
+                    viewNoble->setDisabled(false);
+                    break;
+                }
+            }
+        }
+
+        view->getInfo()->setText("Choississez un noble à prendre");
+        view->update();
+
+        // Wait for the player to choose a noble
+        while (!actionPerformed && !this->stopped){
+            QApplication::processEvents();
+        }
+    } // Else do nothing
+
+    for (auto viewNoble : view->getBoard()->getNobleCards()) {
+        viewNoble->setDisabled(false);
+    }
+
+    actionPerformed = false;
 }
+
 // Verifiy if the player is too rich
 void Splendor::QtController::overflowVerification(size_t) {
     qInfo() << "Overflow verification";
+
+    Splendor::Game& game = Splendor::Game::getInstance();
+    Splendor::Player& player = game.getPlayer(currentPlayer);
+
+    phase = Phase::Overflow;
+
+    if (player.TotalToken() > 10) {
+        view->getInfo()->setText("Vous avez trop de jetons! Choississez en à rendre");
+        view->update();
+
+        // Wait for the player to remove tokens
+        while (!actionPerformed && !this->stopped){
+            QApplication::processEvents();
+        }
+    }
+
+    actionPerformed = false;
 }
 
 bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
 {
+    if (phase != Phase::Play) return false;
+
     Game &g = Splendor::Game::getInstance();
     Player &p = g.getPlayer(currentPlayer);
 
@@ -158,6 +221,8 @@ bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
 
 bool Splendor::QtController::buyBoardCard(Splendor::ResourceCard *c)
 {
+    if (phase != Phase::Play) return false;
+
     Game &g = Splendor::Game::getInstance();
     Player &p = g.getPlayer(currentPlayer);
 
@@ -172,6 +237,8 @@ bool Splendor::QtController::buyBoardCard(Splendor::ResourceCard *c)
 
 bool Splendor::QtController::reserveCenterCard(Splendor::ResourceCard *c)
 {
+    if (phase != Phase::Play) return false;
+
     Game &g = Splendor::Game::getInstance();
     Player &p = g.getPlayer(currentPlayer);
 
@@ -186,6 +253,8 @@ bool Splendor::QtController::reserveCenterCard(Splendor::ResourceCard *c)
 
 bool Splendor::QtController::reserveDrawCard(size_t i)
 {
+    if (phase != Phase::Play) return false;
+
     Game &g = Splendor::Game::getInstance();
     Player &p = g.getPlayer(currentPlayer);
 
@@ -200,6 +269,8 @@ bool Splendor::QtController::reserveDrawCard(size_t i)
 
 bool Splendor::QtController::takeToken(Splendor::Token t)
 {
+    if (phase != Phase::Play) return false;
+
     Game &g = Splendor::Game::getInstance();
     Player &p = g.getPlayer(currentPlayer);
 
@@ -220,6 +291,40 @@ bool Splendor::QtController::takeToken(Splendor::Token t)
         if (!actionPerformed)
             promptError("Impossible de prendre les jetons demandés");
     }
+
+    return actionPerformed;
+}
+
+bool Splendor::QtController::returnToken(Splendor::Token t)
+{
+    if (phase != Phase::Overflow) return false;
+
+    Game &g = Splendor::Game::getInstance();
+    Player &p = g.getPlayer(currentPlayer);
+
+    bool action = g.returnToken(t, p);
+
+    if (!action)
+        promptError("Impossible de rendre le jeton");
+    else
+        view->update();
+
+    actionPerformed = action && p.TotalToken() <= 10;
+
+    return actionPerformed;
+}
+
+bool Splendor::QtController::chooseNoble(Splendor::NobleCard *c)
+{
+    if (phase != Phase::Nobles) return false;
+
+    Game &g = Splendor::Game::getInstance();
+    Player &p = g.getPlayer(currentPlayer);
+
+    actionPerformed = g.chooseNoble(*c, p);
+
+    if (!actionPerformed)
+        promptError("Impossible de choisir ce noble");
 
     return actionPerformed;
 }

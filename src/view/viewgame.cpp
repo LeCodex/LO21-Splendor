@@ -19,7 +19,6 @@ ViewGame::ViewGame(QWidget* parent) : QWidget(parent)
 
     infoLayout = new QHBoxLayout();
     info = new QLabel();
-    info->setText("Bienvenue dans Splendor! Cliquez sur les jetons ou cartes du plateau pour effectuer des actions");
     infoLayout->addWidget(info);
 
     layer = new QVBoxLayout();

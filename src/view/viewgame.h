@@ -29,6 +29,7 @@ public:
     explicit ViewGame(QWidget *parent = nullptr);
     auto getPlayers() const { return viewPlayers; }
     auto getBoard() const { return board; }
+    auto getInfo() const { return info; }
     void setActivePlayer(size_t i);
 };
 

@@ -186,10 +186,10 @@ bool Splendor::Game::reserveCenterCard(const Splendor::ResourceCard &card, Splen
     //Pioche d'une nouvelle carte de bon niveau
     board.replenishCenterCards();
 
-    ///Ajout de la carte choisis au tableau de cartes reservées du joueur
+    // Ajout de la carte choisis au tableau de cartes reservées du joueur
     p.putReservedCard(card);
 
-    ///Ajout d'un jeton or au joueur apres chaque reservation
+    // Ajout d'un jeton or au joueur apres chaque reservation
     p.getBank().put(Gold, board.getBank().take(Gold, 1));
 
     return true;
@@ -266,4 +266,36 @@ bool Splendor::Game::takeThreeDifferentToken(Splendor::Token color1, Splendor::T
 //        ;
 
     return true;
+}
+
+bool Splendor::Game::returnToken(Token color, Player &p)
+{
+    // Etude de la condition de l'action
+
+    // Le joueur doit avoir de ces tokens
+    if (p.getBank().amount(color) == 0)
+        return false;
+
+    // Transfert du token
+    board.getBank().put(color, p.getBank().take(color, 1));
+
+    return true;
+}
+
+bool Splendor::Game::chooseNoble(const NobleCard &card, Player &p)
+{
+    // Etude de la condition de l'action
+
+    // Le joueur doit pouvoir prendre ce noble
+    auto nobles = p.checkCompatibleNobles(board.getNobles());
+    for (auto noble : nobles) {
+        if (&card == noble) {
+            // Transfert du noble
+            board.takeNobleCard(card);
+            p.putNobleCard(card);
+            return true;
+        }
+    }
+
+    return false;
 }

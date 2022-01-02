@@ -10,8 +10,12 @@ ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), p
     // Bank
     bankLayout = new QHBoxLayout();
     for (int i = 0; i < 6; i++) {
-        viewTokens[i] = new ViewToken((Splendor::Token)i);
-        viewTokens[i]->setAmount(0);
+        ViewToken* v = new ViewToken((Splendor::Token)i);
+        viewTokens[i] = v;
+        viewTokens[i]->setAmount(player->getBank().amount((Splendor::Token)i));
+        QObject::connect(v, &ViewToken::tokenClicked, [v](){
+            if (v->getToken() != Splendor::Gold) Splendor::QtController::getInstance().returnToken(v->getToken());
+        });
         bankLayout->addWidget(viewTokens[i]);
     }
 

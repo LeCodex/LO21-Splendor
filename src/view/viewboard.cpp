@@ -95,7 +95,11 @@ void ViewBoard::updateCards() {
 
     auto nobles = board->getNobles();
     for (size_t i = 0; i < nobles.size(); i++) {
-        viewNobleCards.push_back(new ViewNobleCard());
+        ViewNobleCard* v = new ViewNobleCard();
+        QObject::connect(v, &ViewNobleCard::cardClicked, [v](){
+            Splendor::QtController::getInstance().chooseNoble((Splendor::NobleCard*)v->getCard());
+        });
+        viewNobleCards.push_back(v);
         viewNobleCards.back()->setCard(nobles[i]);
         nobleCardsLayout->addWidget(viewNobleCards.back());
     }
