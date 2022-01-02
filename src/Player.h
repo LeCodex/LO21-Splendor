@@ -90,9 +90,9 @@ namespace Splendor
         size_t availableStrongholds;
 
     public:
-        size_t getAvailableStrongholds () {return availableStrongholds;}
-        void putStrongholds();
-        void takeStrongholds();
+        size_t getAvailableStrongholds () { return availableStrongholds; }
+        bool putStrongholds();
+        bool takeStrongholds();
     };
 }
 

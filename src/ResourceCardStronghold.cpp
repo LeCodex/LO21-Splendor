@@ -1,45 +1,41 @@
 #include"ResourceCard.h"
 #include"Player.h"
 
-bool occupy(PlayerExtStronghold& player){
-    if (occupant!=player && occupant!=nil) {
-        std::cout<<"La carte est déja occupée";
+bool Splendor::ResourceCardStronghold::occupy(Splendor::PlayerExtStronghold& player){
+    if (occupant && occupant != &player) {
+        std::cout << "La carte est déja occupée";
         return false;
     } 
     else
     {
-        occupant=player;
         if (nbStronghold>3) {
             std::cout<<"Nombre de bastion max atteint";
             return false;
         }
         if (player.getAvailableStrongholds()<1) {
-            std::cout<<"Le joueur ne possède plus de bastion disponible"
+            std::cout<<"Le joueur ne possède plus de bastion disponible";
             return false;
         }
     }
+    occupant = &player;
+    return true;
 }
 
-bool occupy(PlayerExtStronghold& player){
-    if (occupant!=player && occupant!=nil) {
-        std::cout<<"La carte est déja occupée";
+bool Splendor::ResourceCardStronghold::remove(Splendor::PlayerExtStronghold& player){
+    if(!occupant){
+        std::cout << "La carte est occupée par aucun jouer";
         return false;
-    } 
-    else
-    {
-        occupant=player;
-        if (nbStronghold>3) {
-            std::cout<<"Nombre de bastion max atteint";
-            return false;
-        }
-        if (player.getAvailableStrongholds()<1) {
-            std::cout<<"Le joueur ne possède plus de bastion disponible"
-            return false;
-        }
     }
+    if (occupant != &player) {
+        std::cout << "La carte est occupée par un joueur différent";
+        return false;
+    }
+    occupant = nullptr;
+    return true;
 }
 
-void conquest (){
-    nbStronghold=0;
-    occupant=nil;
+
+void Splendor::ResourceCardStronghold::conquest(){
+    nbStronghold = 0;
+    occupant = nullptr;
 }

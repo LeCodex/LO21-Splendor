@@ -4,6 +4,7 @@ QT += xml
 
 SOURCES += \
     main.cpp \
+    src/PlayerExtStronghold.cpp \
     src/View.cpp \
     src/DrawPile.cpp \
     src/Bank.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     src/view/viewstrongholdcard.cpp \
     src/view/viewtoken.cpp \
     src/qtcontroller.cpp \
+    src/ResourceCardStronghold.cpp \
 
 HEADERS += \
     src/View.h \

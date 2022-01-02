@@ -27,20 +27,25 @@ namespace Splendor
 			s << "Level : " << level;
 			return s.str();
 		}
-	};
+    };
 
-	class ResourceCardStronghold : public ResourceCard{
-	private:
-		Player& occupant;
-		size_t nbStronghold;
-	public:
-		Player& getOccupant() {return occupant;}
-		size_t getNbStrongholds() {return nbStronghold;}
+    class PlayerExtStronghold;
 
-		bool canBeConquested() {return (nbStronghold==3);}
+    class ResourceCardStronghold : public ResourceCard{
+    private:
+        PlayerExtStronghold* occupant;
+        size_t nbStronghold;
+    public:
+        ResourceCardStronghold(int c[], int p, Token r, int l): ResourceCard(c,p,r,l){
+            occupant = nullptr;
+        }
+        PlayerExtStronghold& getOccupant() { return *occupant; }
+        size_t getNbStrongholds() { return nbStronghold; }
 
-		bool occupy(PlayerExtStronghold& player);
-		bool remove(PlayerExtStronghold& player);
-		bool conquest ();
-	};
+        bool canBeConquested() { return nbStronghold==3; }
+
+        bool occupy(PlayerExtStronghold& player);
+        bool remove(PlayerExtStronghold& player);
+        void conquest();
+    };
 }
