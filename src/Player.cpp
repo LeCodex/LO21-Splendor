@@ -81,7 +81,7 @@ std::vector<const NobleCard *> Player::checkCompatibleNobles(std::vector<const N
         bool compatible = true;
         for (size_t j = 0; j < 5; j++)
         {
-            if (!(nobles[i]->getFullCost()[j] <= bonuses[j]))
+            if (nobles[i]->getFullCost()[j] > bonuses[j])
             {
                 compatible = false;
                 break;
