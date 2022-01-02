@@ -335,8 +335,25 @@ bool Splendor::Game::chooseNoble(const NobleCard &card, Player &p)
     }
 }
 
+#include <QTime>
+#include <QCoreApplication>
+
+// https://stackoverflow.com/questions/3752742/how-do-i-create-a-pause-wait-function-using-qt
+void delay( int millisecondsToWait )
+{
+    QTime dieTime = QTime::currentTime().addMSecs( millisecondsToWait );
+    while( QTime::currentTime() < dieTime )
+    {
+        QCoreApplication::processEvents( QEventLoop::AllEvents, 100 );
+    }
+}
+
 void Splendor::Game::playAI(Splendor::Player &p, int level)
 {
+    // Pour que l'IA ne joue pas instantanément
+    srand(time(NULL));
+    delay(rand() % 300 + 300);
+
     if (level == 1) {
     ///Stratégie de l'IA moyenne:
     //1 ) Si elle peut acheter une de ses cartes reservées elle l'achete
