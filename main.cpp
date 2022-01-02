@@ -10,7 +10,5 @@ int main(int argc, char* argv[]) {
 
     controller.launch();
 
-    qInfo() << QApplication::topLevelWidgets();
-
     return app.exec();
 }

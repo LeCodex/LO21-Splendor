@@ -7,9 +7,6 @@
 #include <QSpinBox>
 #include <QCheckBox>
 
-// Instantiation of the handler
-Splendor::QtController::Handler Splendor::QtController::handler;
-
 Splendor::QtController::QtController(QWidget *parent) : QMainWindow(parent) {
     setAttribute( Qt::WA_DeleteOnClose, true );
 }
