@@ -11,10 +11,10 @@ const Splendor::ResourceCard &Splendor::DrawPile::getCard(size_t index)
 	return **(cards + index);
 }
 
-const Splendor::ResourceCard &Splendor::DrawPile::draw()
+const Splendor::ResourceCard* Splendor::DrawPile::draw()
 {
 	if (empty())
-		throw "Trying to draw from an empty draw pile";
+        return nullptr;
 
 	int index = rand() % nb;
 	const ResourceCard *card = cards[index];
@@ -25,7 +25,7 @@ const Splendor::ResourceCard &Splendor::DrawPile::draw()
 	}
 	nb--;
 
-	return *card;
+    return card;
 }
 
 void Splendor::DrawPile::addCard(const ResourceCard &card)

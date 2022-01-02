@@ -20,6 +20,16 @@ ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), boa
 
     // Noble cards
     nobleCardsLayout = new QHBoxLayout();
+    auto nobles = board->getNobles();
+    for (size_t i = 0; i < nobles.size(); i++) {
+        ViewNobleCard* v = new ViewNobleCard();
+        QObject::connect(v, &ViewNobleCard::cardClicked, [v](){
+            Splendor::QtController::getInstance().chooseNoble((Splendor::NobleCard*)v->getCard());
+        });
+        viewNobleCards.push_back(v);
+        viewNobleCards.back()->setCard(nobles[i]);
+        nobleCardsLayout->addWidget(viewNobleCards.back());
+    }
 
     // Resource cards
     resourceCardsLayout = new QGridLayout();
@@ -39,6 +49,8 @@ ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), boa
 
             // When clicking on a card, try to reserve or buy it
             QObject::connect(v, &ViewResourceCard::cardClicked, [v](){
+                if (!v->getCard()) return;
+
                 QDialog dialog;
 
                 dialog.setWindowTitle("Splendor");
@@ -83,31 +95,27 @@ ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), boa
 
     updateCards();
     updateTokens();
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void ViewBoard::updateCards() {
     // Nobles
-    for (size_t i = 0; i < viewNobleCards.size(); i++) {
-        delete(viewNobleCards[i]);
+    auto nobles = board->getNobles();
+    if (nobles.size() < viewNobleCards.size()) {
+        for (size_t i = 0; i < viewNobleCards.size() - nobles.size(); i++) {
+            delete(viewNobleCards.back());
+            viewNobleCards.pop_back();
+        }
     }
 
-    viewNobleCards.clear();
-
-    auto nobles = board->getNobles();
     for (size_t i = 0; i < nobles.size(); i++) {
-        ViewNobleCard* v = new ViewNobleCard();
-        QObject::connect(v, &ViewNobleCard::cardClicked, [v](){
-            Splendor::QtController::getInstance().chooseNoble((Splendor::NobleCard*)v->getCard());
-        });
-        viewNobleCards.push_back(v);
-        viewNobleCards.back()->setCard(nobles[i]);
-        nobleCardsLayout->addWidget(viewNobleCards.back());
+        viewNobleCards[i]->setCard(nobles[i]);
     }
 
     // Resources
     for (size_t i = 0; i < 3; i++) {
         for (size_t j = 0; j < 4; j ++) {
-           viewResourceCards[j + i * 4]->setCard(&board->getCard(i, j));
+           viewResourceCards[j + i * 4]->setCard(board->getCard(i, j));
         }
     }
 

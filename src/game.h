@@ -64,7 +64,7 @@ namespace Splendor
         }
 
         // Setters
-        void addPlayer(std::string, int);
+        void addPlayer(std::string, bool, int);
 
         // Getters
         Board &getBoard() { return board; }
@@ -118,6 +118,12 @@ namespace Splendor
 
         // Le joueur choisit un noble à prendre
         bool chooseNoble(const NobleCard& card, Player& p);
+
+        // Fonction appelée pour fait jouer l'IA
+        void playAI(Splendor::Player &p, int level);
+
+        // Fonction appelée quand l'IA a trop de tokens
+        void returnTokenAI(Splendor::Player &p);
     };
 }
 #endif

@@ -16,7 +16,7 @@ namespace Splendor
 		size_t getCardAmount() const { return nb; }
 		bool empty() const { return nb == 0; }
 		const ResourceCard &getCard(size_t index);
-		const ResourceCard &draw();
+        const ResourceCard* draw();
 		void addCard(const ResourceCard &card);
 
 		DrawPile(DrawPile &) = delete;

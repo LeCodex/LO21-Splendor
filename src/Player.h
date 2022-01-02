@@ -25,9 +25,9 @@ namespace Splendor
         std::vector<const NobleCard *> nobles;
 
         const ResourceCard *ReservedCards[3];
-
+        bool AI;
     public:
-        Player(std::string s) : name(s)
+        Player(std::string s, bool ai) : name(s), AI(ai)
         {
             for (size_t i = 0; i < 3; i++)
                 ReservedCards[i] = nullptr;
@@ -49,6 +49,8 @@ namespace Splendor
         }
 
         const std::string& getName() { return name; }
+
+        bool isAI() const { return AI; }
 
         int *getBonuses();
 
@@ -75,7 +77,7 @@ namespace Splendor
             return nobles;
         }
 
-        const ResourceCard *getReservedCards(size_t i) const
+        const ResourceCard* getReservedCard(size_t i) const
         {
             return ReservedCards[i];
         }

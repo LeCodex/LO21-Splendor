@@ -38,6 +38,7 @@ void Splendor::QtController::initiateGame()
 
     QWidget *widgets[4];
     QLineEdit *playerNames[4];
+    QCheckBox *AI[4];
 
     // First we create the four widgets
     for (size_t i = 0; i < 4; i++)
@@ -47,16 +48,17 @@ void Splendor::QtController::initiateGame()
         QLabel *player = new QLabel(QString("Joueur #%1").arg(i));
         QLineEdit *playerInput = new QLineEdit;
         playerInput->setText(QString("Joueur_%1").arg(i));
-        QCheckBox *isIa = new QCheckBox("IA");
+        QCheckBox *isAI = new QCheckBox("IA");
 
         line->addWidget(player);
         line->addWidget(playerInput);
-        line->addWidget(isIa);
+        line->addWidget(isAI);
 
         widget->setLayout(line);
 
         widgets[i] = widget;
         playerNames[i] = playerInput;
+        AI[i] = isAI;
 
         form.addRow(widgets[i]);
     }
@@ -94,7 +96,7 @@ void Splendor::QtController::initiateGame()
 
     // Add the players
     for (size_t i = 0; i < nb; i++)
-        g.addPlayer(playerNames[i]->text().toStdString(), i);
+        g.addPlayer(playerNames[i]->text().toStdString(), AI[i]->checkState(), i);
 
     view = new ViewGame(this);
 
@@ -108,17 +110,24 @@ bool actionPerformed = false;
 
 void Splendor::QtController::playTurn(size_t)
 {
-    view->getInfo()->setText("Cliquez sur les jetons ou cartes du plateau pour effectuer des actions");
     view->update();
+    view->getInfo()->setText("Cliquez sur les jetons ou cartes du plateau pour effectuer des actions");
 
     qInfo() << "Waiting for player action...";
     view->setActivePlayer(currentPlayer);
     tokenSelection.clear();
     phase = Phase::Play;
 
-    // While no action has been performed, just wait for one
-    while (!actionPerformed && !this->stopped) {
-        QApplication::processEvents();
+    Splendor::Game& game = Splendor::Game::getInstance();
+    Splendor::Player& player = game.getPlayer(currentPlayer);
+
+    if (player.isAI()) {
+        game.playAI(player, 1);
+    } else {
+        // While no action has been performed, just wait for one
+        while (!actionPerformed && !this->stopped) {
+            QApplication::processEvents();
+        }
     }
 
     if(this->stopped) return;
@@ -159,13 +168,18 @@ void Splendor::QtController::nobleVerification(size_t) {
             }
         }
 
-        view->getInfo()->setText("Choississez un noble à prendre");
-        view->update();
-        promptError("Veuillez choisir un noble à recevoir");
+        if (player.isAI()) {
+            game.chooseNoble(*nobles[0], player);
+            promptError("Vous avez reçu un noble!");
+        } else {
+            view->update();
+            view->getInfo()->setText("Choississez un noble à prendre");
+            promptError("Veuillez choisir un noble à recevoir");
 
-        // Wait for the player to choose a noble
-        while (!actionPerformed && !this->stopped){
-            QApplication::processEvents();
+            // Wait for the player to choose a noble
+            while (!actionPerformed && !this->stopped){
+                QApplication::processEvents();
+            }
         }
     } // Else do nothing
 
@@ -185,18 +199,25 @@ void Splendor::QtController::overflowVerification(size_t) {
 
     phase = Phase::Overflow;
 
-    if (player.TotalToken() > 10) {
+    if (player.TotalToken() > 10 && !player.isAI()) {
         promptError("Veuillez choisir des jetons à rendre");
         view->getInfo()->setText("Vous avez trop de jetons! Choississez en à rendre");
-        view->update();
-
-        // Wait for the player to remove tokens
-        while (!actionPerformed && !this->stopped){
-            QApplication::processEvents();
-        }
     }
 
-    actionPerformed = false;
+    while (player.TotalToken() > 10) {
+        if (player.isAI()) {
+            game.returnTokenAI(player);
+        } else {
+            view->update();
+
+            // Wait for the player to remove tokens
+            while (!actionPerformed && !this->stopped){
+                QApplication::processEvents();
+            }
+        }
+
+        actionPerformed = false;
+    }
 }
 
 bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
@@ -206,18 +227,11 @@ bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
     Game &g = Splendor::Game::getInstance();
     Player &p = g.getPlayer(currentPlayer);
 
-    try
-    {
-        bool action = g.buyReservedCard(*c, p);
-        actionPerformed = action;
+    bool action = g.buyReservedCard(*c, p);
+    actionPerformed = action;
 
-        if (!action)
-            promptError("Impossible d'acheter la carte selectionnée");
-    }
-    catch (char const *c)
-    {
-        qInfo() << c;
-    }
+    if (!action)
+        promptError("Impossible d'acheter la carte selectionnée");
 
     return actionPerformed;
 }
@@ -305,14 +319,10 @@ bool Splendor::QtController::returnToken(Splendor::Token t)
     Game &g = Splendor::Game::getInstance();
     Player &p = g.getPlayer(currentPlayer);
 
-    bool action = g.returnToken(t, p);
+    actionPerformed = g.returnToken(t, p);
 
-    if (!action)
+    if (!actionPerformed)
         promptError("Impossible de rendre le jeton");
-    else
-        view->update();
-
-    actionPerformed = action && p.TotalToken() <= 10;
 
     return actionPerformed;
 }

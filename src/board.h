@@ -46,13 +46,12 @@ namespace Splendor
         const NobleCard &takeNobleCard(const NobleCard &c);
 
         // Getters
-        const ResourceCard &getCard(size_t i, size_t j)
+        const ResourceCard* getCard(size_t i, size_t j)
         {
             if (i > 3 || j > 4)
                 throw "Index out of bound\n";
-            if (cards[i][j] == nullptr)
-                throw "No cards here\n";
-            return *cards[i][j];
+
+            return cards[i][j];
         }
         Bank &getBank() { return bank; }
         DrawPile &getDrawPile(size_t i)

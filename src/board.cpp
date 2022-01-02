@@ -22,7 +22,7 @@ void Splendor::Board::replenishCenterCards()
         {
             if (cards[i][j] == nullptr)
                 if (!drawpiles[i].empty())
-                    cards[i][j] = &drawpiles[i].draw();
+                    cards[i][j] = drawpiles[i].draw();
         }
     }
 }
@@ -60,7 +60,7 @@ const Splendor::ResourceCard &Splendor::Board::takeDrawCard(size_t i)
 {
     if (i > 3)
         throw "Index out of bound\n";
-    return drawpiles[i].draw();
+    return *drawpiles[i].draw();
 }
 
 const Splendor::NobleCard &Splendor::Board::takeNobleCard(size_t i)

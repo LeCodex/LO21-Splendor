@@ -30,8 +30,30 @@ namespace Splendor
         void launch(){
             initiateGame();
 
+            int lastIndex = -1;
             while (!stopped)
             {
+                // End of the game
+                if (lastIndex == currentPlayer) {
+                    view->update();
+
+                    int winner = 0, maxScore = 0;
+                    Game& game = Game::getInstance();
+
+                    for (size_t i = 0; i < game.getNbPlayer(); i++) {
+                        if (game.getPlayer(i).getScore() > maxScore) {
+                            maxScore = game.getPlayer(i).getScore();
+                            winner = i;
+                        }
+                    }
+
+                    std::stringstream s;
+                    s << "Victoire du joueur " << winner + 1 << ", " << game.getPlayer(winner).getName() << "!";
+                    promptError(s.str());
+                    break;
+                }
+
+                // Turn proper
                 playTurn(currentPlayer);
 
                 // Overflow of token verification
@@ -41,11 +63,14 @@ namespace Splendor
                 nobleVerification(currentPlayer);
 
                 // End game verification
-                if (hasWon(currentPlayer)) {
+                if (hasWon(currentPlayer) && lastIndex == -1) {
+                    view->update();
+
                     std::stringstream s;
-                    s << "Victoire du joueur " << currentPlayer + 1 << ", " << Game::getInstance().getPlayer(currentPlayer).getName() << "!";
+                    s << "Le joueur " << currentPlayer + 1 << ", " << Game::getInstance().getPlayer(currentPlayer).getName() << " a atteint 15 points. DERNIER TOUR!";
                     promptError(s.str());
-                    break;
+
+                    lastIndex = currentPlayer;
                 }
 
                 // Incrementation

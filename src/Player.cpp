@@ -7,6 +7,7 @@ using namespace Splendor;
 int Player::getScore()
 {
     int result = 0;
+
     for (size_t i = 0; i < 3; i++)
     {
         for (auto &tmp : ressource[i])
@@ -14,6 +15,12 @@ int Player::getScore()
             result += tmp->getPrestige();
         }
     }
+
+    for (auto noble : nobles)
+    {
+        result += noble->getPrestige();
+    }
+
     return result;
 }
 

@@ -14,6 +14,7 @@ ViewBonus::ViewBonus(std::string& path, QWidget *parent) : ViewClickable(parent)
     updateIcon(path);
 
     setLayout(layout);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void ViewBonus::updateIcon(std::string& path) {

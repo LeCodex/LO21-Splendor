@@ -91,17 +91,12 @@ void ViewPlayer::updateCurrentStatus() {
 
 void ViewPlayer::updateCards() {
     // Resources
-    std::vector<const Splendor::ResourceCard*> cards;
+    int amounts[5] = {0, 0, 0, 0, 0};
     for (size_t i = 0; i < 3; i++) {
         auto level = player->getRessources(i);
         for (auto c : level) {
-            cards.push_back(c);
+            amounts[c->getResource()]++;
         }
-    }
-
-    int amounts[5] = {0, 0, 0, 0, 0};
-    for (auto c : cards) {
-        amounts[c->getResource()]++;
     }
 
     for (size_t i = 0; i < 5; i++) {
@@ -111,9 +106,9 @@ void ViewPlayer::updateCards() {
     // Reserved
     size_t amount = 0;
     for (size_t i = 0; i < 3; i++) {
-        if (player->getReservedCards(i)) {
+        if (player->getReservedCard(i)) {
             ViewResourceCard* v = viewReservedCards[i];
-            v->setCard(player->getReservedCards(i));
+            v->setCard(player->getReservedCard(i));
 
             amount++;
         }else{

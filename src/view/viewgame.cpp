@@ -37,6 +37,7 @@ void ViewGame::setActivePlayer(size_t i){
 void ViewGame::update(){
     board->updateCards();
     board->updateTokens();
+
     for(size_t i = 0; i < Splendor::Game::getInstance().getNbPlayer(); i++){
         viewPlayers[i]->updateCards();
         viewPlayers[i]->updateTokens();
