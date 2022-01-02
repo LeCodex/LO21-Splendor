@@ -145,6 +145,7 @@ void Splendor::QtController::nobleVerification(size_t) {
 
     if (nobles.size() == 1) {
         game.chooseNoble(*nobles[0], player);
+        promptError("Vous avez reçu un noble!");
     } else if (nobles.size() > 1) {
         // Disable nobles that can't be picked
         for (auto viewNoble : view->getBoard()->getNobleCards()) {
@@ -160,6 +161,7 @@ void Splendor::QtController::nobleVerification(size_t) {
 
         view->getInfo()->setText("Choississez un noble à prendre");
         view->update();
+        promptError("Veuillez choisir un noble à recevoir");
 
         // Wait for the player to choose a noble
         while (!actionPerformed && !this->stopped){
@@ -184,6 +186,7 @@ void Splendor::QtController::overflowVerification(size_t) {
     phase = Phase::Overflow;
 
     if (player.TotalToken() > 10) {
+        promptError("Veuillez choisir des jetons à rendre");
         view->getInfo()->setText("Vous avez trop de jetons! Choississez en à rendre");
         view->update();
 
