@@ -14,6 +14,10 @@ namespace Splendor
 {
     class Game
     {
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Thomas
     private:
         Deck<NobleCard> nobles;
         Deck<ResourceCard> resources;
@@ -31,11 +35,18 @@ namespace Splendor
 
         static Handler handler;
 
+<<<<<<< HEAD
         Game(size_t n);
 
         virtual ~Game();
 
     public:
+=======
+    public:
+        Game(size_t n);
+
+        ~Game();
+>>>>>>> origin/Thomas
 
         // Deletion of the assign and copy constructor
         Game(const Game &) = delete;
@@ -44,8 +55,13 @@ namespace Splendor
         // Singleton getter
         static Game &createInstance(size_t n)
         {
+<<<<<<< HEAD
             delete handler.instance;
             handler.instance = new Game(n);
+=======
+            if (handler.instance == nullptr)
+                handler.instance = new Game(n);
+>>>>>>> origin/Thomas
             return *handler.instance;
         }
 
@@ -64,7 +80,11 @@ namespace Splendor
         }
 
         // Setters
+<<<<<<< HEAD
         void addPlayer(std::string, bool, int);
+=======
+        void addPlayer(std::string, int);
+>>>>>>> origin/Thomas
 
         // Getters
         Board &getBoard() { return board; }
@@ -94,9 +114,12 @@ namespace Splendor
         bool canPlayerBuyCard(Player &p, const ResourceCard &card);
         int getRealCost(Player &p, const ResourceCard &card, Token t);
 
+<<<<<<< HEAD
         // Fonction de service pour acheter une carte de manière générale
         bool buyCard(const ResourceCard &card, Player &p);
 
+=======
+>>>>>>> origin/Thomas
         // Le joueur p achete une carte qu'il a deja reservée
         bool buyReservedCard(const ResourceCard &card, Player &p);
 
@@ -112,6 +135,7 @@ namespace Splendor
 
         // Le joueur prend 3 jetons diffèrents
         bool takeThreeDifferentToken(Token color1, Token color2, Token color3, Player &p);
+<<<<<<< HEAD
 
         // Le joueur retourne un jeton à la banque
         bool returnToken(Token color, Player& p);
@@ -127,3 +151,8 @@ namespace Splendor
     };
 }
 #endif
+=======
+    };
+}
+#endif
+>>>>>>> origin/Thomas

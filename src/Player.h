@@ -84,6 +84,16 @@ namespace Splendor
 
         std::vector<const NobleCard *> checkCompatibleNobles(std::vector<const NobleCard *>);
     };
+
+    class PlayerExtStronghold : public Player{
+    private:
+        size_t availableStrongholds;
+
+    public:
+        size_t getAvailableStrongholds () {return availableStrongholds;}
+        void putStrongholds();
+        void takeStrongholds();
+    };
 }
 
 #endif

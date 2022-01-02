@@ -1,5 +1,6 @@
 #include "controller.h"
 
+<<<<<<< HEAD
 int selectNumber(int min, int max)
 {
     int n;
@@ -15,6 +16,8 @@ int selectNumber(int min, int max)
     return n;
 }
 
+=======
+>>>>>>> origin/Thomas
 void Splendor::TextualController::initiateGame()
 {
     // Ask for number of players
@@ -44,7 +47,10 @@ void Splendor::TextualController::initiateGame()
     }
 }
 
+<<<<<<< HEAD
 /*
+=======
+>>>>>>> origin/Thomas
 void Splendor::TextualController::printGame()
 {
     // We get the game instance
@@ -54,7 +60,10 @@ void Splendor::TextualController::printGame()
     Board &board = game.getBoard();
 
     // Printing the nobles
+<<<<<<< HEAD
     std::cout << "Nobles : \n";
+=======
+>>>>>>> origin/Thomas
     std::vector<const NobleCard *> nobles = board.getNobles();
     for (size_t i = 0; i < nobles.size(); i++)
     {
@@ -63,7 +72,10 @@ void Splendor::TextualController::printGame()
     std::cout << "\n";
 
     // Printing the middle board
+<<<<<<< HEAD
     std::cout << "Ressource cards : \n";
+=======
+>>>>>>> origin/Thomas
     for (size_t i = 0; i < 3; i++)
     {
         std::cout << "[Lvl : " << (i + 1) << "][Remaining : " << board.getDrawPile(i).getCardAmount() << "]";
@@ -83,6 +95,7 @@ void Splendor::TextualController::printGame()
         std::cout << "\n";
     }
 
+<<<<<<< HEAD
     // Printing the board bank
     std::cout << "Bank : \n";
     for (size_t i = 0; i < 6; i++)
@@ -93,6 +106,8 @@ void Splendor::TextualController::printGame()
     }
     std::cout << "\n";
 
+=======
+>>>>>>> origin/Thomas
     // Printing player hand
     Player &p = game.getPlayer(actual_player);
     std::cout << "Player #" << actual_player << " (" << p.getName() << "):\n";
@@ -121,6 +136,7 @@ void Splendor::TextualController::printGame()
             std::cout << "[" << r->toString() << "]";
     }
     std::cout << "\n";
+<<<<<<< HEAD
 
     // Printing the player bank
     std::cout << "Player bank : \n";
@@ -135,6 +151,10 @@ void Splendor::TextualController::printGame()
 
 */
 
+=======
+}
+
+>>>>>>> origin/Thomas
 void Splendor::TextualController::playTurn(size_t i)
 {
     Game &g = Game::getInstance();
@@ -162,7 +182,18 @@ void Splendor::TextualController::playTurn(size_t i)
         for (size_t i = 0; i < length; i++)
             std::cout << "[" << i << "] " << actionsName[i] << "\n";
 
+<<<<<<< HEAD
         int n = selectNumber(0, length - 1);
+=======
+        int n;
+        std::cin >> n;
+
+        while (n < 0 || n > length)
+        {
+            std::cout << "Erreur, chiffre non pris en charge... Réessayez en choisissant une action entre 0 et " << (length - 1) << "\n";
+            std::cin >> n;
+        }
+>>>>>>> origin/Thomas
 
         if ((*this.*actions[n])())
             break;
@@ -170,6 +201,20 @@ void Splendor::TextualController::playTurn(size_t i)
     } while (true);
 }
 
+<<<<<<< HEAD
+=======
+#define WINNING_POINTS 15
+
+bool Splendor::TextualController::hasWon(size_t i)
+{
+    Player &p = Game::getInstance().getPlayer(i);
+
+    int points = p.getPoint();
+
+    return points >= WINNING_POINTS;
+}
+
+>>>>>>> origin/Thomas
 void Splendor::TextualController::nobleVerification(size_t i)
 {
     Game &g = Game::getInstance();
@@ -197,12 +242,26 @@ void Splendor::TextualController::nobleVerification(size_t i)
             std::cout << "[" << i << "]" << compatibles[i]->toString() << "\n";
 
         std::cout << "Pick a number (fast)\n";
+<<<<<<< HEAD
         int j = selectNumber(0, compatibles.size() - 1);
+=======
+        int j;
+
+        std::cin >> j;
+
+        while (j < 0 || j > compatibles.size())
+        {
+            std::cout << "This number doesn't seem appropriate... "
+                      << "Please select a number between 0 and " << compatibles.size() << ".\n";
+            std::cin >> j;
+        }
+>>>>>>> origin/Thomas
 
         p.putNobleCard(g.getBoard().takeNobleCard(*compatibles[j]));
     }
 }
 
+<<<<<<< HEAD
 void Splendor::TextualController::overflowVerification(size_t i)
 {
     Game &g = Game::getInstance();
@@ -234,6 +293,31 @@ void Splendor::TextualController::overflowVerification(size_t i)
         g.getBoard().getBank().put((Token)n, 1);
     }
     std::cout << "Perfect, you now have exactly 10 tokens!\n";
+=======
+void Splendor::TextualController::launch()
+{
+    initiateGame();
+
+    while (true)
+    {
+        printGame();
+
+        playTurn(actual_player);
+
+        // Overflow of token verification
+        // TODO...
+
+        // Noble verification
+        nobleVerification(actual_player);
+
+        // End game verification
+        if (hasWon(actual_player))
+            break;
+
+        // Incrementation
+        actual_player = (actual_player + 1) % Game::getInstance().getNbPlayer();
+    }
+>>>>>>> origin/Thomas
 }
 
 // Actions
@@ -254,8 +338,20 @@ bool Splendor::TextualController::buyReservedCard()
         return false;
     }
 
+<<<<<<< HEAD
     std::cout << "Select a number between 0 and 2 to select which card you would like to buy\n";
     int n = selectNumber(0, 2);
+=======
+    std::cout << "Choissisez une carte entre 0 et 3\n";
+
+    int n;
+    std::cin >> n;
+
+    while (n < 0 || n > 3)
+    {
+        std::cout << "Erreur, chiffre non pris en charge... Réessayez en choisissant une carte entre 0 et 3";
+    }
+>>>>>>> origin/Thomas
 
     if (g.buyReservedCard(*cards[n], p))
     {
@@ -271,6 +367,7 @@ bool Splendor::TextualController::buyBoardCard()
 {
     Game &g = Game::getInstance();
     Player &p = g.getPlayer(actual_player);
+<<<<<<< HEAD
 
     std::cout << "Please select a card level between 1 and 3\n";
     int level = selectNumber(1, 3);
@@ -282,6 +379,35 @@ bool Splendor::TextualController::buyBoardCard()
     if (g.buyBoardCard(card, p))
     {
         std::cout << "Achat de la carte effectué avec succès!\n";
+=======
+    Board &b = g.getBoard();
+    
+    printGame();
+    std::cout<<"Veuillez choisir la carte que vous voulez acheter :\n";
+    std::cout<<"Ligne ? :\n";
+    int i;
+    std::cin>>i;
+    while(i<0 || i>3)
+    {
+        std::cout<<"Erreur : numéro de ligne invalide";
+        std::cin>>i;
+    }
+
+    std::cout<<"Colonne ? :\n";
+    int j;
+    std::cin>>j; 
+    while(j<0 || j>4)
+    {
+        std::cout<<"Erreur : numéro de colonne invalide";
+        std::cin>>j;
+    }
+    //on récup la j eme carte du i eme paquet
+    Splendor::ResourceCard const &card = b.getCard(i,j);
+
+    if (g.buyBoardCard(card,p))
+    {
+        std::cout << "L'achat de la carte a été effectué avec succès!\n";
+>>>>>>> origin/Thomas
         return true;
     }
 
@@ -293,6 +419,7 @@ bool Splendor::TextualController::reserveCenterCard()
 {
     Game &g = Game::getInstance();
     Player &p = g.getPlayer(actual_player);
+<<<<<<< HEAD
 
     std::cout << "Please select a card level between 1 and 3\n";
     int level = selectNumber(1, 3);
@@ -308,6 +435,39 @@ bool Splendor::TextualController::reserveCenterCard()
     }
 
     std::cout << "Impossible de reserver la carte selectionnée...\n";
+=======
+    Board &b = g.getBoard();
+    
+    printGame();
+    std::cout<<"Veuillez choisir la carte que vous voulez réserver :\n";
+    std::cout<<"Ligne ? :\n";
+    int i;
+    std::cin>>i;
+    while(i<0 || i>3)
+    {
+        std::cout<<"Erreur : numéro de ligne invalide";
+        std::cin>>i;
+    }
+
+    std::cout<<"Colonne ? :\n";
+    int j;
+    std::cin>>j; 
+    while(j<0 || j>4)
+    {
+        std::cout<<"Erreur : numéro de colonne invalide";
+        std::cin>>j;
+    }
+    //on récup la j eme carte du i eme paquet
+    Splendor::ResourceCard const &card = b.getCard(i,j);
+
+    if (g.reserveCenterCard(card,p))
+    {
+        std::cout << "La réservation de la carte effectué avec succès!\n";
+        return true;
+    }
+
+    std::cout << "Impossible de réserver la carte selectionnée...\n";
+>>>>>>> origin/Thomas
     return false;
 }
 
@@ -315,6 +475,7 @@ bool Splendor::TextualController::reserveDrawCard()
 {
     Game &g = Game::getInstance();
     Player &p = g.getPlayer(actual_player);
+<<<<<<< HEAD
 
     std::cout << "Please select a card level between 1 and 3\n";
     int level = selectNumber(1, 3);
@@ -329,10 +490,34 @@ bool Splendor::TextualController::reserveDrawCard()
     return false;
 }
 
+=======
+    Board &b = g.getBoard();
+
+    std::cout<<"De quelle pile voulez-vous réserver une carte ?\n";
+    std::cout<<"[1 2 ou 3]\n";
+    size_t i;
+    std::cin>>i;
+    while(i<1 || i>3)
+    {
+        std::cout<<"Saise invalide, réessayez";
+        std::cin>>i;
+    }
+
+    if (g.reserveDrawCard(i,p))
+    {
+        std::cout << "La réservation de la carte a été effectuée avec succès!\n";
+        return true;
+    }
+
+    std::cout << "Impossible de réserver la carte selectionnée...\n";
+    return false;
+}
+>>>>>>> origin/Thomas
 bool Splendor::TextualController::takeTwoIdenticalToken()
 {
     Game &g = Game::getInstance();
     Player &p = g.getPlayer(actual_player);
+<<<<<<< HEAD
 
     std::cout << "Please select a Token type you would like to take\n";
     for (int i = 0; i < 5; i++)
@@ -352,6 +537,29 @@ bool Splendor::TextualController::takeTwoIdenticalToken()
     }
 
     std::cout << "Impossible to take the selected Tokens...\n";
+=======
+    std::cout<<"Quelle couleur voulez-vous piocher ?\n";
+    std::cout<<"1- Bleu\n";
+    std::cout<<"2- Rouge\n";
+    std::cout<<"3- Vert\n";
+    std::cout<<"4- Blanc\n";
+    std::cout<<"5- Noir\n";
+    size_t i;
+    std::cin>>i;
+    while(i<1 || i>5)
+    {
+        std::cout<<"Saisie invalide : veuillez reessayer";
+        std::cin>>i;
+    }
+
+    if (g.takeTwoIdenticalToken((Token) i,p))
+    {
+        std::cout << "Les deux jetons ont bien été pioché!\n";
+        return true;
+    }
+
+    std::cout << "Pioche échouée...\n";
+>>>>>>> origin/Thomas
     return false;
 }
 bool Splendor::TextualController::takeThreeDifferentToken()
@@ -359,6 +567,7 @@ bool Splendor::TextualController::takeThreeDifferentToken()
     Game &g = Game::getInstance();
     Player &p = g.getPlayer(actual_player);
 
+<<<<<<< HEAD
     std::cout << "Please select three Token type you would like to take\n";
     for (int i = 0; i < 5; i++)
     {
@@ -392,5 +601,35 @@ bool Splendor::TextualController::takeThreeDifferentToken()
     }
 
     std::cout << "Impossible to take the selected Tokens...\n";
+=======
+    int choice[3];
+
+    for (size_t loop=0;loop<3;loop++)
+    {
+        std::cout<<"Quelle couleur voulez-vous piocher ? ("<<loop+1<<"/3)\n";
+        std::cout<<"1- Bleu\n";
+        std::cout<<"2- Rouge\n";
+        std::cout<<"3- Vert\n";
+        std::cout<<"4- Blanc\n";
+        std::cout<<"5- Noir\n";
+        size_t i;
+        std::cin>>i;
+        while(i<1 || i>5)
+        {
+            std::cout<<"Saisie invalide : veuillez reessayer";
+            std::cin>>i;
+        }
+        choice[loop]=i;
+    }
+
+
+    if (g.takeThreeDifferentToken((Token) choice[0],(Token) choice[1],(Token) choice[2],p))
+    {
+        std::cout << "Les deux jetons ont bien été pioché!\n";  
+        return true;
+    }
+
+    std::cout << "Pioche échouée...\n";
+>>>>>>> origin/Thomas
     return false;
 }
