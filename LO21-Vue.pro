@@ -5,6 +5,8 @@ QT += xml
 SOURCES += \
     main.cpp \
     src/PlayerExtStronghold.cpp \
+    src/StrongHoldGame.cpp \
+    src/StrongHoldQtController.cpp \
     src/View.cpp \
     src/DrawPile.cpp \
     src/Bank.cpp \

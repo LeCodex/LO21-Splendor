@@ -90,6 +90,7 @@ namespace Splendor
         size_t availableStrongholds;
 
     public:
+        PlayerExtStronghold(std::string s, bool ai): Player(s,ai) { availableStrongholds = 0; }
         size_t getAvailableStrongholds () { return availableStrongholds; }
         bool putStrongholds();
         bool takeStrongholds();

@@ -14,12 +14,10 @@ namespace Splendor
 {
     class Game
     {
+        friend class SingletonGame;
     private:
         Deck<NobleCard> nobles;
         Deck<ResourceCard> resources;
-        Board board;
-        size_t nb_players;
-        Player **players;
 
         // Inner classes
         struct Handler
@@ -30,6 +28,11 @@ namespace Splendor
         };
 
         static Handler handler;
+    protected:
+        Board board;
+
+        size_t nb_players;
+        Player **players;
 
         Game(size_t n);
 
@@ -55,15 +58,8 @@ namespace Splendor
             return *handler.instance;
         }
 
-        // Singleton deleter
-        static void deleteInstance()
-        {
-            delete handler.instance;
-            handler.instance = nullptr;
-        }
-
         // Setters
-        void addPlayer(std::string, bool, int);
+        virtual void addPlayer(std::string, bool, int);
 
         // Getters
         Board &getBoard() { return board; }
@@ -122,6 +118,41 @@ namespace Splendor
 
         // Fonction appelée quand l'IA a trop de tokens
         void returnTokenAI(Splendor::Player &p);
+    };
+
+    class StrongHoldGame : public Game{
+    private:
+        StrongHoldGame(size_t n): Game(n){}
+        // Inner classes
+        struct Handler
+        {
+            StrongHoldGame *instance;
+            Handler() : instance(nullptr) {}
+            ~Handler() { delete instance; }
+        };
+
+        static Handler handler;
+    public:
+        virtual void addPlayer(std::string, bool, int);
+
+        // Singleton getter
+        static StrongHoldGame &createInstance(size_t n)
+        {
+            delete handler.instance;
+            handler.instance = new StrongHoldGame(n);
+            return *handler.instance;
+        }
+
+        static StrongHoldGame &getInstance()
+        {
+            if (handler.instance == nullptr)
+                throw "No instance created\n";
+            return *handler.instance;
+        }
+
+        // Deletion of the assign and copy constructor
+        StrongHoldGame(const StrongHoldGame &) = delete;
+        StrongHoldGame &operator=(const StrongHoldGame &) = delete;
     };
 }
 #endif

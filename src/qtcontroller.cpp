@@ -1,15 +1,8 @@
-#include <QWidget>
 #include "controller.h"
-#include <QMessageBox>
-#include <QFormLayout>
-#include <QLineEdit>
-#include <QDialogButtonBox>
-#include <QSpinBox>
-#include <QCheckBox>
 
-Splendor::QtController::QtController(QWidget *parent) : QMainWindow(parent) {
-    setAttribute( Qt::WA_DeleteOnClose, true );
-}
+Splendor::QtController::Handler Splendor::QtController::handler;
+
+Splendor::QtController::QtController(QWidget *parent) : QMainWindow(parent) {}
 
 void Splendor::QtController::initiateGame()
 {
@@ -95,7 +88,7 @@ void Splendor::QtController::initiateGame()
     for (size_t i = 0; i < nb; i++)
         g.addPlayer(playerNames[i]->text().toStdString(), AI[i]->checkState(), i);
 
-    view = new ViewGame(this);
+    view = new ViewGame(&g, this);
 
     // Après avoir initalisé le jeu, l'ajoute a la fenêtre
     setCentralWidget(view);
@@ -115,7 +108,7 @@ void Splendor::QtController::playTurn(size_t)
     tokenSelection.clear();
     phase = Phase::Play;
 
-    Splendor::Game& game = Splendor::Game::getInstance();
+    Game& game = getGameInstance();
     Splendor::Player& player = game.getPlayer(currentPlayer);
 
     if (player.isAI()) {
@@ -141,7 +134,7 @@ void Splendor::QtController::playTurn(size_t)
 void Splendor::QtController::nobleVerification(size_t) {
     qInfo() << "Noble verification";
 
-    Splendor::Game& game = Splendor::Game::getInstance();
+    Splendor::Game& game = getGameInstance();
     Splendor::Player& player = game.getPlayer(currentPlayer);
 
     phase = Phase::Nobles;
@@ -191,7 +184,7 @@ void Splendor::QtController::nobleVerification(size_t) {
 void Splendor::QtController::overflowVerification(size_t) {
     qInfo() << "Overflow verification";
 
-    Splendor::Game& game = Splendor::Game::getInstance();
+    Splendor::Game& game = getGameInstance();
     Splendor::Player& player = game.getPlayer(currentPlayer);
 
     phase = Phase::Overflow;
@@ -221,7 +214,7 @@ bool Splendor::QtController::buyReservedCard(Splendor::ResourceCard *c)
 {
     if (phase != Phase::Play) return false;
 
-    Game &g = Splendor::Game::getInstance();
+    Game &g = getGameInstance();
     Player &p = g.getPlayer(currentPlayer);
 
     bool action = g.buyReservedCard(*c, p);
@@ -237,7 +230,7 @@ bool Splendor::QtController::buyBoardCard(Splendor::ResourceCard *c)
 {
     if (phase != Phase::Play) return false;
 
-    Game &g = Splendor::Game::getInstance();
+    Game &g = getGameInstance();
     Player &p = g.getPlayer(currentPlayer);
 
     bool action = g.buyBoardCard(*c, p);
@@ -253,7 +246,7 @@ bool Splendor::QtController::reserveCenterCard(Splendor::ResourceCard *c)
 {
     if (phase != Phase::Play) return false;
 
-    Game &g = Splendor::Game::getInstance();
+    Game &g = getGameInstance();
     Player &p = g.getPlayer(currentPlayer);
 
     bool action = g.reserveCenterCard(*c, p);
@@ -269,7 +262,7 @@ bool Splendor::QtController::reserveDrawCard(size_t i)
 {
     if (phase != Phase::Play) return false;
 
-    Game &g = Splendor::Game::getInstance();
+    Game &g = getGameInstance();
     Player &p = g.getPlayer(currentPlayer);
 
     bool action = g.reserveDrawCard(i, p);
@@ -285,7 +278,7 @@ bool Splendor::QtController::takeToken(Splendor::Token t)
 {
     if (phase != Phase::Play) return false;
 
-    Game &g = Splendor::Game::getInstance();
+    Game &g = getGameInstance();
     Player &p = g.getPlayer(currentPlayer);
 
     tokenSelection.push_back(t);
@@ -313,7 +306,7 @@ bool Splendor::QtController::returnToken(Splendor::Token t)
 {
     if (phase != Phase::Overflow) return false;
 
-    Game &g = Splendor::Game::getInstance();
+    Game &g = getGameInstance();
     Player &p = g.getPlayer(currentPlayer);
 
     actionPerformed = g.returnToken(t, p);
@@ -328,7 +321,7 @@ bool Splendor::QtController::chooseNoble(Splendor::NobleCard *c)
 {
     if (phase != Phase::Nobles) return false;
 
-    Game &g = Splendor::Game::getInstance();
+    Game &g = getGameInstance();
     Player &p = g.getPlayer(currentPlayer);
 
     actionPerformed = g.chooseNoble(*c, p);

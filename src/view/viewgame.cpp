@@ -1,8 +1,9 @@
 #include "viewgame.h"
+#include "../controller.h"
 
-ViewGame::ViewGame(QWidget* parent) : QWidget(parent)
+ViewGame::ViewGame(Splendor::Game* _g, QWidget* parent) : View(_g), QWidget(parent)
 {
-    Splendor::Game &g = Splendor::Game::getInstance();
+    Splendor::Game &g = getGame();
     playersLayout = new QVBoxLayout();
     for (size_t i = 0; i < g.getNbPlayer(); i++) {
         ViewPlayer* v = new ViewPlayer(&g.getPlayer(i), this);
@@ -29,7 +30,7 @@ ViewGame::ViewGame(QWidget* parent) : QWidget(parent)
 }
 
 void ViewGame::setActivePlayer(size_t i){
-    for(size_t k = 0; k < Splendor::Game::getInstance().getNbPlayer(); k++)
+    for(size_t k = 0; k < getGame().getNbPlayer(); k++)
         viewPlayers[k]->setAsCurrent(false);
     viewPlayers[i]->setAsCurrent(true);
 }
@@ -38,7 +39,7 @@ void ViewGame::update(){
     board->updateCards();
     board->updateTokens();
 
-    for(size_t i = 0; i < Splendor::Game::getInstance().getNbPlayer(); i++){
+    for(size_t i = 0; i < getGame().getNbPlayer(); i++){
         viewPlayers[i]->updateCards();
         viewPlayers[i]->updateTokens();
     }

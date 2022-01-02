@@ -25,8 +25,8 @@ public:
     // Might make it into a Singleton too
     ~ViewGame();
 
-    void update();
-    explicit ViewGame(QWidget *parent = nullptr);
+    virtual void update();
+    explicit ViewGame(Splendor::Game*, QWidget *parent = nullptr);
     auto getPlayers() const { return viewPlayers; }
     auto getBoard() const { return board; }
     auto getInfo() const { return info; }

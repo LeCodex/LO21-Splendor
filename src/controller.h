@@ -9,10 +9,19 @@
 #include <QApplication>
 #include <QTime>
 #include <QMainWindow>
+#include <QWidget>
+#include <QMessageBox>
+#include <QFormLayout>
+#include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QSpinBox>
+#include <QCheckBox>
+
+class View;
 
 namespace Splendor
 {
-    template<class T = View>
+    template<class T>
     class Controller
     {
     protected:
@@ -29,7 +38,9 @@ namespace Splendor
         Controller(const Controller&) = delete;
         Controller& operator==(const Controller&) = delete;
 
-        void launch(){
+        virtual Game& getGameInstance() = 0;
+
+        virtual void launch(){
             initiateGame();
 
             int lastIndex = -1;
@@ -40,7 +51,7 @@ namespace Splendor
                     view->update();
 
                     int winner = 0, maxScore = 0;
-                    Game& game = Game::getInstance();
+                    Game& game = getGameInstance();
 
                     for (size_t i = 0; i < game.getNbPlayer(); i++) {
                         if (game.getPlayer(i).getScore() > maxScore) {
@@ -69,14 +80,14 @@ namespace Splendor
                     view->update();
 
                     std::stringstream s;
-                    s << "Le joueur " << currentPlayer + 1 << ", " << Game::getInstance().getPlayer(currentPlayer).getName() << " a atteint 15 points. DERNIER TOUR!";
+                    s << "Le joueur " << currentPlayer + 1 << ", " << getGameInstance().getPlayer(currentPlayer).getName() << " a atteint 15 points. DERNIER TOUR!";
                     promptError(s.str());
 
                     lastIndex = currentPlayer;
                 }
 
                 // Incrementation
-                currentPlayer = (currentPlayer + 1) % Game::getInstance().getNbPlayer();
+                currentPlayer = (currentPlayer + 1) % getGameInstance().getNbPlayer();
             }
 
             end();
@@ -88,7 +99,7 @@ namespace Splendor
         // Verifiy if the specified player has won
         #define WINNING_POINTS 15
         bool hasWon(size_t i){
-            Player &p = Game::getInstance().getPlayer(i);
+            Player &p = getGameInstance().getPlayer(i);
 
             int points = p.getScore();
 
@@ -124,52 +135,51 @@ namespace Splendor
     };
     */
 
-    template<typename T>
-    class Singleton
-    {
-    protected:
-        Singleton() noexcept = default;
-
-        Singleton(const Singleton&) = delete;
-
-        Singleton& operator=(const Singleton&) = delete;
-
-        virtual ~Singleton() = default;
-
-    public:
-        static T& getInstance() noexcept(std::is_nothrow_constructible<T>::value)
-        {
-            static T instance{};
-            return instance;
-        }
-    };
-
-    class QtController :  public QMainWindow, public Singleton<QtController>, public Controller<ViewGame>
+    class QtController :  public QMainWindow, public Controller<ViewGame>
     {
         Q_OBJECT
         friend class Singleton<QtController>;
     private:
+        struct Handler
+        {
+            QtController *instance;
+            Handler() : instance(nullptr) {}
+            ~Handler() { delete instance; }
+        };
+
+        static Handler handler;
+    protected:
         explicit QtController(QWidget* parent = nullptr);
+
         vector<Token> tokenSelection;
 
-        enum Phase {
+        enum Phase{
             Play,
             Overflow,
             Nobles
         };
+
         Phase phase;
-    protected:
+
         void closeEvent(QCloseEvent *event) override;
     public:
-        ~QtController() override {}
-        void initiateGame() override;
-        void playTurn(size_t) override;
-        void nobleVerification(size_t) override;
-        void overflowVerification(size_t) override;
-        void end() override {
+        static QtController &getInstance()
+        {
+            if (handler.instance == nullptr)
+                handler.instance = new QtController();
+            return *handler.instance;
+        }
+
+        virtual ~QtController() override {}
+        virtual void initiateGame() override;
+        virtual void playTurn(size_t) override;
+        virtual void nobleVerification(size_t) override;
+        virtual void overflowVerification(size_t) override;
+        virtual void end() override {
             qInfo() << "Thanks for playing!";
             std::exit(0);
         }
+        virtual Game& getGameInstance() override{ return Splendor::Game::getInstance(); }
         void promptError(std::string) override;
 
         const vector<Token>& getTokenSelection() { return tokenSelection; }
@@ -184,6 +194,32 @@ namespace Splendor
         bool chooseNoble(Splendor::NobleCard* c);
     };
 
-   }
+    class StrongHoldQtController : public QtController{
+        private:
+            struct Handler
+            {
+                StrongHoldQtController *instance;
+                Handler() : instance(nullptr) {}
+                ~Handler() { delete instance; }
+            };
+
+            static Handler handler;
+
+            explicit StrongHoldQtController(QWidget* parent = nullptr): QtController(parent){}
+        public:
+
+            static StrongHoldQtController &getInstance()
+            {
+                if (handler.instance == nullptr)
+                    handler.instance = new StrongHoldQtController();
+                return *handler.instance;
+            }
+
+            ~StrongHoldQtController() override = default;
+            virtual void initiateGame() override;
+            Game& getGameInstance() override { return StrongHoldGame::getInstance(); }
+    };
+
+}
 
 #endif
