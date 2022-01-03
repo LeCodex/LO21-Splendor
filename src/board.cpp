@@ -34,12 +34,9 @@ const Splendor::ResourceCard &Splendor::Board::takeCenterCard(size_t i, size_t j
         throw "Index out of bound\n";
     if (cards[i][j] == nullptr)
         throw "No card here\n";
-    const ResourceCard &r = *cards[i][j];
 
-    // Retirer la carte (shift)
-    for (size_t k = j; k < 3; k++)
-        cards[i][k] = cards[i][k + 1];
-    cards[i][3] = nullptr;
+    const ResourceCard &r = *cards[i][j];
+    cards[i][j] = nullptr;
 
     return r;
 }
