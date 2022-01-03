@@ -12,7 +12,7 @@
 class ViewGame : public QWidget, public View
 {
     Q_OBJECT
-private:
+protected:
     QVBoxLayout *playersLayout;
     QHBoxLayout *gameLayout;
     QHBoxLayout *infoLayout;
@@ -26,9 +26,9 @@ public:
 
     virtual void update();
     explicit ViewGame(Splendor::Game*, QWidget *parent = nullptr);
-    auto getPlayers() const { return viewPlayers; }
-    auto getBoard() const { return board; }
-    auto getInfo() const { return info; }
+    auto getPlayers() { return viewPlayers; }
+    auto getBoard() { return board; }
+    auto getInfo() { return info; }
     void setActivePlayer(size_t i);
 };
 

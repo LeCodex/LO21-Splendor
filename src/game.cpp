@@ -19,14 +19,6 @@ Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
             players[i] = nullptr;
         }
 
-        // Deck must be generated manually
-
-        // Noble deck generation :
-        resources.loadXML(":/resources/resourcesxml");
-
-        // Ressource deck generation :
-        nobles.loadXML(":/nobles/noblesxml");
-
         // Board card distribution
         cardDistribution();
 
@@ -53,6 +45,14 @@ Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
 
 void Splendor::Game::cardDistribution()
 {
+    // Deck must be generated manually
+
+    // Noble deck generation :
+    resources.loadXML(":/resources/resourcesxml");
+
+    // Ressource deck generation :
+    nobles.loadXML(":/nobles/noblesxml");
+
     // Distribution of the nobles
     int n = Splendor::Rules::getNumberOfNobles(nb_players);
 
@@ -344,19 +344,13 @@ bool Splendor::Game::chooseNoble(const NobleCard &card, Player &p)
     try
     {
         // Le joueur doit pouvoir prendre ce noble
-        auto nobles = p.checkCompatibleNobles(board.getNobles());
-        for (auto noble : nobles)
-        {
-            if (&card == noble)
-            {
-                // Transfert du noble
-                board.takeNobleCard(card);
-                p.putNobleCard(card);
-                return true;
-            }
-        }
+        if (!card.canBeTakenBy(p)) return false;
 
-        return false;
+        // Transfert du noble
+        board.takeNobleCard(card);
+        p.putNobleCard(card);
+
+        return true;
     }
     catch (char const *)
     {
@@ -572,12 +566,4 @@ void Splendor::Game::returnTokenAI(Splendor::Player &p)
     }
 
     returnToken(tok, p);
-}
-
-void Splendor::CitiesGame::addPlayer(std::string name, bool ai, int index)
-{
-    if (players[index] != nullptr)
-        throw "Joueur déjà créé";
-    std::cout << "Player \"" << name << "\" has been added to [" << index << "]\n";
-    players[index] = new PlayerExtCities(name, ai);
 }

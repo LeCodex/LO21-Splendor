@@ -1,10 +1,11 @@
 #pragma once
-#include "Player.h"
 #include "BaseCard.h"
 #include <sstream>
 
 namespace Splendor
 {
+    class Player;
+
 	class ResourceCard : public BaseCard
 	{
 	private:

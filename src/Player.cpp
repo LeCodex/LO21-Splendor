@@ -1,10 +1,9 @@
 #include "Player.h"
 #include "ResourceCard.h"
 #include <vector>
-using namespace Splendor;
 
 //getPoint calcule le nombre de points d'un joueur en additionnant les prestiges des cartes ressources
-int Player::getScore()
+int Splendor::Player::getScore() const
 {
     int result = 0;
 
@@ -25,7 +24,7 @@ int Player::getScore()
 }
 
 //getBonuses recupere tous les discounts des cartesRessources
-int* Player::getBonuses()
+int* Splendor::Player::getBonuses() const
 {
     int *bonuses = new int[5];
     for (size_t i = 0; i < 5; i++)
@@ -41,7 +40,7 @@ int* Player::getBonuses()
     return bonuses;
 }
 
-void Player::putReservedCard(const ResourceCard &card)
+void Splendor::Player::putReservedCard(const Splendor::ResourceCard &card)
 {
     for (size_t i = 0; i < 3; i++)
         if (ReservedCards[i] == nullptr)
@@ -52,13 +51,13 @@ void Player::putReservedCard(const ResourceCard &card)
     throw "No space available\n";
 }
 
-const ResourceCard &Player::takeReservedCard(size_t i)
+const Splendor::ResourceCard &Splendor::Player::takeReservedCard(size_t i)
 {
     const ResourceCard &card = *ReservedCards[i];
     ReservedCards[i] = nullptr;
     return card;
 }
-const ResourceCard &Player::takeReservedCard(const ResourceCard &card)
+const Splendor::ResourceCard &Splendor::Player::takeReservedCard(const Splendor::ResourceCard &card)
 {
     for (size_t i = 0; i < 3; i++)
         if (&card == ReservedCards[i])
@@ -66,13 +65,13 @@ const ResourceCard &Player::takeReservedCard(const ResourceCard &card)
     throw "Error, this card isnt reserved by this player.\n";
 }
 
-void Player::putResourceCard(const ResourceCard &card)
+void Splendor::Player::putResourceCard(const Splendor::ResourceCard &card)
 {
     int niveau = card.getLevel();
     ressource[niveau].push_back(&card);
 }
 
-void Player::putNobleCard(const NobleCard &card)
+void Splendor::Player::putNobleCard(const Splendor::NobleCard &card)
 {
     nobles.push_back(&card);
 }

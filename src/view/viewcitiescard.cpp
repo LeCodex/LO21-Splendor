@@ -5,7 +5,7 @@ ViewCitiesCard::ViewCitiesCard(QWidget* parent) : ViewNobleCard(parent) {
     costLayout->addWidget(extraCost);
 }
 
-void ViewNobleCard::updateImage() {
+void ViewCitiesCard::updateImage() {
     QPixmap pixmap;
 
     if (!card) {

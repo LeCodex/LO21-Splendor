@@ -1,5 +1,6 @@
 #ifndef SPLENDOR_H
 #define SPLENDOR_H
+
 #include <iostream>
 #include <exception>
 

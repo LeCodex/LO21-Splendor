@@ -6,7 +6,6 @@ SOURCES += \
     main.cpp \
     src/CitiesCard.cpp \
     src/CitiesGame.cpp \
-    src/CitiesGame.cpp \
     src/CitiesPlayer.cpp \
     src/CitiesQtModel.cpp \
     src/View.cpp \
@@ -34,9 +33,9 @@ SOURCES += \
     src/view/viewresourcecard.cpp \
     src/view/viewtoken.cpp \
     src/qtmodel.cpp \
-    src/ResourceCardCities.cpp \
 
 HEADERS += \
+    src/rules.h \
     src/View.h \
     src/model.h \
     src/Splendor.h \
@@ -44,7 +43,6 @@ HEADERS += \
     src/Bank.h \
     src/BaseCard.h \
     src/board.h \
-    src/model.h \
     src/Deck.h \
     src/game.h \
     src/NobleCard.h \
@@ -68,4 +66,4 @@ HEADERS += \
 
 RESOURCES += \
     icons.qrc \
-    data.qrc
+    data.qrc \

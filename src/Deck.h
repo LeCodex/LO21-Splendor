@@ -1,5 +1,5 @@
-
-#pragma once
+#ifndef DECK_H
+#define DECK_H
 #include "BaseCard.h"
 #include "ResourceCard.h"
 #include "NobleCard.h"
@@ -135,8 +135,6 @@ namespace Splendor
                 // Now we iterate through cards
                 int price[5];
                 int prestige;
-                Token resource;
-                int level;
 
                 // We load token price
                 QDomElement param = child.firstChildElement("cost");
@@ -171,4 +169,69 @@ namespace Splendor
         else
             throw "Could not load the specified file...\n";
     }
+
+    template <>
+    inline void Deck<CitiesCard>::loadXML(const std::string &filename)
+    {
+        std::cout << "Cities loading...\n";
+
+        QFile file(QString::fromStdString(filename));
+
+        file.open(QFile::ReadOnly | QFile::Text);
+
+        QDomDocument doc;
+
+        doc.setContent(&file, false);
+
+        // racine pointe sur cards
+        QDomElement racine = doc.documentElement();
+
+        if (!racine.isNull())
+        {
+            QDomElement child = racine.firstChildElement("card");
+            while (!child.isNull())
+            {
+                // Now we iterate through cards
+                int price[6];
+                int requiredPrestige;
+
+                // We load token price
+                QDomElement param = child.firstChildElement("cost");
+
+                if (!param.isNull())
+                {
+                    QDomElement cost = param.firstChildElement("token");
+
+                    size_t i = 0;
+                    while (!cost.isNull())
+                    {
+                        price[i++] = std::stoi(cost.text().toStdString());
+                        cost = cost.nextSiblingElement("token");
+                    }
+                }
+
+                // We load other
+                param = param.nextSiblingElement("other");
+                if (!param.isNull())
+                    price[5] = std::stoi(param.text().toStdString());
+
+                // We load requiredPrestige
+                param = param.nextSiblingElement("requiredPrestige");
+                if (!param.isNull())
+                    requiredPrestige = std::stoi(param.text().toStdString());
+
+                const CitiesCard *c = new CitiesCard(price, requiredPrestige);
+
+                cards.push_back(c);
+
+                child = child.nextSiblingElement("card");
+            }
+
+            // Now our deck has been loaded
+            qInfo() << "Cities loaded";
+        }
+        else
+            throw "Could not load the specified file...\n";
+    }
 }
+#endif

@@ -1,4 +1,4 @@
-#if !defined(PLAYER_H)
+#ifndef PLAYER_H
 #define PLAYER_H
 
 #include <stdlib.h>
@@ -9,20 +9,18 @@
 #include "NobleCard.h"
 #include "Bank.h"
 
-
 #include <QDebug>
 
 namespace Splendor
 {
-
     class Player
     {
     private:
         const std::string name;
         Bank bank;
 
-        std::vector<const ResourceCard *> ressource[3];
-        std::vector<const NobleCard *> nobles;
+        std::vector<const ResourceCard*> ressource[3];
+        std::vector<const NobleCard*> nobles;
 
         const ResourceCard *ReservedCards[3];
         bool AI;
@@ -37,8 +35,9 @@ namespace Splendor
 
         //Action play(vector<Action> actions);
         Bank& getBank() { return bank; }
+        const Bank& getBank() const { return bank; }
 
-        int TotalToken()
+        int TotalToken() const
         {
             int FinalAmount = 0;
             for (int i = 0; i < 6; i++)
@@ -48,13 +47,13 @@ namespace Splendor
             return FinalAmount;
         }
 
-        const std::string& getName() { return name; }
+        const std::string& getName() const { return name; }
 
         bool isAI() const { return AI; }
 
-        int *getBonuses();
+        int *getBonuses() const;
 
-        int getScore();
+        int getScore() const;
 
         void putReservedCard(const ResourceCard &card);
 
@@ -89,4 +88,4 @@ namespace Splendor
     };
 }
 
-#endif
+#endif // PLAYER_H

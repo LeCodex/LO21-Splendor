@@ -8,7 +8,7 @@ void Splendor::CitiesQtModel::initiateGame()
     // Modify message box to ask for settings
     QDialog dialog;
 
-    dialog.setWindowTitle("Splendor");
+    dialog.setWindowTitle("Cités de Splendor");
 
     QFormLayout form(&dialog);
 

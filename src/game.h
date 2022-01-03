@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <vector>
 #include "board.h"
-#include "Player.h"
 #include "ResourceCard.h"
+#include "Player.h"
 #include "Deck.h"
 #include <iostream>
 #include "rules.h"
@@ -119,7 +119,8 @@ namespace Splendor
         void returnTokenAI(Splendor::Player &p);
     };
 
-    class CitiesGame : public Game{
+    class CitiesGame : public Game
+    {
     private:
         Deck<CitiesCard> cities;
 
@@ -157,4 +158,5 @@ namespace Splendor
         CitiesGame &operator=(const CitiesGame &) = delete;
     };
 }
+
 #endif

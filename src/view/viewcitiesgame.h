@@ -13,7 +13,6 @@ protected:
 public:
     ViewCitiesGame(Splendor::CitiesGame* g, QWidget* parent=nullptr) : ViewGame(g, parent)
     {
-        delete board;
         board = new ViewCitiesBoard(game->getBoard());
     }
 };

@@ -187,11 +187,12 @@ namespace Splendor
 
     class CitiesQtModel : public QtModel
     {
+        Q_OBJECT
     public:
         explicit CitiesQtModel(QWidget* parent = nullptr): QtModel(parent){}
 
         ~CitiesQtModel() override = default;
-        virtual void initiateGame() override;
+        void initiateGame() override;
         Game& getGameInstance() override { return CitiesGame::getInstance(); }
 
         bool endCondition(size_t i) override

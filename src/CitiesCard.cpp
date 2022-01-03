@@ -1,7 +1,7 @@
 #include"NobleCard.h"
-#include"Player.h"
+#include "Player.h"
 
-bool Splendor::CitiesCard::canBeTakenBy(Splendor::Player &p) {
+bool Splendor::CitiesCard::canBeTakenBy(Player &p) const {
     if (p.getScore() < getPrestige()) return false;
 
     int* bonuses = p.getBonuses();
