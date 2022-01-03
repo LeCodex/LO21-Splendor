@@ -144,11 +144,11 @@ void ViewBoard::updateTokens() {
         viewTokens[i]->setAmount(board->getBank().amount((Splendor::Token)i));
     }
 }
-
-ViewBoard::~ViewBoard() {
+ViewBoard::~ViewBoard(){
+    for(size_t i = 0; i < 6; i++) delete viewTokens[i];
     delete centralBankLayout;
-    delete nobleCardsLayout;
     delete resourceCardsLayout;
+    delete nobleCardsLayout;
     delete cardBoardLayout;
     delete layer;
 }

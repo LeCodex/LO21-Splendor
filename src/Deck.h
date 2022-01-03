@@ -25,6 +25,9 @@ namespace Splendor
 
     public:
         Deck() = default;
+        ~Deck(){
+            for(size_t i = 0; i < cards.size(); i++) delete cards[i];
+        }
 
         int getNbCards() const
         {
