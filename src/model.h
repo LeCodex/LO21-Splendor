@@ -48,7 +48,7 @@ namespace Splendor
                 if (lastIndex == currentPlayer) {
                     view->update();
 
-                    int winner = 0;
+                    int winner = lastIndex;
                     Game& game = getGameInstance();
 
                     for (size_t i = 0; i < game.getNbPlayer(); i++) {
@@ -113,7 +113,7 @@ namespace Splendor
                 totalResourcesW += w.getRessources(i).size();
             }
 
-            return p.getScore() > w.getScore() || totalResourcesP < totalResourcesW;
+            return p.getScore() > w.getScore() || (p.getScore() == w.getScore() && totalResourcesP < totalResourcesW);
         }
         // Verify if the specified player can receive a noble
         virtual void nobleVerification(size_t) = 0;
