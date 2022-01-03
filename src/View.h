@@ -5,13 +5,13 @@
 
 class View
 {
-private:
+protected:
     Splendor::Game* game;
 public:
     View(Splendor::Game *g): game(g){}
     virtual ~View(){}
     virtual void update() = 0;
-    Splendor::Game& getGame(){ return *game; }
+    virtual Splendor::Game* getGame(){ return game; }
 };
 
 class TextualView : public View {

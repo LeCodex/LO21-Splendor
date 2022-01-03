@@ -4,9 +4,11 @@ QT += xml
 
 SOURCES += \
     main.cpp \
-    src/PlayerExtStronghold.cpp \
-    src/StrongHoldGame.cpp \
-    src/StrongHoldQtController.cpp \
+    src/CitiesCard.cpp \
+    src/CitiesGame.cpp \
+    src/CitiesGame.cpp \
+    src/CitiesPlayer.cpp \
+    src/CitiesQtModel.cpp \
     src/View.cpp \
     src/DrawPile.cpp \
     src/Bank.cpp \
@@ -16,9 +18,13 @@ SOURCES += \
     src/NobleCard.cpp \
     src/Player.cpp \
     src/ResourceCard.cpp \
+    src/qtcontroller.cpp \
     src/view/viewboard.cpp \
     src/view/viewbonus.cpp \
     src/view/viewcard.cpp \
+    src/view/viewcitiesboard.cpp \
+    src/view/viewcitiescard.cpp \
+    src/view/viewcitiesgame.cpp \
     src/view/viewclickable.cpp \
     src/view/viewcost.cpp \
     src/view/viewdrawpile.cpp \
@@ -26,29 +32,31 @@ SOURCES += \
     src/view/viewnoblecard.cpp \
     src/view/viewplayer.cpp \
     src/view/viewresourcecard.cpp \
-    src/view/viewstronghold.cpp \
-    src/view/viewstrongholdcard.cpp \
     src/view/viewtoken.cpp \
-    src/qtcontroller.cpp \
-    src/ResourceCardStronghold.cpp \
+    src/qtmodel.cpp \
+    src/ResourceCardCities.cpp \
 
 HEADERS += \
     src/View.h \
-    src/controller.h \
+    src/model.h \
     src/Splendor.h \
     src/DrawPile.h \
     src/Bank.h \
     src/BaseCard.h \
     src/board.h \
-    src/controller.h \
+    src/model.h \
     src/Deck.h \
     src/game.h \
     src/NobleCard.h \
     src/Player.h \
     src/ResourceCard.h \
+    src/qtcontroller.h \
     src/view/viewboard.h \
     src/view/viewbonus.h \
     src/view/viewcard.h \
+    src/view/viewcitiesboard.h \
+    src/view/viewcitiescard.h \
+    src/view/viewcitiesgame.h \
     src/view/viewclickable.h \
     src/view/viewcost.h \
     src/view/viewdrawpile.h \
@@ -56,8 +64,6 @@ HEADERS += \
     src/view/viewnoblecard.h \
     src/view/viewplayer.h \
     src/view/viewresourcecard.h \
-    src/view/viewstronghold.h \
-    src/view/viewstrongholdcard.h \
     src/view/viewtoken.h \
 
 RESOURCES += \

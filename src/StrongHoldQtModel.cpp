@@ -1,8 +1,6 @@
-#include "controller.h"
+#include "model.h"
 
-Splendor::StrongHoldQtController::Handler Splendor::StrongHoldQtController::handler;
-
-void Splendor::StrongHoldQtController::initiateGame()
+void Splendor::CitiesQtModel::initiateGame()
 {
     // Create a pop up to ask how many players
     // what type of player for each (and username)*
@@ -80,13 +78,13 @@ void Splendor::StrongHoldQtController::initiateGame()
     size_t nb = std::stoi(nbJoueurs->text().toStdString());
 
     // Create an instance of nb player
-    Splendor::StrongHoldGame &g = Splendor::StrongHoldGame::createInstance(nb);
+    Splendor::CitiesGame &g = Splendor::CitiesGame::createInstance(nb);
 
     // Add the players
     for (size_t i = 0; i < nb; i++)
         g.addPlayer(playerNames[i]->text().toStdString(), AI[i]->checkState(), i);
 
-    view = new ViewGame(&g, this);
+    view = new ViewCitiesGame(&g, this);
 
     // Changer la couleur de fond
     QPalette pal = QPalette();

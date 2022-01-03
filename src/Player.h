@@ -33,7 +33,7 @@ namespace Splendor
                 ReservedCards[i] = nullptr;
         }
 
-        ~Player() = default;
+        virtual ~Player() = default;
 
         //Action play(vector<Action> actions);
         Bank& getBank() { return bank; }
@@ -56,7 +56,6 @@ namespace Splendor
 
         int getScore();
 
-        // CHANGER DANS ACTION
         void putReservedCard(const ResourceCard &card);
 
         const ResourceCard &takeReservedCard(size_t i);
@@ -81,19 +80,12 @@ namespace Splendor
         {
             return ReservedCards[i];
         }
-
-        std::vector<const NobleCard *> checkCompatibleNobles(std::vector<const NobleCard *>);
     };
 
-    class PlayerExtStronghold : public Player{
-    private:
-        size_t availableStrongholds;
-
+    class CitiesPlayer : public Player
+    {
     public:
-        PlayerExtStronghold(std::string s, bool ai): Player(s,ai) { availableStrongholds = 0; }
-        size_t getAvailableStrongholds () { return availableStrongholds; }
-        bool putStrongholds();
-        bool takeStrongholds();
+        CitiesPlayer(std::string s, bool ai): Player(s, ai) {}
     };
 }
 

@@ -574,10 +574,10 @@ void Splendor::Game::returnTokenAI(Splendor::Player &p)
     returnToken(tok, p);
 }
 
-void Splendor::StrongHoldGame::addPlayer(std::string name, bool ai, int index)
+void Splendor::CitiesGame::addPlayer(std::string name, bool ai, int index)
 {
     if (players[index] != nullptr)
         throw "Joueur déjà créé";
     std::cout << "Player \"" << name << "\" has been added to [" << index << "]\n";
-    players[index] = new PlayerExtStronghold(name, ai);
+    players[index] = new PlayerExtCities(name, ai);
 }

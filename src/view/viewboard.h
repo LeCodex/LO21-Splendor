@@ -13,6 +13,12 @@ class ViewBoard : public QWidget
 {
     Q_OBJECT
 private:
+    Splendor::Board* board;
+protected:
+    virtual void createBank();
+    virtual void createNobles();
+    virtual void createResources();
+
     QHBoxLayout* layer;
     QVBoxLayout* cardBoardLayout;
     QGridLayout* resourceCardsLayout;
@@ -22,8 +28,6 @@ private:
     std::vector<ViewNobleCard*> viewNobleCards;
     std::vector<ViewDrawPile*> viewDrawPiles;
     ViewToken* viewTokens[6]; // The bank
-
-    Splendor::Board* board;
 public:
     explicit ViewBoard(Splendor::Board& b, QWidget *parent = nullptr);
 
@@ -34,7 +38,7 @@ public:
     void updateCards();
     void updateTokens();
 
-    ~ViewBoard();
+    virtual ~ViewBoard();
 
 signals:
 

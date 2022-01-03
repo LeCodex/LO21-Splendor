@@ -1,5 +1,5 @@
 #include "viewboard.h"
-#include "../controller.h"
+#include "../qtcontroller.h"
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QMessageBox>
@@ -7,38 +7,64 @@
 ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), board(&b)
 {
     // Central bank
+    createBank();
+
+    // Noble cards
+    createNobles();
+
+    // Resource cards
+    createResources();
+
+    cardBoardLayout = new QVBoxLayout();
+    cardBoardLayout->addLayout(nobleCardsLayout, 1);
+    cardBoardLayout->addLayout(resourceCardsLayout, 9);
+
+    layer = new QHBoxLayout();
+    layer->addLayout(centralBankLayout);
+    layer->addLayout(cardBoardLayout);
+
+    setLayout(layer);
+
+    updateCards();
+    updateTokens();
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
+
+void ViewBoard::createBank() {
     centralBankLayout = new QVBoxLayout();
     for (size_t i = 0; i < 6; i++) {
         ViewToken* v = new ViewToken((Splendor::Token)i);
         viewTokens[i] = v;
         viewTokens[i]->setAmount(board->getBank().amount((Splendor::Token)i));
         QObject::connect(v, &ViewToken::tokenClicked, [v](){
-            if (v->getToken() != Splendor::Gold) Splendor::QtController::getInstance().takeToken(v->getToken());
+            if (v->getToken() != Splendor::Gold) Splendor::QtController::getInstance().getModel().takeToken(v->getToken());
         });
         centralBankLayout->addWidget(viewTokens[i]);
     }
+}
 
-    // Noble cards
+void ViewBoard::createNobles() {
     nobleCardsLayout = new QHBoxLayout();
     auto nobles = board->getNobles();
     for (size_t i = 0; i < nobles.size(); i++) {
         ViewNobleCard* v = new ViewNobleCard();
         QObject::connect(v, &ViewNobleCard::cardClicked, [v](){
-            Splendor::QtController::getInstance().chooseNoble((Splendor::NobleCard*)v->getCard());
+            Splendor::QtController::getInstance().getModel().chooseNoble((Splendor::NobleCard*)v->getCard());
         });
         viewNobleCards.push_back(v);
         viewNobleCards.back()->setCard(nobles[i]);
         nobleCardsLayout->addWidget(viewNobleCards.back());
     }
+}
 
-    // Resource cards
+void ViewBoard::createResources() {
     resourceCardsLayout = new QGridLayout();
     for (size_t i = 0; i < 3; i++) {
         viewDrawPiles.push_back(new ViewDrawPile(board->getDrawPile(i),i));
 
         // When clicking on a drawpile, tries to reserve
         QObject::connect(viewDrawPiles.back(), &ViewDrawPile::drawPileClicked, [i](){
-            Splendor::QtController::getInstance().reserveDrawCard(i);
+            Splendor::QtController::getInstance().getModel().reserveDrawCard(i);
         });
 
         resourceCardsLayout->addWidget(viewDrawPiles.back(), i, 0);
@@ -74,28 +100,14 @@ ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), boa
                 dialog.setLayout(&vBox);
 
                 // Execute the action
-                if(dialog.exec() == QDialog::Accepted) Splendor::QtController::getInstance().buyBoardCard((Splendor::ResourceCard*) v->getCard());
-                else Splendor::QtController::getInstance().reserveCenterCard((Splendor::ResourceCard*) v->getCard());
+                if(dialog.exec() == QDialog::Accepted) Splendor::QtController::getInstance().getModel().buyBoardCard((Splendor::ResourceCard*) v->getCard());
+                else Splendor::QtController::getInstance().getModel().reserveCenterCard((Splendor::ResourceCard*) v->getCard());
 
             });
 
             resourceCardsLayout->addWidget(viewResourceCards.back(), i, j + 1);
         }
     }
-
-    cardBoardLayout = new QVBoxLayout();
-    cardBoardLayout->addLayout(nobleCardsLayout, 1);
-    cardBoardLayout->addLayout(resourceCardsLayout, 9);
-
-    layer = new QHBoxLayout();
-    layer->addLayout(centralBankLayout);
-    layer->addLayout(cardBoardLayout);
-
-    setLayout(layer);
-
-    updateCards();
-    updateTokens();
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 void ViewBoard::updateCards() {

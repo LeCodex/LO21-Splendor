@@ -1,11 +1,12 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef MODEL_H
+#define MODEL_H
 
 #include "Splendor.h"
 #include "game.h"
 #include <iostream>
 #include "View.h"
 #include "view/viewgame.h"
+#include "view/viewcitiesgame.h"
 #include <QApplication>
 #include <QTime>
 #include <QMainWindow>
@@ -22,21 +23,18 @@ class View;
 namespace Splendor
 {
     template<class T>
-    class Controller
+    class Model
     {
     protected:
         T* view = nullptr;
         size_t currentPlayer = 0;
 
-        Controller(){}
-        virtual ~Controller(){
-            if(view) delete view;
-        }
-
         bool stopped = false;
     public:
-        Controller(const Controller&) = delete;
-        Controller& operator==(const Controller&) = delete;
+        Model(){}
+        virtual ~Model(){
+            if (view) delete view;
+        }
 
         virtual Game& getGameInstance() = 0;
 
@@ -50,12 +48,11 @@ namespace Splendor
                 if (lastIndex == currentPlayer) {
                     view->update();
 
-                    int winner = 0, maxScore = 0;
+                    int winner = 0;
                     Game& game = getGameInstance();
 
                     for (size_t i = 0; i < game.getNbPlayer(); i++) {
-                        if (game.getPlayer(i).getScore() > maxScore) {
-                            maxScore = game.getPlayer(i).getScore();
+                        if (winCondition(i, winner)) {
                             winner = i;
                         }
                     }
@@ -76,7 +73,7 @@ namespace Splendor
                 nobleVerification(currentPlayer);
 
                 // End game verification
-                if (hasWon(currentPlayer) && lastIndex == -1) {
+                if (endCondition(currentPlayer) && lastIndex == -1) {
                     view->update();
 
                     std::stringstream s;
@@ -98,12 +95,25 @@ namespace Splendor
         virtual void end() = 0;
         // Verifiy if the specified player has won
         #define WINNING_POINTS 15
-        bool hasWon(size_t i){
+        virtual bool endCondition(size_t i){
             Player &p = getGameInstance().getPlayer(i);
 
             int points = p.getScore();
 
             return points >= WINNING_POINTS;
+        }
+        virtual bool winCondition(size_t i, size_t winner){
+            Player &p = getGameInstance().getPlayer(i);
+            Player &w = getGameInstance().getPlayer(winner);
+
+            int totalResourcesP = 0;
+            int totalResourcesW = 0;
+            for (size_t i = 0; i < 3; i++) {
+                totalResourcesP += p.getRessources(i).size();
+                totalResourcesW += w.getRessources(i).size();
+            }
+
+            return p.getScore() > w.getScore() || totalResourcesP < totalResourcesW;
         }
         // Verify if the specified player can receive a noble
         virtual void nobleVerification(size_t) = 0;
@@ -113,12 +123,12 @@ namespace Splendor
     };
 
     /*
-    class TextualController : public Controller<TextualView>
+    class TextualModel : public Model<TextualView>
     {
     protected:
         void promptError(std::string s) override { std::cout << s; }
     public:
-        TextualController() = default;
+        TextualModel() = default;
         void initiateGame() override;
         void playTurn(size_t) override;
         void nobleVerification(size_t) override;
@@ -135,22 +145,10 @@ namespace Splendor
     };
     */
 
-    class QtController :  public QMainWindow, public Controller<ViewGame>
+    class QtModel : public QMainWindow, public Model<ViewGame>
     {
         Q_OBJECT
-        friend class Singleton<QtController>;
-    private:
-        struct Handler
-        {
-            QtController *instance;
-            Handler() : instance(nullptr) {}
-            ~Handler() { delete instance; }
-        };
-
-        static Handler handler;
     protected:
-        explicit QtController(QWidget* parent = nullptr);
-
         vector<Token> tokenSelection;
 
         enum Phase{
@@ -158,19 +156,12 @@ namespace Splendor
             Overflow,
             Nobles
         };
-
         Phase phase;
 
         void closeEvent(QCloseEvent *event) override;
     public:
-        static QtController &getInstance()
-        {
-            if (handler.instance == nullptr)
-                handler.instance = new QtController();
-            return *handler.instance;
-        }
-
-        virtual ~QtController() override {}
+        explicit QtModel(QWidget* parent = nullptr);
+        virtual ~QtModel() override {}
         virtual void initiateGame() override;
         virtual void playTurn(size_t) override;
         virtual void nobleVerification(size_t) override;
@@ -194,30 +185,29 @@ namespace Splendor
         bool chooseNoble(Splendor::NobleCard* c);
     };
 
-    class StrongHoldQtController : public QtController{
-        private:
-            struct Handler
-            {
-                StrongHoldQtController *instance;
-                Handler() : instance(nullptr) {}
-                ~Handler() { delete instance; }
-            };
+    class CitiesQtModel : public QtModel
+    {
+    public:
+        explicit CitiesQtModel(QWidget* parent = nullptr): QtModel(parent){}
 
-            static Handler handler;
+        ~CitiesQtModel() override = default;
+        virtual void initiateGame() override;
+        Game& getGameInstance() override { return CitiesGame::getInstance(); }
 
-            explicit StrongHoldQtController(QWidget* parent = nullptr): QtController(parent){}
-        public:
+        bool endCondition(size_t i) override
+        {
+            Player &p = getGameInstance().getPlayer(i);
 
-            static StrongHoldQtController &getInstance()
-            {
-                if (handler.instance == nullptr)
-                    handler.instance = new StrongHoldQtController();
-                return *handler.instance;
-            }
+            return p.getNobles().size() > 1;
+        }
 
-            ~StrongHoldQtController() override = default;
-            virtual void initiateGame() override;
-            Game& getGameInstance() override { return StrongHoldGame::getInstance(); }
+        bool winCondition(size_t i, size_t winner) override
+        {
+            Player &p = getGameInstance().getPlayer(i);
+            Player &w = getGameInstance().getPlayer(winner);
+
+            return p.getNobles().size() > w.getNobles().size() || QtModel::winCondition(i, winner);
+        }
     };
 
 }

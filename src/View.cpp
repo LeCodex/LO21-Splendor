@@ -1,4 +1,4 @@
 #include "View.h"
 
-#include "controller.h"
+#include "model.h"
 

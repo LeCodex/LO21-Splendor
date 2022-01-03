@@ -22,8 +22,7 @@ private:
     ViewBoard *board;
     std::vector<ViewPlayer *> viewPlayers;
 public:
-    // Might make it into a Singleton too
-    ~ViewGame();
+    virtual ~ViewGame();
 
     virtual void update();
     explicit ViewGame(Splendor::Game*, QWidget *parent = nullptr);

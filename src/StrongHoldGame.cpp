@@ -1,3 +1,3 @@
 #include "game.h"
 
-Splendor::StrongHoldGame::Handler Splendor::StrongHoldGame::handler;
+Splendor::CitiesGame::Handler Splendor::CitiesGame::handler;

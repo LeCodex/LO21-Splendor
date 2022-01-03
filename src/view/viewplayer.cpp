@@ -1,5 +1,5 @@
 #include "viewplayer.h"
-#include "../controller.h"
+#include "../qtcontroller.h"
 
 ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), player(p), nbReserved(0)
 {
@@ -14,7 +14,7 @@ ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), p
         viewTokens[i] = v;
         viewTokens[i]->setAmount(player->getBank().amount((Splendor::Token)i));
         QObject::connect(v, &ViewToken::tokenClicked, [v](){
-            if (v->getToken() != Splendor::Gold) Splendor::QtController::getInstance().returnToken(v->getToken());
+            if (v->getToken() != Splendor::Gold) Splendor::QtController::getInstance().getModel().returnToken(v->getToken());
         });
         bankLayout->addWidget(viewTokens[i]);
     }
@@ -29,7 +29,7 @@ ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), p
         // When clicking on a reserved card, tries to buy it
         QObject::connect(v, &ViewResourceCard::cardClicked, [this, v](){
             if(v->getCard())
-                if(Splendor::QtController::getInstance().buyReservedCard((Splendor::ResourceCard*) v->getCard()))
+                if(Splendor::QtController::getInstance().getModel().buyReservedCard((Splendor::ResourceCard*) v->getCard()))
                     this->hand->hide();
         });
 

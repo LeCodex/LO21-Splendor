@@ -27,14 +27,14 @@ namespace Splendor
             bank = Bank(t);
             for (size_t i = 0; i < 3; i ++) for (size_t j = 0; j < 4; j ++) cards[i][j] = nullptr;
         }
-        ~Board() = default;
+        virtual ~Board() = default;
 
         // Replinishers
-        void fillDrawPile(size_t i, const ResourceCard &c);
-        void fillNobles(const NobleCard &c);
+        virtual void fillDrawPile(size_t i, const ResourceCard &c);
+        virtual void fillNobles(const NobleCard &c);
 
         // Update functions
-        void replenishCenterCards();
+        virtual void replenishCenterCards();
 
         // Takers
         const ResourceCard &takeCenterCard(size_t i, size_t j);

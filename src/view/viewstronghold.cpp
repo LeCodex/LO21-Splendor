@@ -1,6 +1,6 @@
-#include "viewstronghold.h"
+#include "viewcities.h"
 
-ViewStronghold::ViewStronghold(QWidget *parent) : QPushButton(parent)
+ViewCities::ViewCities(QWidget *parent) : QPushButton(parent)
 {
     amount = new QLCDNumber();
     amount->display(0);
@@ -13,18 +13,18 @@ ViewStronghold::ViewStronghold(QWidget *parent) : QPushButton(parent)
     layer->addWidget(amount);
     layer->addWidget(name);
 
-    QPixmap pixmap(":/general/stronghold");
+    QPixmap pixmap(":/general/cities");
     QIcon icon(pixmap);
     setIcon(icon);
     setIconSize(QSize(30, 30));
 }
 
-void ViewStronghold::setOwner(std::string n, int a) {
+void ViewCities::setOwner(std::string n, int a) {
     name->setText(n.c_str());
     amount->display(a);
 }
 
-ViewStronghold::~ViewStronghold()
+ViewCities::~ViewCities()
 {
     delete amount;
     delete name;
