@@ -6,6 +6,10 @@
 
 ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), board(&b)
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+}
+
+void ViewBoard::initialize() {
     // Central bank
     createBank();
 
@@ -23,11 +27,10 @@ ViewBoard::ViewBoard(Splendor::Board& b, QWidget *parent) : QWidget(parent), boa
     layer->addLayout(centralBankLayout);
     layer->addLayout(cardBoardLayout);
 
-    setLayout(layer);
-
     updateCards();
     updateTokens();
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    setLayout(layer);
 }
 
 void ViewBoard::createBank() {

@@ -15,6 +15,7 @@ ViewGame::ViewGame(Splendor::Game* _g, QWidget* parent) : QWidget(parent), View(
 
     gameLayout = new QHBoxLayout();
     board = new ViewBoard(g.getBoard());
+    board->initialize();
     gameLayout->addLayout(playersLayout);
     gameLayout->addWidget(board);
 

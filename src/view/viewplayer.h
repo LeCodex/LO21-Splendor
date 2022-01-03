@@ -23,6 +23,7 @@ private:
     QLCDNumber* score;
     QLabel* scoreLabel;
     QLabel* nameLabel;
+    QLabel* noblesLabel;
 
     ViewResourceCard* viewReservedCards[3];
     QVBoxLayout* reservedCardsLayout;

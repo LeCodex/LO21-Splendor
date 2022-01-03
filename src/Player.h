@@ -53,7 +53,7 @@ namespace Splendor
 
         int *getBonuses() const;
 
-        int getScore() const;
+        virtual int getScore() const;
 
         void putReservedCard(const ResourceCard &card);
 
@@ -65,7 +65,7 @@ namespace Splendor
 
         void putNobleCard(const NobleCard &card);
 
-        std::vector<const ResourceCard *> getRessources(size_t i) const
+        std::vector<const ResourceCard *> getResources(size_t i) const
         {
             return ressource[i];
         }
@@ -85,6 +85,8 @@ namespace Splendor
     {
     public:
         CitiesPlayer(std::string s, bool ai): Player(s, ai) {}
+
+        int getScore() const override;
     };
 }
 

@@ -47,13 +47,16 @@ ViewPlayer::ViewPlayer(Splendor::Player* p, QWidget *parent) : QFrame(parent), p
     // Infos
     scoreLabel = new QLabel();
     scoreLabel->setText("Score:");
-//    scoreLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
     nameLabel = new QLabel();
     nameLabel->setText(player->getName().c_str());
 
+    noblesLabel = new QLabel();
+    noblesLabel->setText("O Nobles");
+
     infoLayout = new QHBoxLayout();
     infoLayout->addWidget(nameLabel);
+    infoLayout->addWidget(noblesLabel);
     infoLayout->addWidget(scoreLabel);
     infoLayout->addWidget(score);
     infoLayout->addWidget(handButton);
@@ -93,7 +96,7 @@ void ViewPlayer::updateCards() {
     // Resources
     int amounts[5] = {0, 0, 0, 0, 0};
     for (size_t i = 0; i < 3; i++) {
-        auto level = player->getRessources(i);
+        auto level = player->getResources(i);
         for (auto c : level) {
             amounts[c->getResource()]++;
         }
@@ -122,6 +125,11 @@ void ViewPlayer::updateCards() {
 
     // Score
     score->display(player->getScore());
+
+    // Nobles
+    std::stringstream s;
+    s << player->getNobles().size() << " Nobles";
+    noblesLabel->setText(s.str().c_str());
 }
 
 void ViewPlayer::updateTokens() {

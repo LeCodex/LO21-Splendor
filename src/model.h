@@ -73,12 +73,8 @@ namespace Splendor
                 nobleVerification(currentPlayer);
 
                 // End game verification
-                if (endCondition(currentPlayer) && lastIndex == -1) {
+                if (lastIndex == -1 && endCondition(currentPlayer)) {
                     view->update();
-
-                    std::stringstream s;
-                    s << "Le joueur " << currentPlayer + 1 << ", " << getGameInstance().getPlayer(currentPlayer).getName() << " a atteint 15 points. DERNIER TOUR!";
-                    promptError(s.str());
 
                     lastIndex = currentPlayer;
                 }
@@ -99,8 +95,14 @@ namespace Splendor
             Player &p = getGameInstance().getPlayer(i);
 
             int points = p.getScore();
+            bool end = points >= WINNING_POINTS;
 
-            return points >= WINNING_POINTS;
+            if (end) {
+                std::stringstream s;
+                s << "Le joueur " << currentPlayer + 1 << ", " << getGameInstance().getPlayer(currentPlayer).getName() << " a atteint 15 points. DERNIER TOUR!";
+                promptError(s.str());
+            }
+            return end;
         }
         virtual bool winCondition(size_t i, size_t winner){
             Player &p = getGameInstance().getPlayer(i);
@@ -109,8 +111,8 @@ namespace Splendor
             int totalResourcesP = 0;
             int totalResourcesW = 0;
             for (size_t i = 0; i < 3; i++) {
-                totalResourcesP += p.getRessources(i).size();
-                totalResourcesW += w.getRessources(i).size();
+                totalResourcesP += p.getResources(i).size();
+                totalResourcesW += w.getResources(i).size();
             }
 
             return p.getScore() > w.getScore() || (p.getScore() == w.getScore() && totalResourcesP < totalResourcesW);
@@ -199,7 +201,14 @@ namespace Splendor
         {
             Player &p = getGameInstance().getPlayer(i);
 
-            return p.getNobles().size() > 1;
+            bool end = p.getNobles().size() > 0;
+
+            if (end) {
+                std::stringstream s;
+                s << "Le joueur " << currentPlayer + 1 << ", " << getGameInstance().getPlayer(currentPlayer).getName() << " a obtenu une Cité. DERNIER TOUR!";
+                promptError(s.str());
+            }
+            return end;
         }
 
         bool winCondition(size_t i, size_t winner) override

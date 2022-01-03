@@ -131,6 +131,7 @@ void Splendor::QtModel::playTurn(size_t)
 // Verify if the specified player can receive a noble
 void Splendor::QtModel::nobleVerification(size_t) {
     qInfo() << "Noble verification";
+    view->update();
 
     Splendor::Game& game = getGameInstance();
     Splendor::Player& player = game.getPlayer(currentPlayer);
@@ -163,7 +164,6 @@ void Splendor::QtModel::nobleVerification(size_t) {
             game.chooseNoble(*nobles[0], player);
             promptError("Vous avez reçu un noble!");
         } else {
-            view->update();
             view->getInfo()->setText("Choississez un noble à prendre");
             promptError("Veuillez choisir un noble à recevoir");
 

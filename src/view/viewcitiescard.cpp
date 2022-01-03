@@ -27,6 +27,7 @@ void ViewCitiesCard::updateCost() {
     for (auto i: costs) {
         i->getAmount()->hide();
     }
+    extraCost->getAmount()->hide();
 
     if (!card) {
         return;

@@ -19,12 +19,6 @@ Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
             players[i] = nullptr;
         }
 
-        // Board card distribution
-        cardDistribution();
-
-        // Fill the middle board
-        board.replenishCenterCards();
-
         if (nb_players < 4)
         {
             for (int t = White; t != Gold; t++)
@@ -41,6 +35,14 @@ Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
     {
         std::cout << "Unknown error\n";
     }
+}
+
+void Splendor::Game::initialize() {
+    // Board card distribution
+    cardDistribution();
+
+    // Fill the middle board
+    board.replenishCenterCards();
 }
 
 void Splendor::Game::cardDistribution()
@@ -374,7 +376,6 @@ void delay(int millisecondsToWait)
 void Splendor::Game::playAI(Splendor::Player &p, int level)
 {
     // Pour que l'IA ne joue pas instantanément
-    srand(time(NULL));
     delay(rand() % 300 + 300);
 
     if (level == 1)
@@ -408,7 +409,6 @@ void Splendor::Game::playAI(Splendor::Player &p, int level)
         ///3 )Recherche des jetons qu'elle peut obtenir et prise eventuelle
 
         //Selection de l'action de manière aléatoire
-        std::srand(std::time(nullptr));
         int choice = std::rand() % 2;
         if (choice == 1)
         { //Action retenue : Pioche de 3 token diffèrents
@@ -476,7 +476,6 @@ void Splendor::Game::playAI(Splendor::Player &p, int level)
         ///1 )Recherche des jetons qu'elle peut obtenir et prise eventuelle
 
         //Selection de l'action de manière aléatoire
-        std::srand(std::time(nullptr));
         int choice = std::rand() % 2;
         if (choice == 1)
         { //Action retenue : Pioche de 3 token diffèrents

@@ -12,8 +12,8 @@ void ViewCitiesBoard::createNobles() {
         QObject::connect(v, &ViewCitiesCard::cardClicked, [v](){
             Splendor::QtController::getInstance().getModel().chooseNoble((Splendor::NobleCard*)v->getCard());
         });
+        v->setCard(nobles[i]);
         viewNobleCards.push_back(v);
-        viewNobleCards.back()->setCard(nobles[i]);
-        nobleCardsLayout->addWidget(viewNobleCards.back());
+        nobleCardsLayout->addWidget(v);
     }
 }

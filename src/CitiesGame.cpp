@@ -13,14 +13,13 @@ void Splendor::CitiesGame::addPlayer(std::string name, bool ai, int index)
 void Splendor::CitiesGame::cardDistribution()
 {
     // Deck must be generated manually
-
     // Noble deck generation :
     getResourceDeck().loadXML(":/resources/resourcesxml");
 
     // Ressource deck generation :
     cities.loadXML(":/cities/citiesxml");
 
-    // We had n nobles to the Board's noble section
+    // We had 3 cities to the Board's noble section (since cities are children of nobles)
     for (size_t i = 0; i < 3; i++)
     {
         // Should be random

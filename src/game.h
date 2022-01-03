@@ -33,6 +33,8 @@ namespace Splendor
         size_t nb_players;
         Player **players;
 
+        void initialize();
+
         Game(size_t n);
 
         virtual ~Game();
@@ -47,6 +49,7 @@ namespace Splendor
         {
             delete handler.instance;
             handler.instance = new Game(n);
+            handler.instance->initialize();
             return *handler.instance;
         }
 
@@ -140,6 +143,7 @@ namespace Splendor
         {
             delete handler.instance;
             handler.instance = new CitiesGame(n);
+            handler.instance->initialize();
             return *handler.instance;
         }
 

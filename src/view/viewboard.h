@@ -31,6 +31,8 @@ protected:
 public:
     explicit ViewBoard(Splendor::Board& b, QWidget *parent = nullptr);
 
+    void initialize();
+
     auto getResourceCards() const { return viewResourceCards; }
     auto getNobleCards() const { return viewNobleCards; }
     auto getTokens() const { return viewTokens; }

@@ -7,13 +7,13 @@
 class ViewCitiesGame : public ViewGame
 {
     Q_OBJECT
-protected:
-    ViewCitiesBoard* board;
-    Splendor::CitiesGame* game;
 public:
     ViewCitiesGame(Splendor::CitiesGame* g, QWidget* parent=nullptr) : ViewGame(g, parent)
     {
-        board = new ViewCitiesBoard(game->getBoard());
+        delete board;
+        board = new ViewCitiesBoard(g->getBoard());
+        board->initialize();
+        gameLayout->addWidget(board);
     }
 };
 

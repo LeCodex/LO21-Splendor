@@ -6,6 +6,7 @@
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
+    srand(time(NULL));
     Splendor::QtController &controller = Splendor::QtController::getInstance();
     controller.initiate();
 
