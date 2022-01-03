@@ -22,7 +22,6 @@ namespace Splendor
 
         QtController();
         ~QtController() { if (model) delete model; }
-        friend class Singleton<QtModel>;
 
         struct Handler
         {

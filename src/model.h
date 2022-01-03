@@ -211,7 +211,7 @@ namespace Splendor
             Player &p = getGameInstance().getPlayer(i);
             Player &w = getGameInstance().getPlayer(winner);
 
-            return p.getNobles().size() > w.getNobles().size() || QtModel::winCondition(i, winner);
+            return p.getNobles().size() > w.getNobles().size() || (p.getNobles().size() == w.getNobles().size() && QtModel::winCondition(i, winner));
         }
     public:
         explicit CitiesQtModel(QWidget* parent = nullptr): QtModel(parent){}
