@@ -9,6 +9,8 @@
 #include <QDebug>
 #include "BaseCard.h"
 #include <vector>
+#include <algorithm>
+#include <random>
 
 namespace Splendor
 {
@@ -34,6 +36,10 @@ namespace Splendor
             if (i > cards.size())
                 throw "Index out of bound\n";
             return *cards[i];
+        }
+        void shuffle(){
+            srand(unsigned(time(NULL)));
+            std::random_shuffle(std::begin(cards), std::end(cards));
         }
         void loadXML(const std::string &filename);
     };

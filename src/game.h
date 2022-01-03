@@ -82,6 +82,7 @@ namespace Splendor
         }
 
         virtual void cardDistribution();
+        virtual void cardLoading();
 
         size_t getNbPlayer() const { return nb_players; }
 
@@ -156,6 +157,7 @@ namespace Splendor
 
         void addPlayer(std::string, bool, int) override;
         void cardDistribution() override;
+        void cardLoading() override;
 
         // Deletion of the assign and copy constructor
         CitiesGame(const CitiesGame &) = delete;

@@ -8,6 +8,7 @@
 #include "Bank.h"
 #include <stdlib.h>
 #include <vector>
+#include <QtDebug>
 
 using namespace std;
 namespace Splendor
@@ -60,7 +61,10 @@ namespace Splendor
                 throw "Index out of bound\n";
             return drawpiles[i];
         }
-        vector<NobleCard const *> getNobles() { return nobles; }
+        vector<NobleCard const *> getNobles() {
+            qInfo() << "pick noble";
+            return nobles;
+        }
     };
 }
 #endif

@@ -12,13 +12,6 @@ void Splendor::CitiesGame::addPlayer(std::string name, bool ai, int index)
 
 void Splendor::CitiesGame::cardDistribution()
 {
-    // Deck must be generated manually
-    // Noble deck generation :
-    getResourceDeck().loadXML(":/resources/resourcesxml");
-
-    // Ressource deck generation :
-    cities.loadXML(":/cities/citiesxml");
-
     // We had 3 cities to the Board's noble section (since cities are children of nobles)
     for (size_t i = 0; i < 3; i++)
     {
@@ -35,4 +28,16 @@ void Splendor::CitiesGame::cardDistribution()
         const ResourceCard &resource = **it;
         board.fillDrawPile(resource.getLevel(), resource);
     }
+}
+
+void Splendor::CitiesGame::cardLoading()
+{
+    // Deck must be generated manually
+    // Noble deck generation :
+    getResourceDeck().loadXML(":/resources/resourcesxml");
+    getResourceDeck().shuffle();
+
+    // Ressource deck generation :
+    cities.loadXML(":/cities/citiesxml");
+    cities.shuffle();
 }

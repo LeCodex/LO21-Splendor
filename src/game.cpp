@@ -38,6 +38,9 @@ Splendor::Game::Game(size_t n) : nb_players(n), players(new Player *[n])
 }
 
 void Splendor::Game::initialize() {
+    // Load the card
+    cardLoading();
+
     // Board card distribution
     cardDistribution();
 
@@ -49,20 +52,12 @@ void Splendor::Game::cardDistribution()
 {
     // Deck must be generated manually
 
-    // Noble deck generation :
-    resources.loadXML(":/resources/resourcesxml");
-
-    // Ressource deck generation :
-    nobles.loadXML(":/nobles/noblesxml");
-
     // Distribution of the nobles
     int n = Splendor::Rules::getNumberOfNobles(nb_players);
 
     // We had n nobles to the Board's noble section
     for (size_t i = 0; i < n; i++)
     {
-        // Should be random
-        // TODO...
         const NobleCard &noble = nobles.getCard(i);
         board.fillNobles(noble);
     }
@@ -74,6 +69,16 @@ void Splendor::Game::cardDistribution()
         const ResourceCard &resource = **it;
         board.fillDrawPile(resource.getLevel(), resource);
     }
+}
+
+void Splendor::Game::cardLoading(){
+    // Noble deck generation :
+    resources.loadXML(":/resources/resourcesxml");
+    resources.shuffle();
+
+    // Ressource deck generation :
+    nobles.loadXML(":/nobles/noblesxml");
+    nobles.shuffle();
 }
 
 Splendor::Game::~Game()
@@ -95,9 +100,6 @@ void Splendor::Game::addPlayer(std::string name, bool ai, int index)
 bool Splendor::Game::canPlayerBuyCard(Splendor::Player &p, const Splendor::ResourceCard &card)
 {
     //le cumulé des jetons du joueur (notamment le gold qui est un cas particulier), et de ses bonus doivent etre suffisant pour acheter la carte
-
-    std::cout << card.toString() << "\n";
-
     int *bonus = p.getBonuses();
     int GoldAmount = p.getBank().amount(Gold);
 
