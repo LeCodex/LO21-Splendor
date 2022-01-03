@@ -30,6 +30,35 @@ namespace Splendor
         size_t currentPlayer = 0;
 
         bool stopped = false;
+
+        // Verifiy if the specified player has won
+        #define WINNING_POINTS 15
+        virtual bool endCondition(size_t i){
+            Player &p = getGameInstance().getPlayer(i);
+
+            int points = p.getScore();
+            bool end = points >= WINNING_POINTS;
+
+            if (end) {
+                std::stringstream s;
+                s << "Le joueur " << currentPlayer + 1 << ", " << getGameInstance().getPlayer(currentPlayer).getName() << " a atteint 15 points. DERNIER TOUR!";
+                promptError(s.str());
+            }
+            return end;
+        }
+        virtual bool winCondition(size_t i, size_t winner){
+            Player &p = getGameInstance().getPlayer(i);
+            Player &w = getGameInstance().getPlayer(winner);
+
+            int totalResourcesP = 0;
+            int totalResourcesW = 0;
+            for (size_t i = 0; i < 3; i++) {
+                totalResourcesP += p.getResources(i).size();
+                totalResourcesW += w.getResources(i).size();
+            }
+
+            return p.getScore() > w.getScore() || (p.getScore() == w.getScore() && totalResourcesP < totalResourcesW);
+        }
     public:
         Model(){}
         virtual ~Model(){
@@ -89,34 +118,6 @@ namespace Splendor
         virtual void initiateGame() = 0;
         virtual void playTurn(size_t) = 0;
         virtual void end() = 0;
-        // Verifiy if the specified player has won
-        #define WINNING_POINTS 15
-        virtual bool endCondition(size_t i){
-            Player &p = getGameInstance().getPlayer(i);
-
-            int points = p.getScore();
-            bool end = points >= WINNING_POINTS;
-
-            if (end) {
-                std::stringstream s;
-                s << "Le joueur " << currentPlayer + 1 << ", " << getGameInstance().getPlayer(currentPlayer).getName() << " a atteint 15 points. DERNIER TOUR!";
-                promptError(s.str());
-            }
-            return end;
-        }
-        virtual bool winCondition(size_t i, size_t winner){
-            Player &p = getGameInstance().getPlayer(i);
-            Player &w = getGameInstance().getPlayer(winner);
-
-            int totalResourcesP = 0;
-            int totalResourcesW = 0;
-            for (size_t i = 0; i < 3; i++) {
-                totalResourcesP += p.getResources(i).size();
-                totalResourcesW += w.getResources(i).size();
-            }
-
-            return p.getScore() > w.getScore() || (p.getScore() == w.getScore() && totalResourcesP < totalResourcesW);
-        }
         // Verify if the specified player can receive a noble
         virtual void nobleVerification(size_t) = 0;
         // Verifiy if the player is too rich
@@ -190,13 +191,7 @@ namespace Splendor
     class CitiesQtModel : public QtModel
     {
         Q_OBJECT
-    public:
-        explicit CitiesQtModel(QWidget* parent = nullptr): QtModel(parent){}
-
-        ~CitiesQtModel() override = default;
-        void initiateGame() override;
-        Game& getGameInstance() override { return CitiesGame::getInstance(); }
-
+    protected:
         bool endCondition(size_t i) override
         {
             Player &p = getGameInstance().getPlayer(i);
@@ -218,6 +213,12 @@ namespace Splendor
 
             return p.getNobles().size() > w.getNobles().size() || QtModel::winCondition(i, winner);
         }
+    public:
+        explicit CitiesQtModel(QWidget* parent = nullptr): QtModel(parent){}
+
+        ~CitiesQtModel() override = default;
+        void initiateGame() override;
+        Game& getGameInstance() override { return CitiesGame::getInstance(); }
     };
 
 }
