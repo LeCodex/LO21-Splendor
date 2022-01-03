@@ -9,6 +9,7 @@ class ViewPlayer {
 -QLCDNumber* score
 -QLabel* scoreLabel
 -QLabel* nameLabel
+-QLabel* noblesLabel
 -ViewResourceCard* viewReservedCards[3]
 -QVBoxLayout* reservedCardsLayout
 -size_t nbReserved = 0
@@ -111,7 +112,6 @@ class ViewBoard {
 
 class ViewGame {
 -Splendor::Game* game
--Splendor::Controller* controller
 -QVBoxLayout* playersLayout
 -QHBoxLayout* gameLayout
 -QHBoxLayout* infoLayout
@@ -123,6 +123,16 @@ class ViewGame {
 +auto getPlayers() const
 +auto getBoard() const
 +void setInfo(std::string i)
+}
+
+class Controller {
+<<SINGLETON>>
+-Model* model
++getModel()
+}
+
+class Model {
+
 }
 
 ViewGame *-- ViewBoard
@@ -146,4 +156,6 @@ ViewClickable <|-- ViewBonus
 ViewClickable <|-- ViewToken
 QPushButton <|-- ViewClickable
 QFrame <|-- ViewPlayer
+Controller *-- Model
+Model *-- ViewGame
 @enduml
