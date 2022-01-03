@@ -8,6 +8,16 @@ namespace Splendor
     class QtController
     {
     private:
+        enum Extension{
+            VANILLA,
+            CITIES
+        };
+
+
+        QLineEdit *playerNames[4];
+        QCheckBox *AI[4];
+        size_t nb;
+
         QtModel* model;
 
         QtController();
@@ -33,6 +43,10 @@ namespace Splendor
             return *handler.instance;
         }
         void initiate();
+
+        auto getPlayerNames() const { return playerNames; }
+        auto getAi() const { return AI; }
+        auto getNb() const { return nb; }
 
         QtModel& getModel() const { return *model; }
     };
