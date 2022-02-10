@@ -1,4 +1,4 @@
-<H1>Programmation orientée objet en C++ et en QT du Jeu de société Splendor. Object-oriented programming in C++ and QT of the Splendor Board Game. </H1>
+<H1>Programmation orientée objet en C++ et en QT du Jeu de société Splendor./ Object-oriented programming in C++ and QT of the Splendor Board Game. </H1>
 
 <H2> Français </H2> 
 
